@@ -1,0 +1,21 @@
+/* Dark mode configuration. Variables available in globals.css file */
+
+html {
+  background-attachment: fixed;
+  background-image: var(--background-image);
+  color: var(--color);
+}
+
+.mode {
+  content: var(--mode-content);
+  left: var(--mode-left);
+}
+
+.link-box {
+  background-color: var(--linkbox-background-color);
+  /* color: var(--linkbox-background-color); */
+}
+
+.description {
+  color: var(--linkbox-description-color);
+}

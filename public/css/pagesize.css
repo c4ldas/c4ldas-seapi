@@ -1,0 +1,29 @@
+/* Page size configuration */
+/* Devices with at least 800px will fit 2 boxes per row */
+@media (min-width: 800px) {
+  .link-box {
+    width: calc(50% - 20px);
+  }
+
+  .container {
+    width: 80%;
+    margin: auto;
+  }
+
+  .main {
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+/* Devices with at least 1200px will fit 3 boxes per row */
+@media (min-width: 1200px) {
+  .link-box {
+    width: calc(33% - 20px);
+  }
+
+  .container {
+    width: 65%;
+    margin: auto;
+  }
+}

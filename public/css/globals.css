@@ -1,42 +1,395 @@
+.light {
+  --background-image: linear-gradient(117deg, rgba(58, 205, 182, 1) 0%, rgba(233, 251, 245, 1) 100%);
+  --color: black;
+  --mode-content: url('/images/sun.svg');
+  --mode-left: 25%;
+  --linkbox-background-color: hsla(0, 0%, 100%, .4);
+  --linkbox-description-color: black;
+  --translate: translateX(-2px);
+  --slider-background-color: #ccc;
+  --hover-color: hsla(171, 60%, 52%, 0.1);
+  --popup-color: white;
+}
+
+.dark {
+  --background-image: linear-gradient(117deg, rgba(46, 46, 46, 1) 0%, rgba(71, 71, 71, 1) 100%);
+  --color: #f2f2f2;
+  --mode-content: url('/images/moon.svg');
+  --mode-left: 70%;
+  --linkbox-background-color: hsla(0, 100%, 100%, .2);
+  --linkbox-description-color: #f2f2f2;
+  --translate: translateX(24px);
+  --slider-background-color: #1b1c1d;
+  --hover-color: hsla(0, 0%, 50%, 0.1);
+  --popup-color: black;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --transition: .4s;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.red {
+  color: #ff5c5c;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+.green {
+  color: #00ff00;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.blue {
+  color: #2684ff;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+}
+
+body {
+  padding: 10px;
+  padding-top: 0px;
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.navigation {
+  display: flex;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+.block {
+  display: block;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.image {
+  border-radius: 50%;
+  display: inline;
+  width: 70px;
+  height: 70px;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: hsla(240, 100%, 50%, .6);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+a:visited {
+  color: hsla(300, 100%, 25%, .6);
+}
+
+.icons {
+  width: 20px;
+  min-width: 10px;
+  height: auto;
+  margin: 10px;
+}
+
+.link-box {
+  color: black;
+  border: solid;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.link-box .link-content {
+  display: block;
+  padding: 20px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: hsla(0, 0%, 100%, .5);
+}
+
+
+.code {
+  outline: solid;
+  outline-color: black;
+  padding: 10px;
+  display: inline-block;
+  /* color: gray; */
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px 10px;
+}
+
+.form-inline {
+  display: inline-block;
+}
+
+.playername,
+.tagline,
+.puuid,
+.regionName,
+.message,
+.youtube-handle {
+  font-size: 1.2rem;
+  padding: 10px;
+  height: 3em;
+  border: none;
+  border-radius: 3px;
+}
+
+.playername {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  box-shadow: rgba(55, 47, 47, 0.48);
+  /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
+}
+
+.tagline {
+  grid-row-start: 1;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  box-shadow: rgba(55, 47, 47, 0.48);
+}
+
+.puuid {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  box-shadow: rgba(55, 47, 47, 0.48);
+}
+
+.regionName {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  box-shadow: rgba(55, 47, 47, 0.48);
+}
+
+.message {
+  grid-row-start: 4;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.variables {
+  margin: 0;
+  color: grey;
+  margin-top: 5px;
+  grid-row-start: 5;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.radiant {
+  margin: 0;
+  color: grey;
+  margin-bottom: 5px;
+  grid-row-start: 6;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.formatted {
+  font-size: 1.1rem;
+  background: #7fcc7f;
+  height: 3em;
+  border-radius: 3px;
+  grid-row-start: 7;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px;
+}
+
+.generate-code {
+  font-size: 1.1rem;
+  background: #7fcc7f;
+  height: 3em;
+  border-radius: 3px;
+  grid-row-start: 7;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  box-shadow: rgba(55, 47, 47, 0.8) -6px -2px 10px 0px;
+}
+
+.loading {
+  grid-row-start: 8;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.response {
+  /* visibility: hidden; */
+  grid-row-start: 8;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.response-code {
+  visibility: hidden;
+  border: solid;
+  grid-row-start: 9;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  cursor: pointer;
+  padding: 10px;
+}
+
+
+
+
+
+
+
+
+/* Theme color toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* the thing behind the circle - light mode */
+.slider {
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  /*   background-color: #ccc; */
+
+  transition: var(--transition);
+}
+
+/* the circle in light mode */
+.slider:before {
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  height: 36px;
+  width: 36px;
+  bottom: 0px;
+  background-color: white;
+  transition: var(--transition);
+}
+
+
+.mode {
+  width: 18px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: var(--transition);
+}
+
+
+/* the circle in light mode */
+.slider:before {
+  transform: var(--translate);
+}
+
+/* the circle in dark mode */
+input:checked+.slider:before {
+  transform: var(--translate);
+}
+
+/* the thing behind the circle - light mode */
+.slider {
+  background-color: var(--slider-background-color);
+}
+
+/* the thing behind the circle - dark mode */
+input:checked+.slider {
+  background-color: var(--slider-background-color);
+}
+
+dialog {
+  border-color: var(--linkbox-background-color);
+  background-color: var(--linkbox-background-color);
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(6px) brightness(0.8);
+}
+
+
+/* Toggle for widgets page */
+.toggle {
+  background-color: var(--linkbox-background-color);
+  border: solid;
+}
+
+.toggle:hover {
+  background-color: var(--hover-color);
+  cursor: pointer;
+}
+
+.collapsible {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s;
+}
+
+.toggle:after {
+  content: "\02795";
+  /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796";
+  /* Unicode character for "minus" sign (-) */
+}
+
+/* TFT table */
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+td {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+}
+
+.region {
+  color: #ff0000;
+  font-weight: 700;
 }
