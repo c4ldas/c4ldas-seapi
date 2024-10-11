@@ -5,8 +5,8 @@ import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
 
 import { useEffect, useState } from "react";
-// import Image from "next/image";
 import Link from "next/link";
+// import Image from "next/image";
 
 export default function Home() {
 
