@@ -255,10 +255,10 @@ a:visited {
   padding: 10px;
 }
 
-
-
-
-
+.error {
+  font-style: italic;
+  font-size: 0.9rem;
+}
 
 
 
