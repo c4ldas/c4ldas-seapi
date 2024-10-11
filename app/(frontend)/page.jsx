@@ -54,17 +54,17 @@ export default function Home() {
 
         <h2 className="title">Share / Install overlays</h2>
         <h3 className="subtitle">
-          Use the buttons below to generate a code and share your own overlay or install it from a code sent to you
+          Use the buttons below to generate a code and share your own overlay or install it from a code sent to you.
         </h3>
         <div className="main">
           <Linkbox
             title="Share overlay / widget"
-            description="Generate a code to share your overlay / widget"
-            link="/login"
+            description="Generate a code to share your Streamelements overlay / widget."
+            link="/share"
           />
           <Linkbox
             title="Install overlay / widget"
-            description="Install the overlay into your account using a code"
+            description="Install the overlay into your Streamelements account using a code."
             link="/install"
           />
         </div>
@@ -72,9 +72,17 @@ export default function Home() {
 
         <h2 className="title">Custom widgets</h2>
         <h3 className="subtitle">
-          The widgets below are created by me to the community.
-          Click on any of them to have more information about it and instructions to install it.</h3>
+          The widgets below were created by me to the community.
+          Click on any of them to have more information about it or to install it.</h3>
         <div className="main">
+          {widgets && widgets.map((widget) => (
+            <Linkbox
+              key={widget.widget_folder}
+              title={widget.widget_name}
+              description={widget.widget_description}
+              link={`https://github.com/c4ldas/streamelements-widgets/tree/main/${widget.widget_folder}`}
+            />
+          ))}
           {error &&
             <p className="error">
               Error loading widgets.
@@ -83,14 +91,6 @@ export default function Home() {
                 https://github.com/c4ldas/streamelements-widgets
               </Link>
             </p>}
-          {widgets && widgets.map((widget) => (
-            <Linkbox
-              key={widget.widgetFolder}
-              title={widget.widgetName}
-              description={widget.widgetDescription}
-              link={`https://github.com/c4ldas/streamelements-widgets/tree/main/${widget.widgetFolder}`}
-            />
-          ))}
         </div>
       </main >
       <FooterComponent />
