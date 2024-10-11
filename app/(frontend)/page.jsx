@@ -86,9 +86,10 @@ export default function Home() {
           {error &&
             <p className="error">
               Error loading widgets.
-              Please visit Github page directly on
-              <Link style={{ backgroundColor: "var(--linkbox-background-color)" }} href="https://github.com/c4ldas/streamelements-widgets">
-                https://github.com/c4ldas/streamelements-widgets
+              Please visit Github page directly clicking on the button below:
+              <br />
+              <Link href="https://github.com/c4ldas/streamelements-widgets">
+                <button style={{ cursor: "pointer", padding: "0.3rem", backgroundColor: "var(--linkbox-background-color)" }}>https://github.com/c4ldas/streamelements-widgets</button>
               </Link>
             </p>}
         </div>
