@@ -44,11 +44,11 @@ export async function getGithubWidgets() {
       const document = dom.window.document;
 
       // Save the folder name, widget name and widget description
-      const widgetFolder = item.name;
-      const widgetName = document.querySelector("#widget-name").textContent;
-      const widgetDescription = document.querySelector("#description").textContent;
+      const widget_folder = item.name;
+      const widget_name = document.querySelector("#widget-name").textContent;
+      const widget_description = document.querySelector("#description").textContent;
 
-      widgetList.push({ widgetFolder, widgetName, widgetDescription });
+      widgetList.push({ widget_folder, widget_name, widget_description });
     });
 
     // Wait for all promises to resolve
