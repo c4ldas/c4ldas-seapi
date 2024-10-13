@@ -1,3 +1,19 @@
+
+export async function GET(request) {
+
+  // Convert query strings (map format) to object format - Only works for this specific case!
+  const obj = Object.fromEntries(request.nextUrl.searchParams);
+  const origin = request.nextUrl.origin;
+
+  console.log("Server code:", obj);
+
+  if (obj.error) return Response.redirect(`${origin}/share?error=${obj.error}`);
+
+  return Response.redirect(`${origin}/share`);
+
+}
+
+
 /*
 import { twitchSaveToDatabase, twitchCheckUser } from "@/app/lib/database";
 import { getTokenCode, getUserData } from "@/app/lib/twitch";
