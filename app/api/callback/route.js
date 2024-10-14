@@ -13,6 +13,9 @@ export async function GET(request) {
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
 
+  console.log("token:", token);
+  console.log("user:", user);
+
   const data = {
     id: user._id,
     username: user.username,
