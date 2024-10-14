@@ -62,10 +62,6 @@ export default function Share({ _, searchParams }) {
   function copyCode(event) {
     const dialog = document.getElementById("copy-success");
     const command = event.target.getAttribute("datacommand");
-    console.log(cookie.se_access_token);
-    console.log(command);
-    console.log(navigator)
-
     navigator.clipboard.writeText(command);
 
     // Show the dialog next to the clicked element
