@@ -25,8 +25,6 @@ export default function Share({ _, searchParams }) {
     client_id: "4e2b44d1efed3fd0",
     scope: "overlays:read overlays:write",
     redirect_uri: "https://seapi.c4ldas.com.br/callback/",
-    show_dialog: false,   // It doesn't work
-    force_verify: false,  // It doesn't work
     state: "overlay_share"
   });
 
@@ -41,8 +39,6 @@ export default function Share({ _, searchParams }) {
     dialog.close();
   }
 
-
-  // Pending - Configure to actually remove the integration
   async function confirmRemoval() {
     const dialogTitle = document.querySelector("#dialog-title");
     const submit = document.querySelector("#submit");
