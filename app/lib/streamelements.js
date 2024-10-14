@@ -1,3 +1,63 @@
+const SE_CLIENT_ID = process.env.SE_CLIENT_ID;
+const SE_CLIENT_SECRET = process.env.SE_CLIENT_SECRET;
+const SE_REDIRECT_URI = process.env.SE_REDIRECT_URI;
+
+async function getTokenCode(code) {
+  try {
+    const request = await fetch("https://api.streamelements.com/oauth2/token", {
+      method: "POST",
+      body: new URLSearchParams({
+        client_id: SE_CLIENT_ID,
+        client_secret: SE_CLIENT_SECRET,
+        code: code,
+        grant_type: "authorization_code",
+        redirect_uri: SE_REDIRECT_URI
+      }),
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log(error);
+    throw { status: "failed", message: error.message };
+  }
+}
+
+async function getUserData(accessToken) {
+  try {
+    const request = await fetch("https://api.streamelements.com/kappa/v2/channels/me", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "Client-Id": SE_CLIENT_ID,
+        "Authorization": `oAuth ${accessToken}`,
+      },
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log(error);
+    throw { status: "failed", message: error.message };
+  }
+}
+
+// Revoke token
+async function revokeToken(se_access_token) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/oauth2/revoke?client_id=${process.env.SE_CLIENT_ID}&token=${se_access_token}`)
+    if (!request.ok) {
+      throw new Error('Failed to revoke token');
+    }
+    return true;
+
+  } catch (error) {
+    console.log("revokeToken:", error);
+    throw new Error('Failed to revoke token');
+  }
+}
+
+export { getTokenCode, getUserData, revokeToken };
 
 /*
 import { NextResponse } from "next/server";
