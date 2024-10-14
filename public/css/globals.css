@@ -118,6 +118,12 @@ a:visited {
   padding: 20px;
 }
 
+.link-box:hover {
+  background-color: var(--hover-color);
+  transform: scale(1.1);
+  transition: .3s ease-in-out;
+}
+
 .footer {
   display: flex;
   justify-content: center;
