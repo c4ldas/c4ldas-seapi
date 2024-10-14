@@ -7,26 +7,34 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
 import Linkbox from "@/app/components/Linkbox";
+import { getOverlays } from "@/app/lib/streamelements";
 
 export default function Share({ _, searchParams }) {
   const error = searchParams.error;
 
   const [cookie, setCookie] = useState({});
-  const [origin, setOrigin] = useState();
-  useEffect(() => {
-    setOrigin(window.location.origin);
-    setCookie(getCookies());
-  }, []);
+  const [overlays, setOverlays] = useState([]);
 
+  useEffect(() => {
+    setCookie(getCookies());
+    overlayList();
+  }, [cookie.se_id]);
 
   const baseURL = "https://streamelements.com/oauth2/authorize?";
   const urlSearchParams = new URLSearchParams({
     response_type: "code",
     client_id: "4e2b44d1efed3fd0",
     scope: "overlays:read overlays:write",
-    redirect_uri: "https://seapi.c4ldas.com.br/callback/",
+    redirect_uri: "https://seapi.c4ldas.com.br/api/callback",
     state: "overlay_share"
   });
+
+  async function overlayList() {
+    if (!cookie["se_id"]) return;
+    const data = { id: cookie["se_id"], access_token: cookie["se_access_token"] };
+    setOverlays((await getOverlays(data)).docs);
+    console.log(overlays);
+  }
 
   async function openDialog() {
     const dialog = document.querySelector("#dialog");
@@ -67,8 +75,6 @@ export default function Share({ _, searchParams }) {
     // Show the dialog next to the clicked element
     dialog.style.top = (event.pageY - 70) + "px";
     dialog.style.marginLeft = (event.pageX) + "px";
-    // dialog.style.top = (event.clientY - 70) + "px";
-    // dialog.style.marginLeft = (event.clientX + 50) + "px";
     dialog.show();
 
     // Close the dialog after 2 seconds
@@ -103,20 +109,16 @@ export default function Share({ _, searchParams }) {
             <h2 className="red">Page still in construction, no integration has been done!</h2>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><strong>Access Token:</strong> <span style={{ cursor: "pointer" }} onClick={copyCode} datacommand={cookie.se_access_token}>••••••••••••</span></p>
-            { /* <p><strong>Code (click to copy):</strong> <span style={{ cursor: "pointer" }} onClick={copyCode} datacommand={cookie.twitch_code}>••••••••••••</span></p> */}
             <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
             <h2 className="title">Overlay list</h2>
             <h3 className="subtitle">
               Here you can see all overlays you have installed on your account. Click in one of them to generate a sharing code:
             </h3>
-            <div className="main">
-              <Linkbox link="/overlays/share/{accountId}/{overlayId}" title="{overlayName} 1" description="Description of overlay 1" />
-              <Linkbox link="/overlays/share/{accountId}/{overlayId}" title="{overlayName} 2" description="Description of overlay 2" />
-              <Linkbox link="/overlays/share/{accountId}/{overlayId}" title="{overlayName} 3" description="Description of overlay 3" />
-              <Linkbox link="/overlays/share/{accountId}/{overlayId}" title="{overlayName} 4" description="Description of overlay 4" />
-              <Linkbox link="/overlays/share/{accountId}/{overlayId}" title="{overlayName} 5" description="Description of overlay 5" />
-              <Linkbox link="/overlays/share/{accountId}/{overlayId}" title="{overlayName} 6" description="Description of overlay 6" />
+            <div className="main" id="overlay-list">
+              { /* Create actual boxes with images */}
+              {overlays && overlays.map((overlay, index) => (
+                <Linkbox key={overlay._id} link={`/overlays/share/${overlay.channel}/${overlay._id}`} title={`${index} - ${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
+              ))}
             </div>
 
             {/* <!-- pop-up dialog box, containing a form --> */}
