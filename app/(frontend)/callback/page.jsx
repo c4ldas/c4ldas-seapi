@@ -7,6 +7,8 @@ export default function Callback({ _, searchParams }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      const params = new URLSearchParams(searchParams);
+
       if (params.size > 0) {
         clearInterval(interval);
         window.location.assign(`${window.location.origin}/api/callback?${params}`);
