@@ -14,7 +14,6 @@ export async function GET(request) {
   const user = await getUserData(token.access_token);
 
   console.log("token:", token);
-  console.log("user:", user);
 
   const data = {
     id: user._id,
@@ -22,8 +21,6 @@ export async function GET(request) {
     access_token: token.access_token,
     refresh_token: token.refresh_token,
   };
-
-  console.log("callback data:", data);
 
   const saved = await seSaveToDatabase(data);
   if (!saved) return Response.redirect(`${origin}/share?error=Error while saving to database`);

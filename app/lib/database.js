@@ -51,7 +51,6 @@ async function testConnectionDatabase() {
 }
 
 async function seSaveToDatabase(data) {
-  console.log("seSaveToDatabase data:", data);
   let client;
 
   try {
