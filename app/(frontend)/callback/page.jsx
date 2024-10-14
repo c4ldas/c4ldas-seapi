@@ -9,10 +9,7 @@ export default function Callback({ _, searchParams }) {
 
   useEffect(() => {
     console.log(params);
-
-    if (params.size) {
-      window.location.assign(`${window.location.origin}/api/callback?${params}`);
-    }
+    /* if (params.size) */ window.location.assign(`${window.location.origin}/api/callback?${params}`);
 
   }, [params.size]);
 
