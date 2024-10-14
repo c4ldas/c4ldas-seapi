@@ -9,6 +9,8 @@ export default function Callback({ _, searchParams }) {
     const interval = setInterval(() => {
       const params = new URLSearchParams(searchParams);
 
+      console.log(params);
+
       if (params.size > 0) {
         clearInterval(interval);
         window.location.assign(`${window.location.origin}/api/callback?${params}`);
