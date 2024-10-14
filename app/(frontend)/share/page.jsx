@@ -97,7 +97,7 @@ export default function Share({ _, searchParams }) {
             </h3>
             <div className="main">
               <Link href={baseURL + urlSearchParams.toString()}>
-                <button type="submit">Login with Streamelements</button>
+                <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
           </>
@@ -140,6 +140,6 @@ export default function Share({ _, searchParams }) {
         {error && <p>Error: {error}</p>}
       </main>
       <FooterComponent />
-    </div>
+    </div >
   );
 }
