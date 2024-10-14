@@ -22,18 +22,19 @@ At the moment the structure of the application is:
 |  |
 |  |--(frontend)/
 |  |  |-- homepage         # done
+|  |  |-- callback/        # done
 |  |  |-- share/           # in progress
-|  |  |-- callback/        # in progress
-|  |  |-- login/           # pending
 |  |  |-- overlays/        # pending
 |  |  |-- widgets/         # pending
 |  |
 |  |--api/
+|     |-- github/
+|     |    |-- widgets/   # done
+|     |
+|     |-- logout/         # done
 |     |-- callback/       # in progress
-|     |-- logout/         # pending
 |     |-- top/            # pending
 |     |-- watchtime/      # pending
 |     |
-|     |-- github/
-|     |    |-- widgets/   # done
+
 </pre>
