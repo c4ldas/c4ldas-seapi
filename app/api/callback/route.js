@@ -1,52 +1,31 @@
+import { cookies } from "next/headers";
+import { seSaveToDatabase } from "@/app/lib/database";
+import { getTokenCode, getUserData } from "@/app/lib/streamelements";
 
 export async function GET(request) {
 
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
   const origin = request.nextUrl.origin;
-
-  console.log("Server code:", obj);
 
   if (obj.error) return Response.redirect(`${origin}/share?error=${obj.error}`);
 
-  return Response.redirect(`${origin}/share`);
-
-}
-
-
-/*
-import { twitchSaveToDatabase, twitchCheckUser } from "@/app/lib/database";
-import { getTokenCode, getUserData } from "@/app/lib/twitch";
-import { cookies } from "next/headers";
-
-export async function GET(request) {
-  // Convert query strings (map format) to object format - Only works for this specific case!
-  const obj = Object.fromEntries(request.nextUrl.searchParams);
-  const { code } = obj;
-  const origin = request.nextUrl.origin;
-
-  if (!code) return Response.redirect(`${origin}/twitch?error=Code not found`);
-
-  const token = await getTokenCode(code);
+  const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
-  const userExists = await twitchCheckUser(user.id); // return user data if user exists, else null
-  const userCode = userExists ? userExists.code : crypto.randomUUID().replace(/-/g, '');
 
   const data = {
-    id: user.id,
-    username: user.login,
+    id: user._id,
+    username: user.username,
     access_token: token.access_token,
     refresh_token: token.refresh_token,
-    code: userCode
   };
 
-  const saved = await twitchSaveToDatabase(data);
-  if (!saved) return Response.redirect(`${origin}/twitch?error=Error while saving to database`);
+  const saved = await seSaveToDatabase(data);
+  if (!saved) return Response.redirect(`${origin}/share?error=Error while saving to database`);
 
-  cookies().set('twitch_id', data.id);
-  cookies().set('twitch_username', data.username);
-  cookies().set('twitch_code', data.code);
+  cookies().set('se_id', data.id);
+  cookies().set('se_username', data.username);
+  cookies().set('se_access_token', data.access_token);
 
-  return Response.redirect(`${origin}/twitch`);
+  return Response.redirect(`${origin}/share`);
 }
-*/
