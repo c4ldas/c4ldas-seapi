@@ -6,12 +6,17 @@ import { useEffect } from "react";
 export default function Callback({ _, searchParams }) {
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    if (params.size == 0) return
+    const interval = setInterval(() => {
+      if (params.size > 0) {
+        clearInterval(interval);
+        window.location.assign(`${window.location.origin}/api/callback?${params}`);
+      }
+    }, 100);
 
-    console.log("params:", params)
-    window.location.assign(`${window.location.origin}/api/callback?${params}`);
-  }, [searchParams]);
+    //const params = new URLSearchParams(searchParams);
+    //console.log("params:", params)
+    //window.location.assign(`${window.location.origin}/api/callback?${params}`);
+  }, []);
 
   return null;
 }
