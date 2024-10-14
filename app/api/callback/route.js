@@ -13,8 +13,6 @@ export async function GET(request) {
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
 
-  console.log("token:", token);
-
   const data = {
     id: user._id,
     username: user.username,
@@ -23,7 +21,7 @@ export async function GET(request) {
   };
 
   const saved = await seSaveToDatabase(data);
-  if (!saved) return Response.redirect(`${origin}/share?error=Error while saving to database`);
+  if (!saved) return Response.redirect(`${origin}/share?error=Error while saving to database. Please try again later.`);
 
   cookies().set('se_id', data.id);
   cookies().set('se_username', data.username);
