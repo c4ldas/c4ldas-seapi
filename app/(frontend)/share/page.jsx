@@ -33,7 +33,6 @@ export default function Share({ _, searchParams }) {
     if (!cookie["se_id"]) return;
     const data = { id: cookie["se_id"], access_token: cookie["se_access_token"] };
     setOverlays((await getOverlays(data)).docs);
-    console.log(overlays);
   }
 
   async function openDialog() {
@@ -116,8 +115,8 @@ export default function Share({ _, searchParams }) {
             </h3>
             <div className="main" id="overlay-list">
               { /* Create actual boxes with images */}
-              {overlays && overlays.map((overlay, index) => (
-                <Linkbox key={overlay._id} link={`/overlays/share/${overlay.channel}/${overlay._id}`} title={`${index} - ${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
+              {overlays && overlays.map((overlay) => (
+                <Linkbox key={overlay._id} link={`/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
               ))}
             </div>
 
