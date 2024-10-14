@@ -27,5 +27,13 @@ export async function GET(request) {
   cookies().set('se_username', data.username);
   cookies().set('se_access_token', data.access_token);
 
-  return Response.redirect(`${origin}/share`);
+  if (obj.state === "overlay_share") {
+    return Response.redirect(`${origin}/share`);
+  }
+
+  if (obj.state === 'overlay_install') {
+    return Response.redirect(`${origin}/install`);
+  }
+
+  return Response.redirect(`${origin}`);
 }
