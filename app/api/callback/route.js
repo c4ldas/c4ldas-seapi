@@ -20,6 +20,8 @@ export async function GET(request) {
     refresh_token: token.refresh_token,
   };
 
+  console.log("callback data:", data);
+
   const saved = await seSaveToDatabase(data);
   if (!saved) return Response.redirect(`${origin}/share?error=Error while saving to database`);
 
