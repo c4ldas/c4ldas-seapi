@@ -22,7 +22,7 @@ At the moment the structure of the application is:
 |  |
 |  |--(frontend)/
 |  |  |-- homepage         # done
-|  |  |-- callback/        # done
+|  |  |-- callback/        # done (not used anymore)
 |  |  |-- share/           # in progress
 |  |  |-- overlays/        # pending
 |  |  |-- widgets/         # pending
