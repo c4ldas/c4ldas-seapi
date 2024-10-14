@@ -1,37 +1,34 @@
 "use client"
 
-import Header from "@/app/components/Header";
-import FooterComponent from "@/app/components/Footer";
-import Link from "next/link";
-
 import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
+import Link from "next/link";
+
+import Header from "@/app/components/Header";
+import FooterComponent from "@/app/components/Footer";
 import Linkbox from "@/app/components/Linkbox";
 
-const baseURL = "https://streamelements.com/oauth2/authorize?";
-const urlSearchParams = new URLSearchParams({
-  response_type: "code",
-  client_id: "4e2b44d1efed3fd0",
-  scope: "overlays:read overlays:write",
-  redirect_uri: "https://seapi.c4ldas.com.br/callback/",
-  show_dialog: false,   // It doesn't work
-  force_verify: false,  // It doesn't work
-  state: "overlay_share"
-});
-
 export default function Share({ _, searchParams }) {
-
-  // Temporary - Configure to work with cookies later
   const error = searchParams.error;
 
   const [cookie, setCookie] = useState({});
   const [origin, setOrigin] = useState();
-
   useEffect(() => {
     setOrigin(window.location.origin);
     setCookie(getCookies());
   }, []);
 
+
+  const baseURL = "https://streamelements.com/oauth2/authorize?";
+  const urlSearchParams = new URLSearchParams({
+    response_type: "code",
+    client_id: "4e2b44d1efed3fd0",
+    scope: "overlays:read overlays:write",
+    redirect_uri: "https://seapi.c4ldas.com.br/callback/",
+    show_dialog: false,   // It doesn't work
+    force_verify: false,  // It doesn't work
+    state: "overlay_share"
+  });
 
   async function openDialog() {
     const dialog = document.querySelector("#dialog");
@@ -55,11 +52,9 @@ export default function Share({ _, searchParams }) {
     cancel.style.display = "none";
 
     setTimeout(async () => {
-      // const request = await fetch("/api/twitch/logout", { "method": "POST" });
-      // const response = await request.json();
-      const response = {
-        message: "Integration removed successfully"
-      }
+      const request = await fetch("/api/logout", { "method": "POST" });
+      const response = await request.json();
+
       dialogTitle.innerHTML = `${response.message}.<br/> Redirecting back to home page...`;
     }, 1500);
 
@@ -68,7 +63,27 @@ export default function Share({ _, searchParams }) {
     }, 3000);
   }
 
-  function copyCode(event) { }
+  function copyCode(event) {
+    const dialog = document.getElementById("copy-success");
+    const command = event.target.getAttribute("datacommand");
+    console.log(cookie.se_access_token);
+    console.log(command);
+    console.log(navigator)
+
+    navigator.clipboard.writeText(command);
+
+    // Show the dialog next to the clicked element
+    dialog.style.top = (event.pageY - 70) + "px";
+    dialog.style.marginLeft = (event.pageX) + "px";
+    // dialog.style.top = (event.clientY - 70) + "px";
+    // dialog.style.marginLeft = (event.clientX + 50) + "px";
+    dialog.show();
+
+    // Close the dialog after 2 seconds
+    setTimeout(() => {
+      dialog.close();
+    }, 2000);
+  }
 
   return (
     <div className="container">
@@ -76,7 +91,7 @@ export default function Share({ _, searchParams }) {
       <main className="main block">
         <h1 className="title">Overlay / widget share</h1>
         <hr />
-        {!cookie.twitch_id &&
+        {!cookie.se_id &&
           <>
             <h2 className="title">Login with Streamelements</h2>
             <h3 className="subtitle">
@@ -91,11 +106,12 @@ export default function Share({ _, searchParams }) {
             </div>
           </>
         }
-        {cookie.twitch_id &&
+        {cookie.se_id &&
           <>
             <h2 className="red">Page still in construction, no integration has been done!</h2>
-            <p><strong>Channel name:</strong> {cookie.twitch_username} </p>
-            <p><strong>Channel ID:</strong> {cookie.twitch_id}</p>
+            <p><strong>Channel name:</strong> {cookie.se_username} </p>
+            <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+            <p><strong>Access Token:</strong> <span style={{ cursor: "pointer" }} onClick={copyCode} datacommand={cookie.se_access_token}>••••••••••••</span></p>
             { /* <p><strong>Code (click to copy):</strong> <span style={{ cursor: "pointer" }} onClick={copyCode} datacommand={cookie.twitch_code}>••••••••••••</span></p> */}
             <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
             <h2 className="title">Overlay list</h2>
