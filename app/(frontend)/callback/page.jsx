@@ -8,7 +8,6 @@ export default function Callback({ _, searchParams }) {
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
     window.location.assign(`${window.location.origin}/api/callback?${params}`);
-
   }, [searchParams]);
 
   return null;
