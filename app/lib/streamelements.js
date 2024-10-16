@@ -77,8 +77,36 @@ async function getOverlays(data) {
   }
 }
 
+function encodeData(data) {
+  try {
 
-export { getTokenCode, getUserData, revokeToken, getOverlays };
+    const dateNow = Date.now();
+    const encoded = btoa(`${data}.${dateNow}`);
+    const urlEncoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    
+    console.log(urlEncoded);
+    return urlEncoded;
+  } catch (error) {
+    console.log(error);
+    return { status: "failed", message: error.message };}
+}
+
+function decodeData(data) {
+  try {
+    // Re-add the URL unsafe characters
+    let urlDecoded = data.replace(/-/g, '+').replace(/_/g, '/');
+    // Add padding
+    const padding = 4 - (urlDecoded.length % 4);
+    if (padding !== 4) urlDecoded += '='.repeat(padding);
+    
+    return atob(urlDecoded);
+  } catch (error) {
+    console.log(error);
+    return { status: "failed", message: error.message };
+  }
+}
+
+export { getTokenCode, getUserData, revokeToken, getOverlays, encodeData, decodeData };
 
 
   
