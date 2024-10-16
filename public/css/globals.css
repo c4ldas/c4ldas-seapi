@@ -155,12 +155,33 @@ a:visited {
 .puuid,
 .regionName,
 .message,
-.youtube-handle {
+.youtube-handle,
+.se-code {
   font-size: 1.2rem;
   padding: 10px;
   height: 3em;
   border: none;
   border-radius: 3px;
+}
+
+.se-code {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  box-shadow: rgba(55, 47, 47, 0.48);
+  /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
+}
+
+.se-install-overlay {
+  font-size: 1.1rem;
+  background: #7fcc7f;
+  height: 3em;
+  border-radius: 3px;
+  grid-row-start: 1;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px;
+  /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
 }
 
 .playername {
