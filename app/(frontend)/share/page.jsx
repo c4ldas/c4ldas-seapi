@@ -5,8 +5,10 @@ import { getCookies } from "cookies-next";
 import Link from "next/link";
 
 import Header from "@/app/components/Header";
-import FooterComponent from "@/app/components/Footer";
+import { Dialog, openDialog } from "@/app/components/Dialog";
 import Linkbox from "@/app/components/Linkbox";
+import FooterComponent from "@/app/components/Footer";
+
 import { getOverlays } from "@/app/lib/streamelements";
 
 export default function Share({ _, searchParams }) {
@@ -20,66 +22,10 @@ export default function Share({ _, searchParams }) {
     overlayList();
   }, [cookie.se_id]);
 
-  const baseURL = "https://streamelements.com/oauth2/authorize?";
-  const urlSearchParams = new URLSearchParams({
-    response_type: "code",
-    client_id: "4e2b44d1efed3fd0",
-    scope: "overlays:read overlays:write",
-    redirect_uri: "https://seapi.c4ldas.com.br/api/callback",
-    state: "overlay_share"
-  });
-
   async function overlayList() {
     if (!cookie["se_id"]) return;
     const data = { id: cookie["se_id"], access_token: cookie["se_access_token"] };
     setOverlays((await getOverlays(data)).docs);
-  }
-
-  async function openDialog() {
-    const dialog = document.querySelector("#dialog");
-    dialog.style.marginLeft = "auto";
-    dialog.showModal();
-  }
-
-  function closeDialog() {
-    const dialog = document.querySelector("#dialog");
-    dialog.close();
-  }
-
-  async function confirmRemoval() {
-    const dialogTitle = document.querySelector("#dialog-title");
-    const submit = document.querySelector("#submit");
-    const cancel = document.querySelector("#cancel");
-    dialogTitle.innerText = "Removing integration, please wait...";
-    submit.style.display = "none";
-    cancel.style.display = "none";
-
-    setTimeout(async () => {
-      const request = await fetch("/api/logout", { "method": "POST" });
-      const response = await request.json();
-
-      dialogTitle.innerHTML = `${response.message}.<br/> Redirecting back to home page...`;
-    }, 1500);
-
-    setTimeout(() => {
-      window.location.assign("/");
-    }, 3000);
-  }
-
-  function copyCode(event) {
-    const dialog = document.getElementById("copy-success");
-    const command = event.target.getAttribute("datacommand");
-    navigator.clipboard.writeText(command);
-
-    // Show the dialog next to the clicked element
-    dialog.style.top = (event.pageY - 70) + "px";
-    dialog.style.marginLeft = (event.pageX) + "px";
-    dialog.show();
-
-    // Close the dialog after 2 seconds
-    setTimeout(() => {
-      dialog.close();
-    }, 2000);
   }
 
   return (
@@ -97,7 +43,8 @@ export default function Share({ _, searchParams }) {
               Once you clicked and authorized the page, you will see your overlay list and choose which one you want to share.
             </h3>
             <div className="main">
-              <Link href={baseURL + urlSearchParams.toString()}>
+              {/* <Link href={baseURL + urlSearchParams.toString()}> */}
+              <Link href="/login?state=overlay_share">
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
@@ -119,19 +66,7 @@ export default function Share({ _, searchParams }) {
                 <Linkbox key={overlay._id} link={`/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
               ))}
             </div>
-
-            {/* <!-- pop-up dialog box, containing a form --> */}
-            <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
-            <dialog id="dialog" className="dialog">
-              <div id="dialog-title">
-                Are you sure you want to remove the integration?<br />
-                You can re-add it at any time.
-              </div>
-              <div id="dialog-buttons">
-                <button id="submit" type="submit" onClick={confirmRemoval}>Confirm</button>
-                <button id="cancel" type="reset" onClick={closeDialog}>Cancel</button>
-              </div>
-            </dialog>
+            <Dialog />
           </>
         }
         {error && <p>Error: {error}</p>}
