@@ -25,15 +25,14 @@ At the moment the structure of the application is:
 |  |  |-- callback/        # done (not used anymore)
 |  |  |-- login/           # done
 |  |  |-- share/           # in progress
-|  |  |-- overlays/        # pending
-|  |  |-- widgets/         # pending
+|  |  |-- install/         # in progress
 |  |
 |  |--api/
 |     |-- github/
 |     |    |-- widgets/   # done
 |     |
 |     |-- logout/         # done
-|     |-- callback/       # in progress
+|     |-- callback/       # done
 |     |-- top/            # pending
 |     |-- watchtime/      # pending
 |     |
