@@ -1,14 +1,15 @@
 import { cookies } from "next/headers";
 import { seSaveToDatabase } from "@/app/lib/database";
-import { getTokenCode, getUserData } from "@/app/lib/streamelements";
+import { getTokenCode, getUserData, decodeData } from "@/app/lib/streamelements";
 
 export async function GET(request) {
-
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
+  const state = decodeData(obj.state);
   const origin = request.nextUrl.origin;
 
-  if (obj.error) return Response.redirect(`${origin}/share?error=${obj.error}`);
+  if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
+  if (state.status == "failed" || !state.startsWith("overlay_share") || !state.startsWith("overlay_install")) return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
 
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
@@ -21,19 +22,12 @@ export async function GET(request) {
   };
 
   const saved = await seSaveToDatabase(data);
-  if (!saved) return Response.redirect(`${origin}/share?error=Error while saving to database. Please try again later.`);
+  if (!saved) return Response.redirect(`${origin}?error=Error while saving to database. Please try again later.`);
 
   cookies().set('se_id', data.id);
   cookies().set('se_username', data.username);
   cookies().set('se_access_token', data.access_token);
 
-  if (obj.state === "overlay_share") {
-    return Response.redirect(`${origin}/share`);
-  }
+  return Response.redirect(`${origin}/${state.split("_")[1]}`);
 
-  if (obj.state === 'overlay_install') {
-    return Response.redirect(`${origin}/install`);
-  }
-
-  return Response.redirect(`${origin}`);
 }
