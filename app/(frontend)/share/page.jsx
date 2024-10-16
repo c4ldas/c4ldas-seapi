@@ -9,7 +9,7 @@ import { Dialog, openDialog } from "@/app/components/Dialog";
 import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
 
-import { getOverlays } from "@/app/lib/streamelements";
+import { getOverlays, encodeData } from "@/app/lib/streamelements";
 
 export default function Share({ _, searchParams }) {
   const error = searchParams.error;
@@ -28,6 +28,7 @@ export default function Share({ _, searchParams }) {
     setOverlays((await getOverlays(data)).docs);
   }
 
+
   return (
     <div className="container">
       <Header />
@@ -44,7 +45,7 @@ export default function Share({ _, searchParams }) {
             </h3>
             <div className="main">
               {/* <Link href={baseURL + urlSearchParams.toString()}> */}
-              <Link href="/login?state=overlay_share">
+              <Link href={`/login?state=${encodeData("overlay_share")}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
@@ -69,7 +70,7 @@ export default function Share({ _, searchParams }) {
             <Dialog />
           </>
         }
-        {error && <p>Error: {error}</p>}
+        {error && <p className="error red">Error: {error}</p>}
       </main>
       <FooterComponent />
     </div >

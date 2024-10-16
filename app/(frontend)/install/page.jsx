@@ -4,6 +4,8 @@ import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
 
+import { encodeData } from "@/app/lib/streamelements";
+
 import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import Link from "next/link";
@@ -29,7 +31,6 @@ export default function Install({ _, searchParams }) {
   }
 
 
-
   return (
     <div className="container">
       <Header />
@@ -45,7 +46,7 @@ export default function Install({ _, searchParams }) {
               Once you clicked and authorized the page, you can type the code to have it installed in your Streamelements account.
             </h3>
             <div className="main">
-              <Link href="/login?state=overlay_install">
+              <Link href={`/login?state=${encodeData("overlay_install")}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
@@ -65,7 +66,7 @@ export default function Install({ _, searchParams }) {
             <Dialog />
           </>
         }
-        {error && <p>Error: {error}</p>}
+        {error && <p className="error red">Error: {error}</p>}
       </main>
       <FooterComponent />
     </div>
