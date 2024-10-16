@@ -1,3 +1,5 @@
+// Not used anymore
+
 "use client";
 import { useEffect } from "react";
 
