@@ -8,10 +8,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 // import Image from "next/image";
 
-export default function Home() {
+export default function Home({ _, searchParams }) {
 
   const [widgets, setWidgets] = useState(null);
   const [error, setError] = useState(null);
+
+
+  const seError = searchParams.error;
 
   useEffect(() => {
     async function fetchData() {
@@ -31,19 +34,6 @@ export default function Home() {
 
     fetchData();
   }, []);
-
-  /*   
-  function collapseMenu(event) {
-    const element = event.currentTarget;
-    element.classList.toggle("active");
-    var item = element.nextElementSibling;
-    if (item.style.maxHeight) {
-      item.style.maxHeight = null;
-    } else {
-      item.style.maxHeight = item.scrollHeight + "px";
-    }
-  }
- */
 
   return (
     <div className="container">
@@ -68,6 +58,7 @@ export default function Home() {
             link="/install"
           />
         </div>
+        {seError && <p className="error red">Error: {seError}</p>}
         <hr />
 
         <h2 className="title">Custom widgets</h2>
