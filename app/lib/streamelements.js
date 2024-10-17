@@ -81,7 +81,7 @@ function encodeData(data) {
   try {
 
     const dateNow = Date.now();
-    const encoded = btoa(`${data}.${dateNow}`);
+    const encoded = btoa(`${data}_${dateNow}`);
     const urlEncoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
     
     console.log(urlEncoded);
