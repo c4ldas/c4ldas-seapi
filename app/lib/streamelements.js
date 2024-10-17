@@ -79,16 +79,16 @@ async function getOverlays(data) {
 
 function encodeData(data) {
   try {
-
     const dateNow = Date.now();
     const encoded = btoa(`${data}_${dateNow}`);
     const urlEncoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-    
-    console.log(urlEncoded);
+
+    // console.log(urlEncoded);
     return urlEncoded;
   } catch (error) {
     console.log(error);
-    return { status: "failed", message: error.message };}
+    return { status: "failed", message: error.message };
+  }
 }
 
 function decodeData(data) {
@@ -98,7 +98,7 @@ function decodeData(data) {
     // Add padding
     const padding = 4 - (urlDecoded.length % 4);
     if (padding !== 4) urlDecoded += '='.repeat(padding);
-    
+
     return atob(urlDecoded);
   } catch (error) {
     console.log(error);
@@ -107,21 +107,3 @@ function decodeData(data) {
 }
 
 export { getTokenCode, getUserData, revokeToken, getOverlays, encodeData, decodeData };
-
-
-  
-  // // Generate a grid with all overlays from that user. 
-  // // The overlay list has the name and the background image of each one
-  // overlayArray = []; 
-  // response.docs.forEach(element => {
-  //   overlayArray.push(`
-  //         <div class="wrapper">
-  //           <div class="item-name">${element.name}</div>
-  //           <a href='/overlays/share/${channelData._id}/${element._id}'>
-  //             <div id='${element._id}' class="item" style="background-image: url('${element.preview}');"></div>
-  //           </a>
-  //         </div>
-  //       `)
-  // })
-  // const overlaysList = overlayArray.toString().replaceAll(',', '')
-  // return { overlaysList }
