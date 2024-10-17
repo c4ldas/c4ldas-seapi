@@ -9,7 +9,8 @@ export async function GET(request) {
   const origin = request.nextUrl.origin;
 
   if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
-  if (state.status == "failed" || !state.startsWith("overlay_share") || !state.startsWith("overlay_install")) return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
+
+  if (state.status == "failed" || (!state.startsWith("overlay_share") && !state.startsWith("overlay_install"))) return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
 
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
@@ -29,5 +30,4 @@ export async function GET(request) {
   cookies().set('se_access_token', data.access_token);
 
   return Response.redirect(`${origin}/${state.split("_")[1]}`);
-
 }
