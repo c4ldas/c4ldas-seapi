@@ -21,19 +21,24 @@ At the moment the structure of the application is:
 |  |--lib/
 |  |
 |  |--(frontend)/
-|  |  |-- homepage         # done
-|  |  |-- login/           # done
-|  |  |-- share/           # in progress
-|  |  |-- install/         # in progress
-|  |
+|  |  |-- homepage          # done
+|  |  |-- login/            # done
+|  |  |-- share/            # in progress
+|  |  |-- install/          # in progress
+|  |  
 |  |--api/
-|     |-- github/
-|     |    |-- widgets/   # done
+|     | 
+|     |-- overlays/
+|     |     |-- install/    # in progress
+|     |     |-- share/      # in progress
 |     |
-|     |-- logout/         # done
-|     |-- callback/       # done
-|     |-- top/            # pending
-|     |-- watchtime/      # pending
+|     |-- github/
+|     |    |-- widgets/     # done
+|     |
+|     |-- logout/           # done
+|     |-- callback/         # done
+|     |-- top/              # pending
+|     |-- watchtime/        # pending
 |     |
 
 </pre>
