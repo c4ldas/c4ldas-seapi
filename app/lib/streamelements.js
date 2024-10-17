@@ -57,7 +57,6 @@ async function revokeToken(se_access_token) {
   }
 }
 
-
 // Overlay List
 async function getOverlays(data) {
   try {
@@ -76,6 +75,36 @@ async function getOverlays(data) {
     throw { status: "failed", message: error.message };
   }
 }
+
+
+// Overlay installation - Add overlay to SE destination account
+async function overlayInstall(data) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.id}`, {
+      "method": "POST",
+      "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": `oAuth ${data.access_token}`
+      },
+      "body": JSON.stringify(data.overlay_data)
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log(error);
+    throw { status: "failed", message: error.message };
+  }
+
+  // // URL format:
+  // // https://streamelements.com/overlay/data._id/channelData.apiToken
+  // return {
+  //   isValid: true, overlayId: data._id, apiToken: channelData.apiToken, overlayName: data.name,
+  //   overlayWidth: data.settings.width, overlayHeight: data.settings.height
+  // }
+}
+
 
 function encodeData(data) {
   try {
@@ -106,4 +135,4 @@ function decodeData(data) {
   }
 }
 
-export { getTokenCode, getUserData, revokeToken, getOverlays, encodeData, decodeData };
+export { getTokenCode, getUserData, revokeToken, getOverlays, overlayInstall, encodeData, decodeData };

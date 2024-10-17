@@ -133,4 +133,44 @@ async function overlaySaveToDB(data) {
   }
 }
 
-export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB };
+async function getOverlayFromDB(request) {
+  let client;
+
+  try {
+    const { code, overlay_data, account_id, name } = request;
+
+    const selectQuery = {
+      text: `SELECT data FROM overlays WHERE code = $1`,
+      values: [code],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(selectQuery);
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: rows[0].data,
+      status: 200
+    }
+
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: 500
+    }
+    return data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
+export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB, getOverlayFromDB };
