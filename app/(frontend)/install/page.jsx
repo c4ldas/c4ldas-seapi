@@ -12,7 +12,6 @@ import Link from "next/link";
 
 export default function Install({ _, searchParams }) {
   const error = searchParams.error;
-  const isLoading = false;
 
   const [cookie, setCookie] = useState({});
   const [code, setCode] = useState();
@@ -28,6 +27,9 @@ export default function Install({ _, searchParams }) {
   ////////////////////////////////////////
   async function handleSubmit(e) {
     e.preventDefault();
+    const overlayData = await fetch(`/api/overlays/install/${code}`, { method: "POST" });
+    const data = await overlayData.json();
+
   }
 
 
@@ -61,7 +63,7 @@ export default function Install({ _, searchParams }) {
             <form id="form" onSubmit={handleSubmit} className="form" style={{ paddingTop: "10px" }}>
               <input type="text" id="se-code" className="se-code" placeholder="Type the overlay code here" onChange={e => setCode(e.target.value)} required={true} />
               <input type="submit" id="se-install-overlay" className="se-install-overlay" value="Install overlay" />
-              {isLoading && (<div id="loading" className="loading">Loading...</div>)}
+              {/* {isLoading && (<div id="loading" className="loading">Loading...</div>)} */}
             </form>
             <Dialog />
           </>
