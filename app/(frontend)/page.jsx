@@ -51,11 +51,13 @@ export default function Home({ _, searchParams }) {
             title="Share overlay / widget"
             description="Generate a code to share your Streamelements overlay / widget."
             link="/share"
+            image=""
           />
           <Linkbox
             title="Install overlay / widget"
             description="Install the overlay into your Streamelements account using a code."
             link="/install"
+            image=""
           />
         </div>
         {seError && <p className="error red">Error: {seError}</p>}
@@ -72,6 +74,7 @@ export default function Home({ _, searchParams }) {
               title={widget.widget_name}
               description={widget.widget_description}
               link={`https://github.com/c4ldas/streamelements-widgets/tree/main/${widget.widget_folder}`}
+              image=""
             />
           ))}
           {error &&
