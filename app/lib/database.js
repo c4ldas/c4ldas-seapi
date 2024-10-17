@@ -105,4 +105,32 @@ async function seRemoveDBIntegration(id, username) {
   }
 }
 
-export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration };
+async function overlaySaveToDB(data) {
+  let client;
+
+  try {
+    const { code, overlay_data, account_id, name } = data;
+
+    const insertQuery = {
+      text: `
+      INSERT INTO overlays (code, data, account_id, name) 
+      VALUES ($1, $2, $3, $4)
+    `,
+      values: [code, overlay_data, account_id, name],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(insertQuery);
+    return true;
+
+  } catch (error) {
+    console.log("overlaySaveToDB(): ", error);
+    return false;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
+export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB };
