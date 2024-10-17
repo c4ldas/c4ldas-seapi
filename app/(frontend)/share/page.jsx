@@ -44,7 +44,6 @@ export default function Share({ _, searchParams }) {
               Once you clicked and authorized the page, you will see your overlay list and choose which one you want to share.
             </h3>
             <div className="main">
-              {/* <Link href={baseURL + urlSearchParams.toString()}> */}
               <Link href={`/login?state=${encodeData("overlay_share")}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
@@ -64,7 +63,7 @@ export default function Share({ _, searchParams }) {
             <div className="main" id="overlay-list">
               { /* Create actual boxes with images */}
               {overlays && overlays.map((overlay) => (
-                <Linkbox key={overlay._id} link={`/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
+                <Linkbox key={overlay._id} link={`/api/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
               ))}
             </div>
             <Dialog />
