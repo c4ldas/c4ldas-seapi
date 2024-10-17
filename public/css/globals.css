@@ -167,7 +167,7 @@ a:visited {
 .se-code {
   grid-row-start: 1;
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 2;
   box-shadow: rgba(55, 47, 47, 0.48);
   /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
 }
@@ -178,7 +178,7 @@ a:visited {
   height: 3em;
   border-radius: 3px;
   grid-row-start: 1;
-  grid-column-start: 3;
+  grid-column-start: 2;
   grid-column-end: 3;
   box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px;
   /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
