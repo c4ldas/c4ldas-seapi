@@ -22,7 +22,6 @@ At the moment the structure of the application is:
 |  |
 |  |--(frontend)/
 |  |  |-- homepage         # done
-|  |  |-- callback/        # done (not used anymore)
 |  |  |-- login/           # done
 |  |  |-- share/           # in progress
 |  |  |-- install/         # in progress
