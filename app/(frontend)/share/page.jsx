@@ -30,7 +30,6 @@ export default function Share({ _, searchParams }) {
     setOverlays((await getOverlays(data)).docs);
   }
 
-
   return (
     <div className="container">
       <Header />
@@ -54,7 +53,6 @@ export default function Share({ _, searchParams }) {
         }
         {cookie.se_id &&
           <>
-            <h2 className="red">Page still in construction, no integration has been done!</h2>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
             <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
@@ -64,7 +62,7 @@ export default function Share({ _, searchParams }) {
             </h3>
             <div className="main" id="overlay-list">
               {overlays && overlays.map((overlay) => (
-                <Linkbox key={overlay._id} link={`/api/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
+                <Linkbox a={true} key={overlay._id} link={`/api/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
               ))}
             </div>
             <Dialog />
