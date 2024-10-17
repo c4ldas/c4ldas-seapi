@@ -16,8 +16,10 @@ export default function Share({ _, searchParams }) {
 
   const [cookie, setCookie] = useState({});
   const [overlays, setOverlays] = useState([]);
+  const [encoded, setEncoded] = useState("");
 
   useEffect(() => {
+    setEncoded(encodeData("overlay_share"));
     setCookie(getCookies());
     overlayList();
   }, [cookie.se_id]);
@@ -44,7 +46,8 @@ export default function Share({ _, searchParams }) {
               Once you clicked and authorized the page, you will see your overlay list and choose which one you want to share.
             </h3>
             <div className="main">
-              <Link href={`/login?state=${encodeData("overlay_share")}`}>
+              {/* <Link href={`/login?state=${encodeData("overlay_share")}`}> */}
+              <Link href={`/login?state=${encoded}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
@@ -61,7 +64,6 @@ export default function Share({ _, searchParams }) {
               Here you can see all overlays you have installed on your account. Click in one of them to generate a sharing code:
             </h3>
             <div className="main" id="overlay-list">
-              { /* Create actual boxes with images */}
               {overlays && overlays.map((overlay) => (
                 <Linkbox key={overlay._id} link={`/api/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
               ))}
