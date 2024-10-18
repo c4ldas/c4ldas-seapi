@@ -1,14 +1,11 @@
 import React from 'react'
 
-export function Dialog() {
+export function Dialog(props) {
   return (
     <>
       <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
       <dialog id="dialog" className="dialog">
-        <div id="dialog-title">
-          Are you sure you want to remove the integration?<br />
-          You can re-add it at any time.
-        </div>
+        <div id="dialog-title">Are you sure you want to remove the integration?<br />You can re-add it at any time.</div>
         <div id="dialog-buttons">
           <button id="submit" type="submit" onClick={confirmRemoval}>Confirm</button>
           <button id="cancel" type="reset" onClick={closeDialog}>Cancel</button>
