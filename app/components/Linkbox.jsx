@@ -29,12 +29,18 @@ export default function Linkbox(props) {
 
       {/* Content above the overlay */}
       {props.a ? (
-        <a href={props.link} prefetch={false} className="link-content" style={{ position: 'relative', zIndex: 2 }}>
+        <a
+          href={props.link}
+          onClick={props.onClick}
+          className="link-content"
+          style={{ position: 'relative', zIndex: 2 }}
+          {...props}
+        >
           <h3 style={{ color: 'black' }}>{props.title}</h3>
           <p className="description">{props.description}<span className={props.spanClass}>{props.span}</span></p>
         </a>)
         : (
-          <Link href={props.link} prefetch={false} className="link-content" style={{ position: 'relative', zIndex: 2 }}>
+          <Link href={props.link} className="link-content" style={{ position: 'relative', zIndex: 2 }}>
             <h3 style={{ color: 'black' }}>{props.title}</h3>
             <p className="description">{props.description}<span className={props.spanClass}>{props.span}</span></p>
           </Link>
