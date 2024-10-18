@@ -2,6 +2,7 @@ const SE_CLIENT_ID = process.env.SE_CLIENT_ID;
 const SE_CLIENT_SECRET = process.env.SE_CLIENT_SECRET;
 const SE_REDIRECT_URI = process.env.SE_REDIRECT_URI;
 
+// Get access_token from Streamelements
 async function getTokenCode(code) {
   try {
     const request = await fetch("https://api.streamelements.com/oauth2/token", {
@@ -23,6 +24,7 @@ async function getTokenCode(code) {
   }
 }
 
+// Get data from Streamelements user
 async function getUserData(accessToken) {
   try {
     const request = await fetch("https://api.streamelements.com/kappa/v2/channels/me", {
@@ -71,11 +73,29 @@ async function getOverlays(data) {
     return response;
 
   } catch (error) {
-    console.log(error);
+    console.log("getOverlays():", error);
     throw { status: "failed", message: error.message };
   }
 }
 
+// Overlay data
+async function getOverlayInfo(data) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.accountId}/${data.overlayId}`, {
+      "method": "GET",
+      "headers": {
+        "Accept": "application/json",
+        "Authorization": `oAuth ${data.access_token}`
+      }
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log("getOverlayInfo():", error);
+    throw { status: "failed", message: error.message };
+  }
+}
 
 // Overlay installation - Add overlay to SE destination account
 async function overlayInstall(data) {
@@ -105,7 +125,7 @@ async function overlayInstall(data) {
   // }
 }
 
-
+// Encode state for token request
 function encodeData(data) {
   try {
     const dateNow = Date.now();
@@ -120,6 +140,7 @@ function encodeData(data) {
   }
 }
 
+// Decode state from token request
 function decodeData(data) {
   try {
     // Re-add the URL unsafe characters
@@ -135,4 +156,4 @@ function decodeData(data) {
   }
 }
 
-export { getTokenCode, getUserData, revokeToken, getOverlays, overlayInstall, encodeData, decodeData };
+export { getTokenCode, getUserData, revokeToken, getOverlays, getOverlayInfo, overlayInstall, encodeData, decodeData };
