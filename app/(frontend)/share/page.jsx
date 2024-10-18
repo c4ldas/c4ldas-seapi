@@ -17,6 +17,7 @@ export default function Share({ _, searchParams }) {
   const [cookie, setCookie] = useState({});
   const [overlays, setOverlays] = useState([]);
   const [encoded, setEncoded] = useState("");
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     setEncoded(encodeData("overlay_share"));
@@ -29,6 +30,19 @@ export default function Share({ _, searchParams }) {
     const data = { id: cookie["se_id"], access_token: cookie["se_access_token"] };
     setOverlays((await getOverlays(data)).docs);
   }
+
+  async function createCode(e) {
+    e.preventDefault();
+    const data = e.currentTarget.dataset;
+    const request = await fetch(`/api/overlays/share/${data.channelId}/${data.overlayId}`, { method: "POST" });
+    const response = await request.json();
+
+    setCode(response.code);
+    const dialog = document.querySelector("#code-generated");
+    dialog.style.marginLeft = "auto";
+    dialog.showModal();
+  }
+
 
   return (
     <div className="container">
@@ -45,7 +59,7 @@ export default function Share({ _, searchParams }) {
               Once you clicked and authorized the page, you will see your overlay list and choose which one you want to share.
             </h3>
             <div className="main">
-              <Link href={`/login?state=${encoded}`}>
+              <Link href={`/ login ? state = ${encoded}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
@@ -62,10 +76,24 @@ export default function Share({ _, searchParams }) {
             </h3>
             <div className="main" id="overlay-list">
               {overlays && overlays.map((overlay) => (
-                <Linkbox a={true} key={overlay._id} link={`/api/overlays/share/${overlay.channel}/${overlay._id}`} title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")} />
+                <Linkbox
+                  a={true} link="#" onClick={createCode} key={overlay._id}
+                  title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")}
+                  data-overlay-id={overlay._id} data-overlay-name={overlay.name} data-channel-id={overlay.channel}
+                />
               ))}
             </div>
             <Dialog />
+            <dialog id="code-generated" >
+              <h3 id="dialog-title">
+                Code generated successfully!<br />
+                Code: {code}
+              </h3>
+              <div id="dialog-copy">
+                <button id="copy" onClick={() => { navigator.clipboard.writeText(code) }}>Copy code</button>
+                <button id="cancel" onClick={() => { navigator.clipboard.writeText(code); document.querySelector("#code-generated").close() }}>Copy code and close</button>
+              </div>
+            </dialog>
           </>
         }
         {error && <p className="error red">Error: {error}</p>}
