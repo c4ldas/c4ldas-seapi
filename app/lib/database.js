@@ -173,4 +173,44 @@ async function getOverlayFromDB(request) {
   }
 }
 
-export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB, getOverlayFromDB };
+async function getTokenDatabase(request) {
+  let client;
+
+  try {
+    const { code, overlayId, accountId, name } = request;
+
+    const selectQuery = {
+      text: `SELECT access_token, refresh_token FROM streamelements WHERE id = $1`,
+      values: [accountId],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(selectQuery);
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: rows[0],
+      status: 200
+    }
+
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: 500
+    }
+    return data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
+export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB, getOverlayFromDB, getTokenDatabase };
