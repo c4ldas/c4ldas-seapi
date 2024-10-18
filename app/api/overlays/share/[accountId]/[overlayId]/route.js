@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { overlaySaveToDB } from "@/app/lib/database";
-// import { seRemoveDBIntegration } from "@/app/lib/database";
-// import { revokeToken } from "@/app/lib/streamelements";
+import { getTokenDatabase, overlaySaveToDB } from "@/app/lib/database";
+import { getOverlayInfo } from "@/app/lib/streamelements";
 
-export async function GET(_, request) {
+export async function POST(_, request) {
   try {
-    const response = await getOverlayCode(request);
+    const tokenDatabase = await getTokenDatabase(request.params);
+    const data = {
+      access_token: tokenDatabase.details.access_token,
+      overlayId: request.params.overlayId,
+      accountId: request.params.accountId
+    }
 
+    const response = await getOverlayInfo(data);
     const result = {
       code: Date.now(),
       overlay_data: response,
@@ -16,7 +20,8 @@ export async function GET(_, request) {
     }
 
     const saved = await overlaySaveToDB(result);
-    return new Response(result.code, { status: 200 });
+    if (!saved) return NextResponse.json({ status: "failed", message: "Failed to save overlay to database, please try again later" });
+    return NextResponse.json({ status: "success", message: "Overlay saved successfully", saved: saved, code: result.code });
 
   } catch (error) {
     console.log(error);
@@ -24,30 +29,6 @@ export async function GET(_, request) {
   }
 }
 
-
-
-async function getOverlayCode(data) {
-  const access_token = cookies().get('se_access_token').value;
-
-  try {
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.params.accountId}/${data.params.overlayId}`, {
-      "method": "GET",
-      "headers": {
-        "Accept": "application/json",
-        "Authorization": `oAuth ${access_token}`
-      }
-    });
-
-    const response = await request.json();
-    return response;
-
-  } catch (error) {
-    console.log("getOverlayCode(): ", error);
-    return NextResponse.json({ status: "failed", message: "Failed to get overlay information, please try again later" });
-  }
-
-  /* export async function GET(request) {
-    return NextResponse.json({ status: "failed", message: "Method not allowed" });
-  } */
+export async function GET(request) {
+  return NextResponse.json({ status: "failed", message: "Method not allowed" });
 }
-
