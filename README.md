@@ -23,22 +23,20 @@ At the moment the structure of the application is:
 |  |--(frontend)/
 |  |  |-- homepage          # done
 |  |  |-- login/            # done
-|  |  |-- share/            # in progress
-|  |  |-- install/          # in progress
+|  |  |-- share/            # done
+|  |  |-- install/          # in progress (pending removal of access_token)
 |  |  
 |  |--api/
 |     | 
 |     |-- overlays/
 |     |     |-- install/    # in progress
-|     |     |-- share/      # in progress
+|     |     |-- share/      # done
 |     |
 |     |-- github/
 |     |    |-- widgets/     # done
 |     |
 |     |-- logout/           # done
-|     |-- callback/         # done
+|     |-- callback/         # in progress (pending removal of access_token)
 |     |-- top/              # pending
 |     |-- watchtime/        # pending
-|     |
-
 </pre>
