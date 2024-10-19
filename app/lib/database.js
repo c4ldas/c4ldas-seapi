@@ -50,20 +50,60 @@ async function testConnectionDatabase() {
   }
 }
 
+async function getTokenDatabase(request) {
+  let client;
+
+  try {
+    const { tag, account_id, username, access_token, refresh_token } = request;
+
+    const selectQuery = {
+      text: `SELECT account_id, access_token, refresh_token FROM streamelements WHERE tag = $1`,
+      values: [tag],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(selectQuery);
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: rows[0],
+      status: 200
+    }
+
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: 500
+    }
+    return data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
 async function seSaveToDatabase(data) {
   let client;
 
   try {
-    const { id, username, access_token, refresh_token } = data;
+    const { tag, account_id, username, access_token, refresh_token } = data;
 
     const insertQuery = {
       text: `
-      INSERT INTO streamelements (id, username, access_token, refresh_token ) 
-      VALUES ($1, $2, $3, $4)
-      ON CONFLICT (id) DO
-      UPDATE SET username = $2, access_token = $3, refresh_token = $4
+      INSERT INTO streamelements (tag, account_id, username, access_token, refresh_token) 
+      VALUES ($1, $2, $3, $4, $5)
+      ON CONFLICT (account_id) DO
+      UPDATE SET tag = $1, username = $3, access_token = $4, refresh_token = $5
     `,
-      values: [id, username, access_token, refresh_token],
+      values: [tag, account_id, username, access_token, refresh_token],
     }
 
     client = await connectToDatabase();
@@ -80,13 +120,15 @@ async function seSaveToDatabase(data) {
   }
 }
 
-async function seRemoveDBIntegration(id, username) {
+async function seRemoveDBIntegration(request) {
   let client;
+
+  const { tag, account_id, username, access_token, refresh_token } = request;
 
   try {
     const removeQuery = {
-      text: 'DELETE FROM streamelements WHERE id = $1 and username = $2',
-      values: [id, username],
+      text: 'DELETE FROM streamelements WHERE account_id = $1 and username = $2',
+      values: [account_id, username],
     }
     client = await connectToDatabase();
     const { rowCount } = await client.query(removeQuery);
@@ -97,7 +139,8 @@ async function seRemoveDBIntegration(id, username) {
 
   } catch (error) {
     console.log("seRemoveIntegration(): ", error);
-    throw error.message;
+    // throw error.message;
+    return false;
 
   } finally {
     if (client) client.release();
@@ -173,44 +216,5 @@ async function getOverlayFromDB(request) {
   }
 }
 
-async function getTokenDatabase(request) {
-  let client;
-
-  try {
-    const { code, overlayId, accountId, name } = request;
-
-    const selectQuery = {
-      text: `SELECT access_token, refresh_token FROM streamelements WHERE id = $1`,
-      values: [accountId],
-    }
-
-    client = await connectToDatabase();
-    const { rows } = await client.query(selectQuery);
-
-    const data = {
-      success: true,
-      message: "Query executed successfully",
-      details: rows[0],
-      status: 200
-    }
-
-    return data;
-
-  } catch (error) {
-    const { code, message, routine } = error;
-
-    const data = {
-      success: false,
-      message: error.message,
-      details: { code, message, routine },
-      status: 500
-    }
-    return data;
-
-  } finally {
-    if (client) client.release();
-    // console.log("Client released");
-  }
-}
 
 export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB, getOverlayFromDB, getTokenDatabase };
