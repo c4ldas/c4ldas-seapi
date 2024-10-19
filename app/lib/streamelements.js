@@ -45,9 +45,9 @@ async function getUserData(accessToken) {
 }
 
 // Revoke token
-async function revokeToken(se_access_token) {
+async function revokeToken(data) {
   try {
-    const request = await fetch(`https://api.streamelements.com/oauth2/revoke?client_id=${process.env.SE_CLIENT_ID}&token=${se_access_token}`)
+    const request = await fetch(`https://api.streamelements.com/oauth2/revoke?client_id=${process.env.SE_CLIENT_ID}&token=${data.access_token}`)
     if (!request.ok) {
       throw new Error('Failed to revoke token');
     }
@@ -55,14 +55,14 @@ async function revokeToken(se_access_token) {
 
   } catch (error) {
     console.log("revokeToken:", error);
-    throw new Error('Failed to revoke token');
+    return false;
   }
 }
 
 // Overlay List
 async function getOverlays(data) {
   try {
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.id}`, {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.account_id}`, {
       "method": "GET",
       "headers": {
         "Accept": "application/json",
@@ -151,9 +151,21 @@ function decodeData(data) {
 
     return atob(urlDecoded);
   } catch (error) {
-    console.log(error);
+    console.error("decodeData() error:", error.message);
     return { status: "failed", message: error.message };
   }
 }
 
-export { getTokenCode, getUserData, revokeToken, getOverlays, getOverlayInfo, overlayInstall, encodeData, decodeData };
+// Generate Tag
+async function generateTag() {
+  try {
+    const tag = crypto.randomUUID().split("-")[4];
+    return tag;
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export { getTokenCode, getUserData, revokeToken, getOverlays, getOverlayInfo, overlayInstall, encodeData, decodeData, generateTag };
