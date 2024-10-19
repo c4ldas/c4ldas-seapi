@@ -35,7 +35,7 @@ export default function Share({ _, searchParams }) {
   async function createCode(e) {
     e.preventDefault();
     const data = e.currentTarget.dataset;
-    const request = await fetch(`/api/overlays/share/${data.accountId}/${data.overlayId}`, { method: "POST" });
+    const request = await fetch(`/api/overlays/share/${cookie["se_tag"]}/${data.overlayId}`, { method: "POST" });
     const response = await request.json();
 
     setCode(response.code);
@@ -43,7 +43,6 @@ export default function Share({ _, searchParams }) {
     dialog.style.marginLeft = "auto";
     dialog.showModal();
   }
-
 
   return (
     <div className="container">
