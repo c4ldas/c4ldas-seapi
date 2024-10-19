@@ -81,7 +81,7 @@ async function getOverlays(data) {
 // Overlay data
 async function getOverlayInfo(data) {
   try {
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.accountId}/${data.overlayId}`, {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.account_id}/${data.overlay_id}`, {
       "method": "GET",
       "headers": {
         "Accept": "application/json",
@@ -100,7 +100,7 @@ async function getOverlayInfo(data) {
 // Overlay installation - Add overlay to SE destination account
 async function overlayInstall(data) {
   try {
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.id}`, {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.account_id}`, {
       "method": "POST",
       "headers": {
         "Accept": "application/json",
@@ -116,13 +116,6 @@ async function overlayInstall(data) {
     console.log(error);
     throw { status: "failed", message: error.message };
   }
-
-  // // URL format:
-  // // https://streamelements.com/overlay/data._id/channelData.apiToken
-  // return {
-  //   isValid: true, overlayId: data._id, apiToken: channelData.apiToken, overlayName: data.name,
-  //   overlayWidth: data.settings.width, overlayHeight: data.settings.height
-  // }
 }
 
 // Encode state for token request
