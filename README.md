@@ -27,16 +27,16 @@ At the moment the structure of the application is:
 |  |  |-- install/          # in progress (pending removal of access_token)
 |  |  
 |  |--api/
-|     | 
 |     |-- overlays/
 |     |     |-- install/    # in progress
+|     |     |-- list/       # done
 |     |     |-- share/      # done
 |     |
 |     |-- github/
 |     |    |-- widgets/     # done
 |     |
 |     |-- logout/           # done
-|     |-- callback/         # in progress (pending removal of access_token)
+|     |-- callback/         # done
 |     |-- top/              # pending
 |     |-- watchtime/        # pending
 </pre>
