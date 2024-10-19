@@ -59,7 +59,7 @@ export default function Share({ _, searchParams }) {
               Once you clicked and authorized the page, you will see your overlay list and choose which one you want to share.
             </h3>
             <div className="main">
-              <Link href={`/ login ? state = ${encoded}`}>
+              <Link href={`/login?state=${encoded}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
