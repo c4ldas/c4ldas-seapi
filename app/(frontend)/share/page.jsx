@@ -9,7 +9,7 @@ import { Dialog, openDialog } from "@/app/components/Dialog";
 import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
 
-import { getOverlays, encodeData } from "@/app/lib/streamelements";
+import { encodeData } from "@/app/lib/streamelements";
 
 export default function Share({ _, searchParams }) {
   const error = searchParams.error;
@@ -27,14 +27,15 @@ export default function Share({ _, searchParams }) {
 
   async function overlayList() {
     if (!cookie["se_id"]) return;
-    const data = { id: cookie["se_id"], access_token: cookie["se_access_token"] };
-    setOverlays((await getOverlays(data)).docs);
+    const request = await fetch(`/api/overlays/list/${cookie["se_tag"]}`, { method: "GET" });
+    const response = await request.json();
+    setOverlays(response.docs);
   }
 
   async function createCode(e) {
     e.preventDefault();
     const data = e.currentTarget.dataset;
-    const request = await fetch(`/api/overlays/share/${data.channelId}/${data.overlayId}`, { method: "POST" });
+    const request = await fetch(`/api/overlays/share/${data.accountId}/${data.overlayId}`, { method: "POST" });
     const response = await request.json();
 
     setCode(response.code);
@@ -79,7 +80,7 @@ export default function Share({ _, searchParams }) {
                 <Linkbox
                   a={true} link="#" onClick={createCode} key={overlay._id}
                   title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")}
-                  data-overlay-id={overlay._id} data-overlay-name={overlay.name} data-channel-id={overlay.channel}
+                  data-overlay-id={overlay._id} data-overlay-name={overlay.name} data-account-id={overlay.channel}
                 />
               ))}
             </div>
