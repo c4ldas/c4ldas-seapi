@@ -216,5 +216,4 @@ async function getOverlayFromDB(request) {
   }
 }
 
-
 export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB, getOverlayFromDB, getTokenDatabase };
