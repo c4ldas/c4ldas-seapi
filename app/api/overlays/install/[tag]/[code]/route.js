@@ -1,5 +1,5 @@
 import { getOverlayFromDB, getTokenDatabase } from "@/app/lib/database";
-import { overlayInstall } from "@/app/lib/streamelements";
+import { getUserData, overlayInstall } from "@/app/lib/streamelements";
 import { NextResponse } from "next/server";
 
 export async function POST(_, request) {
@@ -14,11 +14,23 @@ export async function POST(_, request) {
       overlay_data: overlayData.details
     }
 
-    const response = await overlayInstall(data);
+    const overlayResult = await overlayInstall(data);
+    const userData = await getUserData(tokenDatabase.details.access_token);
+
+    const response = {
+      overlay_id: overlayResult._id,
+      overlay_name: overlayResult.name,
+      overlay_width: overlayResult.settings.width,
+      overlay_height: overlayResult.settings.height,
+      apiToken: userData.apiToken,
+      overlay_url: `https://streamelements.com/overlay/${overlayResult._id}/${userData.apiToken}`,
+      account_id: userData._id
+    }
+
     return NextResponse.json(response, { status: 200 });
 
   } catch (error) {
-    console.log(error);
+    console.log("/install/[tag]/[code] error:", error.message);
     return NextResponse.json({ status: "failed", message: error.message }, { status: 500 });
   }
 }
