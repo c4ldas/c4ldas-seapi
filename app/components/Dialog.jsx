@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function Dialog(props) {
+export function Dialog() {
   return (
     <>
       <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
@@ -45,4 +45,3 @@ async function confirmRemoval() {
     window.location.assign("/");
   }, 3000);
 }
-
