@@ -15,20 +15,49 @@ export default function Install({ _, searchParams }) {
 
   const [cookie, setCookie] = useState({});
   const [code, setCode] = useState();
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [overlayUrl, setOverlayUrl] = useState();
+  const [obsUrl, setObsUrl] = useState();
 
   useEffect(() => {
     setCookie(getCookies());
   }, [cookie.se_id]);
 
-  ////////////////////////////////////////
-  // Install the overlay using the code //
-  ////////////////////////////////////////
+
   async function handleSubmit(e) {
     e.preventDefault();
     const request = await fetch(`/api/overlays/install/${cookie.se_tag}/${code}`, { method: "POST" });
     const data = await request.json();
 
-    console.log(data);
+    // In case the overlay is not installed, show an error popup
+    if (data.statusCode || data.status == "failed") {
+      const dialog = document.querySelector("#installation-failed");
+      dialog.style.marginLeft = "auto";
+      dialog.style.backgroundColor = "rgba(255, 0, 0, 0.4)";
+      dialog.showModal();
+      document.querySelector("#error-code").innerHTML = `${data.statusCode}: ${data.message}<br />&nbsp`;
+      return;
+    }
+
+    setIsInstalled(true);
+    setOverlayUrl(data.overlay_url);
+    setObsUrl(`${data.overlay_url}?layer-name=${data.overlay_name}&layer-width=${data.overlay_width}&layer-height=${data.overlay_height}`);
+  }
+
+  function copyOBSUrl(event) {
+    const dialog = document.getElementById("copy-success");
+    const command = event.target.getAttribute("datacommand");
+    navigator.clipboard.writeText(command);
+
+    // Show the dialog next to the clicked element
+    dialog.style.top = (event.pageY - 70) + "px";
+    dialog.style.marginLeft = (event.pageX) + "px";
+    dialog.show();
+
+    // Close the dialog after 2 seconds
+    setTimeout(() => {
+      dialog.close();
+    }, 2000);
   }
 
 
@@ -62,14 +91,39 @@ export default function Install({ _, searchParams }) {
             <form id="form" onSubmit={handleSubmit} className="form" style={{ paddingTop: "10px" }}>
               <input type="text" id="se-code" className="se-code" placeholder="Type the overlay code here" onChange={e => setCode(e.target.value)} required={true} />
               <input type="submit" id="se-install-overlay" className="se-install-overlay" value="Install overlay" />
-              {/* {isLoading && (<div id="loading" className="loading">Loading...</div>)} */}
             </form>
             <Dialog />
+            <dialog id="installation-failed" className="dialog">
+              <div id="dialog-title">
+                An error has occurred during the installation.<br />
+                If you are sure the code is correct, try to remove the integration and install it again.<br />&nbsp;
+              </div>
+              <div id="error-code"></div>
+              <div id="dialog-buttons">
+                {/* <button id="submit" type="submit" onClick={""}>Confirm</button> */}
+                <button id="cancel" type="reset" onClick={() => document.querySelector("#installation-failed").close()}>Close popup</button>
+              </div>
+            </dialog>
+          </>
+        }
+        {isInstalled &&
+          <>
+            <p className="description" style={{ color: "green" }}>The overlay has been installed successfully in your account!<br />Use the overlay URL to install it on OBS:</p>
+            <p><strong>Overlay URL (click to copy): </strong><span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer" }}>••••••••••••</span></p>
+
+            <p>Alternatively, you can drag the button below to your OBS and it will be added to your scene.</p>
+            <a id="obs-button" className="obs-button" draggable="true"
+              onClick={(e) => e.preventDefault()}
+              onDragStart={e => e.dataTransfer.setData("text/plain", obsUrl)}
+            /* onDragEnd={e => e.target.style.cursor = "grab"} */
+            >Drag me to OBS Studio</a>
+
+            <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
           </>
         }
         {error && <p className="error red">Error: {error}</p>}
       </main>
       <FooterComponent />
-    </div>
+    </div >
   );
 }
