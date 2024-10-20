@@ -61,7 +61,7 @@ export default function Share({ _, searchParams }) {
             <h3 className="subtitle">
               Here you can see all overlays you shared from your account. Check the code or simply remove so it is not shared anymore.
               <br />
-              Don't worry, the overlays you unshare will still exist in your Streamelements account.
+              Don&apos;t worry, the overlays you unshare will still exist in your Streamelements account.
               <br /><br />
               Click on the button below to login with Streamelements:
             </h3>
