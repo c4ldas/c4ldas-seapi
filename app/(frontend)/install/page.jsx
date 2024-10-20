@@ -45,7 +45,7 @@ export default function Install({ _, searchParams }) {
   }
 
   function copyOBSUrl(event) {
-    const dialog = document.getElementById("copy-success");
+    const dialog = document.querySelector("#copy-overlay-success");
     const command = event.target.getAttribute("datacommand");
     navigator.clipboard.writeText(command);
 
@@ -109,16 +109,20 @@ export default function Install({ _, searchParams }) {
         {isInstalled &&
           <>
             <p className="description" style={{ color: "green" }}>The overlay has been installed successfully in your account!<br />Use the overlay URL to install it on OBS:</p>
-            <p><strong>Overlay URL (click to copy): </strong><span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer" }}>••••••••••••</span></p>
+            <p><strong>Overlay URL</strong> (click to copy): <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer" }}>••••••••••••</span></p>
 
             <p>Alternatively, you can drag the button below to your OBS and it will be added to your scene.</p>
-            <a id="obs-button" className="obs-button" draggable="true"
+            <a
+              id="obs-button"
+              className="obs-button"
+              draggable="true"
               onClick={(e) => e.preventDefault()}
               onDragStart={e => e.dataTransfer.setData("text/plain", obsUrl)}
-            /* onDragEnd={e => e.target.style.cursor = "grab"} */
-            >Drag me to OBS Studio</a>
+            >
+              Drag me to OBS Studio
+            </a>
 
-            <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
+            <dialog id="copy-overlay-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Overlay URL copied to clipboard</dialog>
           </>
         }
         {error && <p className="error red">Error: {error}</p>}
