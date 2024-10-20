@@ -59,6 +59,12 @@ export default function Home({ _, searchParams }) {
             link="/install"
             image=""
           />
+          <Linkbox
+            title="My shared overlays / widgets"
+            description="See your shared overlays / widgets, confirm the code or unshare them."
+            link="/show"
+            image=""
+          />
         </div>
         {seError && <p className="error red">Error: {seError}</p>}
         <hr />
