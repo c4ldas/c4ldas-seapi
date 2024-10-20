@@ -150,6 +150,7 @@ function decodeData(data) {
 }
 
 // Generate Tag
+// Pending check if the account ID is already registered. If so, uses the same tag
 async function generateTag() {
   try {
     const tag = crypto.randomUUID().split("-")[4];
