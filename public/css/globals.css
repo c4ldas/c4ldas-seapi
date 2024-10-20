@@ -184,6 +184,21 @@ a:visited {
   /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
 }
 
+.obs-button {
+  font-size: 1rem;
+  background: #7fcc7f;
+  height: 3em;
+  border-radius: 3px;
+  cursor: grab;
+  padding: 10px;
+  box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px;
+  /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
+}
+
+.obs-button:active {
+  cursor: grabbing;
+}
+
 .playername {
   grid-row-start: 1;
   grid-column-start: 1;
@@ -288,7 +303,6 @@ a:visited {
 }
 
 
-
 /* Theme color toggle switch */
 .switch {
   position: relative;
@@ -329,7 +343,6 @@ a:visited {
   transition: var(--transition);
 }
 
-
 .mode {
   width: 18px;
   height: auto;
@@ -339,7 +352,6 @@ a:visited {
   z-index: 1;
   transition: var(--transition);
 }
-
 
 /* the circle in light mode */
 .slider:before {
