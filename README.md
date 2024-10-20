@@ -24,11 +24,11 @@ At the moment the structure of the application is:
 |  |  |-- homepage          # done
 |  |  |-- login/            # done
 |  |  |-- share/            # done
-|  |  |-- install/          # in progress (pending removal of access_token)
+|  |  |-- install/          # done
 |  |  
 |  |--api/
 |     |-- overlays/
-|     |     |-- install/    # in progress
+|     |     |-- install/    # done
 |     |     |-- list/       # done
 |     |     |-- share/      # done
 |     |
