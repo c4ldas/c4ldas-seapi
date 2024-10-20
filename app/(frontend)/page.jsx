@@ -62,7 +62,7 @@ export default function Home({ _, searchParams }) {
           <Linkbox
             title="My shared overlays / widgets"
             description="See your shared overlays / widgets, confirm the code or unshare them."
-            link="/show"
+            link="/show-shared"
             image=""
           />
         </div>
