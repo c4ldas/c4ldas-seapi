@@ -20,16 +20,15 @@ export default function Install({ _, searchParams }) {
     setCookie(getCookies());
   }, [cookie.se_id]);
 
-
-
   ////////////////////////////////////////
   // Install the overlay using the code //
   ////////////////////////////////////////
   async function handleSubmit(e) {
     e.preventDefault();
-    const overlayData = await fetch(`/api/overlays/install/${code}`, { method: "POST" });
-    const data = await overlayData.json();
+    const request = await fetch(`/api/overlays/install/${cookie.se_tag}/${code}`, { method: "POST" });
+    const data = await request.json();
 
+    console.log(data);
   }
 
 
