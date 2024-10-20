@@ -71,9 +71,11 @@ export default function Install({ _, searchParams }) {
           <>
             <h2 className="title">Login with Streamelements</h2>
             <h3 className="subtitle">
-              You can use this page to install the overlay code you received. Click on the button below to login with Streamelements.
+              You can use this page to install an overlay code you received from a friend or colleague.
               <br />
-              Once you clicked and authorized the page, you can type the code to have it installed in your Streamelements account.
+              After logging in, you can type the code to have it installed in your Streamelements account and add to your OBS.
+              <br /><br />
+              Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
               <Link href={`/login?state=${encodeData("overlay_install")}`}>

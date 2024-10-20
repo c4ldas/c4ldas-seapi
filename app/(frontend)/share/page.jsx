@@ -54,9 +54,9 @@ export default function Share({ _, searchParams }) {
           <>
             <h2 className="title">Login with Streamelements</h2>
             <h3 className="subtitle">
-              You can use this page to share your own widgets or overlays with your friends. Click on the button below to login with Streamelements.
-              <br />
-              Once you clicked and authorized the page, you will see your overlay list and choose which one you want to share.
+              You can use this page to share your own widgets or overlays with your friends. After logging in, you will see your overlay list and choose which one(s) you want to share.
+              <br /><br />
+              Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
               <Link href={`/login?state=${encoded}`}>
