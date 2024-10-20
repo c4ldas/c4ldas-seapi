@@ -25,6 +25,7 @@ At the moment the structure of the application is:
 |  |  |-- login/            # done
 |  |  |-- share/            # done
 |  |  |-- install/          # done
+|  |  |-- show/             # in progress
 |  |  
 |  |--api/
 |     |-- overlays/
