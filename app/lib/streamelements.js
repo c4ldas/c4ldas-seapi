@@ -3,7 +3,7 @@ const SE_CLIENT_SECRET = process.env.SE_CLIENT_SECRET;
 const SE_REDIRECT_URI = process.env.SE_REDIRECT_URI;
 
 // Get access_token from Streamelements
-async function getTokenCode(code) {
+export async function getTokenCode(code) {
   try {
     const request = await fetch("https://api.streamelements.com/oauth2/token", {
       method: "POST",
@@ -25,7 +25,7 @@ async function getTokenCode(code) {
 }
 
 // Get data from Streamelements user
-async function getUserData(accessToken) {
+export async function getUserData(accessToken) {
   try {
     const request = await fetch("https://api.streamelements.com/kappa/v2/channels/me", {
       method: "GET",
@@ -45,7 +45,7 @@ async function getUserData(accessToken) {
 }
 
 // Revoke token
-async function revokeToken(data) {
+export async function revokeToken(data) {
   try {
     const request = await fetch(`https://api.streamelements.com/oauth2/revoke?client_id=${process.env.SE_CLIENT_ID}&token=${data.access_token}`)
     if (!request.ok) {
@@ -60,7 +60,7 @@ async function revokeToken(data) {
 }
 
 // Overlay List
-async function getOverlays(data) {
+export async function getOverlays(data) {
   try {
     const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.account_id}`, {
       "method": "GET",
@@ -79,7 +79,7 @@ async function getOverlays(data) {
 }
 
 // Overlay data
-async function getOverlayInfo(data) {
+export async function getOverlayInfo(data) {
   try {
     const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.account_id}/${data.overlay_id}`, {
       "method": "GET",
@@ -98,7 +98,7 @@ async function getOverlayInfo(data) {
 }
 
 // Overlay installation - Add overlay to SE destination account
-async function overlayInstall(data) {
+export async function overlayInstall(data) {
   try {
     const request = await fetch(`https://api.streamelements.com/kappa/v2/overlays/${data.account_id}`, {
       "method": "POST",
@@ -119,7 +119,7 @@ async function overlayInstall(data) {
 }
 
 // Encode state for token request
-function encodeData(data) {
+export function encodeData(data) {
   try {
     const dateNow = Date.now();
     const encoded = btoa(`${data}_${dateNow}`);
@@ -134,7 +134,7 @@ function encodeData(data) {
 }
 
 // Decode state from token request
-function decodeData(data) {
+export function decodeData(data) {
   try {
     // Re-add the URL unsafe characters
     let urlDecoded = data.replace(/-/g, '+').replace(/_/g, '/');
@@ -151,7 +151,7 @@ function decodeData(data) {
 
 // Generate Tag
 // Pending check if the account ID is already registered. If so, uses the same tag
-async function generateTag() {
+export async function generateTag() {
   try {
     const tag = crypto.randomUUID().split("-")[4];
     return tag;
@@ -164,13 +164,12 @@ async function generateTag() {
 
 
 // Get top leaderboard users based on account ID
-async function getTopLeaderboard(accountId, amount = 1, points) {
+export async function getTopLeaderboard(accountId, amount = 1, points) {
   try {
     const request = await fetch(`https://api.streamelements.com/kappa/v2/points/${accountId}/top?limit=${amount}&offset=0`, {
       "method": "GET",
       "headers": {
         "Accept": "application/json",
-        /* "Content-Type": "application/json" */
       }
     });
 
@@ -186,8 +185,6 @@ async function getTopLeaderboard(accountId, amount = 1, points) {
       }
     })
     return totalUsers;
-    // const topUsernames = totalUsers.join(', ')
-    // return topUsernames
 
   } catch (error) {
     console.log("getTopLeaderboard:", error.message);
@@ -197,13 +194,12 @@ async function getTopLeaderboard(accountId, amount = 1, points) {
 
 
 // Get Account ID from username
-async function getAccountInfo(username) {
+export async function getAccountInfo(username) {
   try {
     const request = await fetch(`https://api.streamelements.com/kappa/v2/channels/${username}`, {
       "method": "GET",
       "headers": {
         "Accept": "application/json",
-        /* "Content-Type": "application/json" */
       }
     });
     const response = await request.json();
@@ -215,5 +211,3 @@ async function getAccountInfo(username) {
     throw { status: "failed", message: error.message };
   }
 }
-
-export { getTokenCode, getUserData, revokeToken, getOverlays, getOverlayInfo, overlayInstall, encodeData, decodeData, generateTag, getTopLeaderboard, getAccountInfo };
