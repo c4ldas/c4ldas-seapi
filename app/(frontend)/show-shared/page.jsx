@@ -21,7 +21,6 @@ export default function ShowShared({ _, searchParams }) {
   const [sharedOverlays, setSharedOverlays] = useState([]);
   const [overlayToDelete, setOverlayToDelete] = useState({});
   const [encoded, setEncoded] = useState("");
-  const [code, setCode] = useState("");
 
   useEffect(() => {
     setEncoded(encodeData("overlay_show-shared"));
@@ -108,7 +107,7 @@ export default function ShowShared({ _, searchParams }) {
                 </thead>
                 <tbody>
                   {sharedOverlays && sharedOverlays.map((overlay) => (
-                    <tr>
+                    <tr key={overlay.code}>
                       <th style={{ padding: "0.4rem" }}>{overlay.name}</th>
                       <td>{overlay.code}</td>
                       <td><a href="#" data-overlay-code={overlay.code} data-overlay-name={overlay.name} data-overlay-image={overlay.image} onClick={e => confirmDialog(e)}>🗑️</a></td>
