@@ -21,23 +21,25 @@ At the moment the structure of the application is:
 |  |--lib/
 |  |
 |  |--(frontend)/
-|  |  |-- homepage          # done
-|  |  |-- login/            # done
-|  |  |-- share/            # done
-|  |  |-- install/          # done
-|  |  |-- show/             # in progress
+|  |  |-- homepage            # done
+|  |  |-- login/              # done
+|  |  |-- share/              # done
+|  |  |-- install/            # done
+|  |  |-- show-shared/        # done
 |  |  
 |  |--api/
 |     |-- overlays/
-|     |     |-- install/    # done
-|     |     |-- list/       # done
-|     |     |-- share/      # done
+|     |     |-- install/      # done
+|     |     |-- list/         # done
+|     |     |-- share/        # done
+|     |     |-- show-shared/  # done
+|     |     |-- unshare/      # done
 |     |
 |     |-- github/
-|     |    |-- widgets/     # done
-|     |
-|     |-- logout/           # done
-|     |-- callback/         # done
-|     |-- top/              # pending
-|     |-- watchtime/        # pending
+|     |    |-- widgets/       # done
+|     | 
+|     |-- logout/             # done
+|     |-- callback/           # done
+|     |-- top/                # pending
+|     |-- watchtime/          # pending
 </pre>
