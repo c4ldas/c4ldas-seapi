@@ -1,3 +1,15 @@
-export async function GET(request) {
-  return NextResponse.json({ status: "pending", message: "In development, check back later" });
+import { getSharedOverlaysFromDB, getTokenDatabase } from "@/app/lib/database";
+import { NextResponse } from "next/server";
+
+export async function GET(_, request) {
+  try {
+    const getAccountId = await getTokenDatabase(request.params); // account_id, access_token, refresh_token
+    const overlayList = await getSharedOverlaysFromDB(getAccountId.details); // code, name - request.account_id
+
+    return NextResponse.json(overlayList.details, { status: 200 });
+
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ status: "failed", message: "Failed to get overlays, please try again later" });
+  }
 }
