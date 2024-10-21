@@ -26,7 +26,7 @@ At the moment the structure of the application is:
 |  |  |-- share/              # done
 |  |  |-- install/            # done
 |  |  |-- show-shared/        # done
-|  |  |-- leaderboard/        # pending
+|  |  |-- leaderboard/        # in progress
 |  |  
 |  |--api/
 |     |-- overlays/
