@@ -162,11 +162,28 @@ export async function generateTag() {
   }
 }
 
+// Get Account ID from username
+export async function getAccountInfo(username) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/channels/${username}`, {
+      "method": "GET",
+      "headers": {
+        "Accept": "application/json",
+      }
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log("getAccountInfo:", error.message);
+    throw { status: "failed", message: error.message };
+  }
+}
 
 // Get top leaderboard users based on account ID
-export async function getTopLeaderboard(accountId, amount = 1, points) {
+export async function getTopLeaderboard(data) {
   try {
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/points/${accountId}/top?limit=${amount}&offset=0`, {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/points/${data.accountId}/top?limit=${data.amount}&offset=0`, {
       "method": "GET",
       "headers": {
         "Accept": "application/json",
@@ -178,7 +195,7 @@ export async function getTopLeaderboard(accountId, amount = 1, points) {
     const totalUsers = [];
 
     usersArray.forEach((element, index) => {
-      if (points == 'true') {
+      if (data.points == "true") {
         totalUsers.push(`${index + 1}. ${element.username} (${element.points})`);
       } else {
         totalUsers.push(`${element.username}`);
@@ -192,22 +209,57 @@ export async function getTopLeaderboard(accountId, amount = 1, points) {
   }
 }
 
-
-// Get Account ID from username
-export async function getAccountInfo(username) {
+// Get top watchtime users based on account ID
+export async function getTopWatchtime(data) {
   try {
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/channels/${username}`, {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/points/${data.accountId}/watchtime?limit=${data.amount}&offset=0`, {
       "method": "GET",
       "headers": {
-        "Accept": "application/json",
+        "Accept": "application/json"
       }
     });
     const response = await request.json();
-    console.log("getAccountInfo:", response);
-    return response;
+    const usersArray = response.users;
+    const totalUsers = [];
+
+    usersArray.forEach((element, index) => {
+      if (data.minutes == "true") {
+        const convertedMinutes = calculateTime(element.minutes)
+        totalUsers.push(`${index + 1}. ${element.username} (${convertedMinutes})`)
+      } else {
+        totalUsers.push(`${element.username}`)
+      }
+    })
+
+    return totalUsers;
 
   } catch (error) {
-    console.log("getAccountInfo:", error.message);
+    console.log("getTopWatchtime:", error.message);
     throw { status: "failed", message: error.message };
   }
+}
+
+// Convert minutes in days, hours and minutes
+function calculateTime(minutes) {
+  const days = Math.floor(minutes / (60 * 24));
+  const hours = Math.floor((minutes % (60 * 24)) / 60);
+  const remainingMinutes = minutes % 60;
+
+  let result = '';
+  if (days > 0) {
+    result += `${days}d`;
+  }
+  if (hours > 0) {
+    if (result !== '') {
+      result += ', ';
+    }
+    result += `${hours}h`;
+  }
+  if (remainingMinutes > 0) {
+    if (result !== '') {
+      result += ', ';
+    }
+    result += `${remainingMinutes}m`;
+  }
+  return result;
 }
