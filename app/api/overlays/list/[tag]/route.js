@@ -12,7 +12,7 @@ export async function GET(_, request) {
     }
 
     const response = await getOverlays(data);
-    return NextResponse.json(response);
+    return NextResponse.json(response, { status: 200 });
 
   } catch (error) {
     console.log(error);
