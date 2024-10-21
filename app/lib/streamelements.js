@@ -162,4 +162,58 @@ async function generateTag() {
   }
 }
 
-export { getTokenCode, getUserData, revokeToken, getOverlays, getOverlayInfo, overlayInstall, encodeData, decodeData, generateTag };
+
+// Get top leaderboard users based on account ID
+async function getTopLeaderboard(accountId, amount = 1, points) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/points/${accountId}/top?limit=${amount}&offset=0`, {
+      "method": "GET",
+      "headers": {
+        "Accept": "application/json",
+        /* "Content-Type": "application/json" */
+      }
+    });
+
+    const response = await request.json();
+    const usersArray = await response.users;
+    const totalUsers = [];
+
+    usersArray.forEach((element, index) => {
+      if (points == 'true') {
+        totalUsers.push(`${index + 1}. ${element.username} (${element.points})`);
+      } else {
+        totalUsers.push(`${element.username}`);
+      }
+    })
+    return totalUsers;
+    // const topUsernames = totalUsers.join(', ')
+    // return topUsernames
+
+  } catch (error) {
+    console.log("getTopLeaderboard:", error.message);
+    throw { status: "failed", message: error.message };
+  }
+}
+
+
+// Get Account ID from username
+async function getAccountInfo(username) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/channels/${username}`, {
+      "method": "GET",
+      "headers": {
+        "Accept": "application/json",
+        /* "Content-Type": "application/json" */
+      }
+    });
+    const response = await request.json();
+    console.log("getAccountInfo:", response);
+    return response;
+
+  } catch (error) {
+    console.log("getAccountInfo:", error.message);
+    throw { status: "failed", message: error.message };
+  }
+}
+
+export { getTokenCode, getUserData, revokeToken, getOverlays, getOverlayInfo, overlayInstall, encodeData, decodeData, generateTag, getTopLeaderboard, getAccountInfo };
