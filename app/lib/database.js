@@ -148,7 +148,7 @@ async function seRemoveDBIntegration(request) {
   }
 }
 
-async function overlaySaveToDB(data) {
+async function saveOverlayToDB(data) {
   let client;
 
   try {
@@ -167,7 +167,7 @@ async function overlaySaveToDB(data) {
     return true;
 
   } catch (error) {
-    console.log("overlaySaveToDB(): ", error);
+    console.log("saveOverlayToDB(): ", error);
     return false;
 
   } finally {
@@ -216,4 +216,91 @@ async function getOverlayFromDB(request) {
   }
 }
 
-export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, overlaySaveToDB, getOverlayFromDB, getTokenDatabase };
+async function getSharedOverlaysFromDB(request) {
+  let client;
+
+  try {
+    const { code, overlay_data, account_id, name } = request;
+
+    const selectQuery = {
+      text: `SELECT code, name, data->>'preview' AS image FROM overlays WHERE account_id = $1`,
+      values: [account_id],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(selectQuery);
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: rows,
+      status: 200
+    }
+
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: 500
+    }
+    return data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
+async function removeOverlayFromDB(request) {
+  let client;
+
+  try {
+    const { code, overlay_data, account_id, name } = request;
+
+    const deleteQuery = {
+      text: `DELETE FROM overlays WHERE code = $1 AND account_id = $2`,
+      values: [code, account_id],
+    }
+
+    client = await connectToDatabase();
+    const { rows, rowCount } = await client.query(deleteQuery);
+
+    if (rowCount == 0) {
+      const error = new Error();
+      error.code = 404;
+      error.message = "Overlay not found";
+      error.routine = "removeOverlayFromDB()";
+      throw error;
+    }
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: `Deleted ${rowCount} row(s)`,
+      status: 200
+    }
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: code
+    }
+    throw data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
+export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, saveOverlayToDB, getOverlayFromDB, getTokenDatabase, getSharedOverlaysFromDB, removeOverlayFromDB };
