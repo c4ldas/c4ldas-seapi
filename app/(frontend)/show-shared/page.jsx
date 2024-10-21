@@ -14,39 +14,53 @@ import FooterComponent from "@/app/components/Footer";
 
 import { encodeData } from "@/app/lib/streamelements";
 
-export default function Share({ _, searchParams }) {
+export default function ShowShared({ _, searchParams }) {
   const error = searchParams.error;
 
   const [cookie, setCookie] = useState({});
-  const [overlays, setOverlays] = useState([]);
+  const [sharedOverlays, setSharedOverlays] = useState([]);
+  const [overlayToDelete, setOverlayToDelete] = useState({});
   const [encoded, setEncoded] = useState("");
   const [code, setCode] = useState("");
 
   useEffect(() => {
-    setEncoded(encodeData("overlay_show"));
+    setEncoded(encodeData("overlay_show-shared"));
     setCookie(getCookies());
-    overlayShow();
+    overlayShowShared();
   }, [cookie.se_id]);
 
-  async function overlayShow() {
+  async function overlayShowShared() {
     if (!cookie["se_id"]) return;
-    /* 
     const request = await fetch(`/api/overlays/show-shared/${cookie["se_tag"]}`, { method: "GET" });
     const response = await request.json();
-    setOverlays(response.docs); 
-    */
+
+    setSharedOverlays(response);
   }
 
-  async function createCode(e) {
+  async function confirmDialog(e) {
     e.preventDefault();
     const data = e.currentTarget.dataset;
-    const request = await fetch(`/api/overlays/share/${cookie["se_tag"]}/${data.overlayId}`, { method: "POST" });
-    const response = await request.json();
 
-    setCode(response.code);
-    const dialog = document.querySelector("#code-generated");
+    const dialog = document.querySelector("#unshare-overlay");
+    document.querySelector("#dialog-overlay-name").innerHTML = data.overlayName;
+    document.querySelector("#dialog-overlay-code").innerHTML = data.overlayCode;
+
+    setOverlayToDelete({ overlay_code: data.overlayCode });
+
     dialog.style.marginLeft = "auto";
     dialog.showModal();
+  }
+
+  async function unshareOverlay(e) {
+    e.preventDefault();
+    const dialog = document.querySelector("#unshare-overlay");
+    await fetch(`/api/overlays/unshare/${cookie["se_tag"]}`, {
+      method: "POST",
+      body: JSON.stringify({ code: overlayToDelete.overlay_code }),
+    });
+
+    overlayShowShared();
+    dialog.close();
   }
 
   return (
@@ -81,27 +95,43 @@ export default function Share({ _, searchParams }) {
             <h3 className="subtitle">
               Here you can see all overlays you have shared. Check the code again or simply remove the overlay so it is not shared anymore:
             </h3>
-            <div class="red">This feature is still in development, please check back later</div>
-            {/* <div className="main" id="overlay-list">
-              {overlays && overlays.map((overlay) => (
-                <Linkbox
-                  a={true} link="#" onClick={createCode} key={overlay._id}
-                  title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")}
-                  data-overlay-id={overlay._id} data-overlay-name={overlay.name} data-account-id={overlay.channel}
-                />
-              ))}
+            <div className="main" id="overlay-list">
+
+              <table>
+                <thead>
+                  <tr>
+                    <th style={{ padding: "0.4rem" }}>Name</th>
+                    <th style={{ padding: "0.4rem" }}>Code</th>
+                    <th style={{ padding: "0.4rem" }}>Delete</th>
+                  </tr>
+                  {sharedOverlays < 1 && <tr>No shared overlays</tr>}
+                </thead>
+                <tbody>
+                  {sharedOverlays && sharedOverlays.map((overlay) => (
+                    <tr>
+                      <th style={{ padding: "0.4rem" }}>{overlay.name}</th>
+                      <td>{overlay.code}</td>
+                      <td><a href="#" data-overlay-code={overlay.code} data-overlay-name={overlay.name} data-overlay-image={overlay.image} onClick={e => confirmDialog(e)}>🗑️</a></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
             </div>
             <Dialog />
-            <dialog id="code-generated" >
-              <h3 id="dialog-title">
-                Code generated successfully!<br />
-                Code: {code}
-              </h3>
-              <div id="dialog-copy">
-                <button id="copy" onClick={() => { navigator.clipboard.writeText(code) }}>Copy code</button>
-                <button id="cancel" onClick={() => { navigator.clipboard.writeText(code); document.querySelector("#code-generated").close() }}>Copy code and close</button>
+            <dialog id="unshare-overlay" style={{ backgroundColor: "rgba(255,0,0,0.3)" }}>
+              <h3 id="dialog-title">Are you sure you want to unshare this overlay?</h3>
+              <div>
+                <span><strong>Overlay name: </strong></span> <span id="dialog-overlay-name"></span>
               </div>
-            </dialog> */}
+              <div>
+                <span><strong>Overlay code: </strong></span> <span id="dialog-overlay-code"></span>
+              </div><br />
+              <div id="dialog-copy">
+                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="copy" onClick={unshareOverlay}>Sure, unshare it!</button>
+                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="cancel" onClick={() => document.querySelector("#unshare-overlay").close()}>Cancel</button>
+              </div>
+            </dialog>
           </>
         }
         {error && <p className="error red">Error: {error}</p>}
