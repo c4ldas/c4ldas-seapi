@@ -18,7 +18,7 @@ At the moment the structure of the application is:
 |
 |- app/
 |  |--components/
-|  |--lib/
+|  |--lib/                    # pending (check if the account ID is already registered. If so, uses the same tag)
 |  |
 |  |--(frontend)/
 |  |  |-- homepage            # done
@@ -26,6 +26,7 @@ At the moment the structure of the application is:
 |  |  |-- share/              # done
 |  |  |-- install/            # done
 |  |  |-- show-shared/        # done
+|  |  |-- leaderboard/        # pending
 |  |  
 |  |--api/
 |     |-- overlays/
