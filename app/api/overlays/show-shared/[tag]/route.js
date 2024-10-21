@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(_, request) {
   try {
-    const getAccountId = await getTokenDatabase(request.params); // account_id, access_token, refresh_token
-    const overlayList = await getSharedOverlaysFromDB(getAccountId.details); // code, name - request.account_id
+    const getAccountId = await getTokenDatabase(request.params);
+    const overlayList = await getSharedOverlaysFromDB(getAccountId.details);
 
     return NextResponse.json(overlayList.details, { status: 200 });
 
