@@ -40,6 +40,6 @@ At the moment the structure of the application is:
 |     | 
 |     |-- logout/             # done
 |     |-- callback/           # done
-|     |-- top/                # pending
-|     |-- watchtime/          # pending
+|     |-- top/                # done
+|     |-- watchtime/          # done
 </pre>
