@@ -31,5 +31,5 @@ export async function POST(_, request) {
 }
 
 export async function GET(request) {
-  return NextResponse.json({ status: "failed", message: "Method not allowed" });
+  return NextResponse.json({ status: "failed", message: "Method not allowed" }, { status: 405 });
 }
