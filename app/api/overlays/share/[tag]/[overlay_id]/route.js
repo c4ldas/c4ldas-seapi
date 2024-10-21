@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getTokenDatabase, overlaySaveToDB } from "@/app/lib/database";
+import { getTokenDatabase, saveOverlayToDB } from "@/app/lib/database";
 import { getOverlayInfo } from "@/app/lib/streamelements";
 
 export async function POST(_, request) {
@@ -20,7 +20,7 @@ export async function POST(_, request) {
       name: response.name
     }
 
-    const saved = await overlaySaveToDB(result);
+    const saved = await saveOverlayToDB(result);
     if (!saved) return NextResponse.json({ status: "failed", message: "Failed to save overlay to database, please try again later" });
     return NextResponse.json({ status: "success", message: "Overlay saved successfully", saved: saved, code: result.code });
 
