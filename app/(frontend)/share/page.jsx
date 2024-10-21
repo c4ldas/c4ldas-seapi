@@ -90,8 +90,8 @@ export default function Share({ _, searchParams }) {
                 Code: {code}
               </h3>
               <div id="dialog-copy">
-                <button id="copy" onClick={() => { navigator.clipboard.writeText(code) }}>Copy code</button>
-                <button id="cancel" onClick={() => { navigator.clipboard.writeText(code); document.querySelector("#code-generated").close() }}>Copy code and close</button>
+                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="copy" onClick={() => { navigator.clipboard.writeText(code) }}>Copy code</button>
+                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="cancel" onClick={() => { navigator.clipboard.writeText(code); document.querySelector("#code-generated").close() }}>Copy code and close</button>
               </div>
             </dialog>
           </>
