@@ -1,4 +1,11 @@
 /* Page size configuration */
+
+@media (max-width: 800px) {
+  .header-links {
+    display: none;
+  }
+}
+
 /* Devices with at least 800px will fit 2 boxes per row */
 @media (min-width: 800px) {
   .link-box {
@@ -14,6 +21,10 @@
     gap: 20px;
     padding: 20px;
   }
+
+  .header-links {
+    display: none;
+  }
 }
 
 /* Devices with at least 1200px will fit 3 boxes per row */
@@ -25,5 +36,18 @@
   .container {
     width: 65%;
     margin: auto;
+  }
+
+  .header-links {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    margin: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .header-links div {
+    padding: 0.5rem;
   }
 }
