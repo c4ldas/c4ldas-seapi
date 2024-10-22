@@ -24,6 +24,10 @@
   --popup-color: black;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 :root {
   --transition: .4s;
 }
