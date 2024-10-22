@@ -3,7 +3,7 @@
 import Header from "@/app/components/Header"
 import FooterComponent from "@/app/components/Footer"
 import { useState } from "react";
-import { getAccountInfo } from "@/app/lib/streamelements";
+import { getAccountInfo, getLeaderboardToDownload } from "@/app/lib/streamelements";
 
 export default function Leaderboard() {
 
@@ -11,17 +11,47 @@ export default function Leaderboard() {
   const [radio, setRadio] = useState("");
   const [amount, setAmount] = useState("");
   const [offset, setOffset] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
+    const accountInfo = await getAccountInfo(username);
     const data = {
       username: username,
+      accountId: accountInfo._id,
       radio: radio,
       amount: amount,
       offset: offset
     }
-    leaderboardDownload(data);
+
+    const response = await getLeaderboardToDownload(data);
+
+    const title = Object.keys(response.users[0]).toString();
+    const lineBreak = '\r\n';
+    let text = title + lineBreak;
+
+    response.users.forEach((element) => text += Object.values(element).toString() + lineBreak)
+
+    // Create a Blob object with the CSV content
+    const blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
+
+    // Create a URL for the Blob and a link element for downloading
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = 'leaderboard.csv';
+
+    // Add the link to the document body and trigger a click event to download
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up by revoking the Blob URL
+    window.URL.revokeObjectURL(url);
+
+    setIsLoading(false);
   }
 
   return (
@@ -30,9 +60,14 @@ export default function Leaderboard() {
       <main className="main block">
         <h1 className="title">Streamelements Leaderboard CSV download</h1>
         <hr />
-        <p className="red" style={{ fontStyle: "italic" }}>This page is still in development. Please check back later.</p>
+        <h2 className="title">Download CSV file</h2>
+        <h3 className="subtitle">
+          Here you can download the Streamelements leaderboard in CSV format.
+          <br />
+          Just type the Twitch channel name below, choose one of the options and click on Download button.
+        </h3>
         <form id="form" onSubmit={handleSubmit} className="csv-leaderboard" style={{ paddingTop: "10px" }}>
-          <input type="text" id="user" className="se-code" placeholder="Type your username here" onChange={e => setUsername(e.target.value)} required={true} />
+          <input type="text" id="user" className="se-code" placeholder="Twitch Channel name" onChange={e => setUsername(e.target.value)} required={true} />
           <br></br>
           <div style={{ margin: "0.5rem", fontSize: "1.1rem" }}>
             <input style={{ marginTop: "0.6rem" }} id="top" type="radio" name="radio" value="top" onClick={e => setRadio(e.target.value)} required={true} />
@@ -48,77 +83,9 @@ export default function Leaderboard() {
           </div>
           <input type="submit" id="se-install-overlay" className="se-install-overlay" value="Download CSV" />
         </form>
+        {isLoading && <div className="loading">Loading...</div>}
       </main>
       <FooterComponent />
     </div >
   )
 }
-
-async function leaderboardDownload(data) {
-
-  try {
-
-    console.log(data.username);
-    const accountId = await getAccountInfo(data.username);
-    const request = await fetch(`https://api.streamelements.com/kappa/v2/points/${accountId._id}/${data.radio}?offset=${data.offset}&limit=${data.amount}`);
-    const response = await request.json();
-    console.log(response);
-
-
-  } catch (error) {
-    console.log("leaderboardDownload():", error);
-    throw { status: "failed", message: error.message };
-  }
-}
-
-/*
-  // Generating file
-  errorMessage.innerText = 'Generating CSV file...'
-  errorMessage.style.color = 'blue'
-  errorMessage.style.display = 'block'
-
-  const accountIdFetch = await fetch(`https://api.streamelements.com/kappa/v2/channels/${username.value}`);
-  const accountIdResponse = await accountIdFetch.json();
-  const accountId = accountIdResponse._id;
-
-  if (!accountId) {
-    errorMessage.innerText = 'User not found!'
-    errorMessage.style.color = 'red'
-    errorMessage.style.display = 'block'
-  }
-
-  const leaderboardFetch = await fetch(`https://api.streamelements.com/kappa/v2/points/${accountId}/${radio.value}?offset=${offset}&limit=${limit}`);
-
-
-
-  const leaderboardResponse = await leaderboardFetch.json();
-  const title = Object.keys(leaderboardResponse.users[0]).toString();
-  const lineBreak = '\r\n';
-  var text = title + lineBreak;
-
-  for (x in leaderboardResponse.users) {
-    line = Object.values(leaderboardResponse.users[x]).toString();
-    text += line + lineBreak;
-  }
-
-
-
-  // Create a Blob object with the CSV content
-  const blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
-
-  // Create a URL for the Blob
-  const url = window.URL.createObjectURL(blob);
-
-  // Create a link element for downloading
-  const a = document.createElement('a');
-  a.style.display = 'none';
-  a.href = url;
-  a.download = 'leaderboard.csv';
-
-  // Add the link to the document body and trigger a click event to download
-  document.body.appendChild(a);
-  a.click();
-
-  // Clean up by revoking the Blob URL
-  window.URL.revokeObjectURL(url);
-  */
