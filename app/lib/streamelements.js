@@ -180,6 +180,26 @@ export async function getAccountInfo(username) {
   }
 }
 
+// Leaderboard CSV download
+export async function getLeaderboardToDownload(data) {
+  try {
+    const streamelementsUrl = `https://api.streamelements.com/kappa/v2/points/${data.accountId}/${data.radio}?` +
+      new URLSearchParams({
+        offset: data.radio == "top" ? data.offset : 0,
+        limit: data.radio == "top" ? data.amount : 999999
+      });
+
+    const request = await fetch(streamelementsUrl);
+    const response = await request.json();
+
+    return response;
+
+  } catch (error) {
+    console.log("leaderboardDownload():", error);
+    throw { status: "failed", message: error.message };
+  }
+}
+
 // Get top leaderboard users based on account ID
 export async function getTopLeaderboard(data) {
   try {
