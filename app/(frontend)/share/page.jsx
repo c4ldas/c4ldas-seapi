@@ -78,7 +78,8 @@ export default function Share({ _, searchParams }) {
               {overlays && overlays.map((overlay) => (
                 <Linkbox
                   a={true} link="#" onClick={createCode} key={overlay._id}
-                  title={`${overlay.name}`} image={overlay.preview.replaceAll(" ", "%20")}
+                  title={`${overlay.name}`} image={overlay.preview ? overlay.preview.replaceAll(" ", "%20") : ""}
+                  /* image={overlay.preview.replaceAll(" ", "%20") || ""} */
                   data-overlay-id={overlay._id} data-overlay-name={overlay.name} data-account-id={overlay.channel}
                 />
               ))}
