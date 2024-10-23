@@ -11,7 +11,7 @@
 <h2>Webpage</h2>
 
 <p>The project main URL is: </p>
-<p><a href="https://seapi.c4ldas.com.br">https://seapi.c4ldas.com.br</a></p>
+<p><a href="https://seapi.c4ldas.com.br" target="_blank">https://seapi.c4ldas.com.br</a></p>
 
 <h2>Code and hosting</h2>
 
