@@ -1,6 +1,6 @@
 <h2>Getting Started</h2>
 
-<p>This project aims to have an easy way to share and install Streamelements overlays in your Twitch channel using a simple code. Also, here I am going to share somw widgets that I created so the community can use it on their stream.</p>
+<p>This project aims to have an easy way to share and install Streamelements overlays in your Twitch channel using a simple code. Also, here I am going to share some widgets that I created so the community can use it on their channels.</p>
 
 <p>Most of the overlays are written for Twitch, but nothing is stopping you from using them on other platforms (unless they are specifically designed for it).</p>
 
