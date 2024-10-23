@@ -3,16 +3,13 @@
 import Header from "@/app/components/Header";
 import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
-// import Image from "next/image";
 
 export default function Home({ _, searchParams }) {
 
   const [widgets, setWidgets] = useState(null);
   const [error, setError] = useState(null);
-
 
   const seError = searchParams.error;
 
