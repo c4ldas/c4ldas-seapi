@@ -9,7 +9,6 @@ import Link from "next/link";
 
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
-import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
 
 import { encodeData } from "@/app/lib/streamelements";
