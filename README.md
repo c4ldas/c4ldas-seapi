@@ -9,9 +9,9 @@
 <p>If you find any issues on the page or something is not working as expected, please let me know. Also, if you have any idea or suggestions feel free to contact me.</p>
 
 <p>You can find instructions on how to use it below:</p>
-<a href="https://github.com/c4ldas/c4ldas-seapi/blob/master/README.md#if-you-want-to-share-an-overlay-you-created-perform-the-steps-below">How to share an overlay</a>
+<a href="#if-you-want-to-share-an-overlay-you-created-perform-the-steps-below">How to share an overlay</a>
 <br /><br />
-<a href="https://github.com/c4ldas/c4ldas-seapi/blob/master/README.md#if-you-want-to-install-an-overlay">How to install an overlay</a>
+<a href="#if-you-want-to-install-an-overlay">How to install an overlay</a>
 <br /><br />
 <a href="#if-you-want-to-see-which-overlays-you-have-shared">How to check the overlays I shared / how to unshare them</a>
 
