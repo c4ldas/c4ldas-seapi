@@ -21,7 +21,8 @@
 <p><a href="https://seapi.c4ldas.com.br" target="_blank">https://seapi.c4ldas.com.br</a></p>
 
 <h2>How to use the website</h2>
-<h3>If you want to share an overlay you created:</h3>
+
+<h3>- If you want to share an overlay you created:</h3>
 <ul>
 <li>Go to https://seapi.c4ldas.com.br and click on <code>Share overlay / widget</code>;</li> <br />
 <li>Click on <code>Login with Streamelements</code> and authorize the application to have access to your overlays;</li><br />
@@ -29,7 +30,7 @@
 <li>Copy that code and send to your friend.</li><br />
 </ul>
 
-<h3>If you want to install an overlay:</h3>
+<h3>- If you want to install an overlay:</h3>
 <ul>
   <li>Go to https://seapi.c4ldas.com.br and click on <code>Install overlay / widget</code>;</li><br />
   <li>Click on <code>Login with Streamelements</code> and authorize the application to install overlays on your account;</li><br />
@@ -38,7 +39,7 @@
   <li>Alternatively, you can just drag the button called <code>Drag me to OBS Studio</code> to your OBS and the overlay will be added directly.</li><br />
 </ul>
 
-<h3>If you want to see which overlays you have shared:</h3>
+<h3>- If you want to see which overlays you have shared:</h3>
 <ul>
   <li>Go to https://seapi.c4ldas.com.br and click on <code>My shared overlay / widgets</code>;</li><br />
   <li>If you haven't connected, click <code>Login with Streamelements</code> and authorize the application;</li><br />
