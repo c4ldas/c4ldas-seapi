@@ -13,7 +13,7 @@
 <br /><br />
 <a href="https://github.com/c4ldas/c4ldas-seapi/blob/master/README.md#if-you-want-to-install-an-overlay">How to install an overlay</a>
 <br /><br />
-<a href="https://github.com/c4ldas/c4ldas-seapi/blob/master/README.md#if-you-want-to-see-which-overlays-you-have-shared">How to check the overlays I shared / how to unshare them</a>
+<a href="#if-you-want-to-see-which-overlays-you-have-shared">How to check the overlays I shared / how to unshare them</a>
 
 <h2>Webpage</h2>
 
