@@ -9,6 +9,7 @@ import { encodeData } from "@/app/lib/streamelements";
 import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import Link from "next/link";
+import confetti from "canvas-confetti";
 
 export default function Install({ _, searchParams }) {
   const error = searchParams.error;
@@ -42,6 +43,11 @@ export default function Install({ _, searchParams }) {
     setIsInstalled(true);
     setOverlayUrl(data.overlay_url);
     setObsUrl(`${data.overlay_url}?layer-name=${data.overlay_name}&layer-width=${data.overlay_width}&layer-height=${data.overlay_height}`);
+
+    confetti({
+      angle: 110,
+      origin: { x: 0.4 }
+    })
   }
 
   function copyOBSUrl(event) {
@@ -111,7 +117,10 @@ export default function Install({ _, searchParams }) {
         {isInstalled &&
           <>
             <p className="description" style={{ color: "green" }}>The overlay has been installed successfully in your account!<br />Use the overlay URL to install it on OBS:</p>
-            <p><strong>Overlay URL</strong> (click to copy): <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer", fontStyle: "italic" }}>https://streamelements.com/overlay/••••••••••••</span></p>
+            <p><strong>Overlay URL</strong> (click to copy):
+              <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer", fontStyle: "italic" }}>
+                &nbsp;https://streamelements.com/overlay/••••••••••••
+              </span></p>
 
             <p>Alternatively, you can drag the button below to your OBS and it will be added to your scene.</p>
             <a
