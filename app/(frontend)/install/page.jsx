@@ -119,7 +119,7 @@ export default function Install({ _, searchParams }) {
               className="obs-button"
               draggable="true"
               onClick={(e) => e.preventDefault()}
-              onDragStart={e => e.dataTransfer.setData("text/plain", obsUrl)}
+              onDragStart={e => e.dataTransfer.setData("text/uri-list", obsUrl)}
             >
               Drag me to OBS Studio
             </a>
