@@ -111,7 +111,7 @@ export default function Install({ _, searchParams }) {
         {isInstalled &&
           <>
             <p className="description" style={{ color: "green" }}>The overlay has been installed successfully in your account!<br />Use the overlay URL to install it on OBS:</p>
-            <p><strong>Overlay URL</strong> (click to copy): <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer" }}>••••••••••••</span></p>
+            <p><strong>Overlay URL</strong> (click to copy): <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer" }}>https://streamelements.com/overlay/••••••••••••</span></p>
 
             <p>Alternatively, you can drag the button below to your OBS and it will be added to your scene.</p>
             <a
