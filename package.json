@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "schtasks /run /tn postgres_start && next dev",
+    "dev": "schtasks /run /tn custom_tasks\\postgres_start && next dev",
     "dev_backup": "next dev",
     "build": "next build",
     "start": "next start",
