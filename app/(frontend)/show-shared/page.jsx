@@ -36,7 +36,6 @@ export default function ShowShared({ _, searchParams }) {
 
     setSharedOverlays(response);
     setLoading(false);
-    console.log(sharedOverlays);
   }
 
   async function confirmDialog(e) {
