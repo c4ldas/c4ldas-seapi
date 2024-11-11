@@ -20,6 +20,7 @@ export default function ShowShared({ _, searchParams }) {
   const [sharedOverlays, setSharedOverlays] = useState([]);
   const [overlayToDelete, setOverlayToDelete] = useState({});
   const [encoded, setEncoded] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setEncoded(encodeData("overlay_show-shared"));
@@ -29,10 +30,13 @@ export default function ShowShared({ _, searchParams }) {
 
   async function overlayShowShared() {
     if (!cookie["se_id"]) return;
+    setLoading(true);
     const request = await fetch(`/api/overlays/show-shared/${cookie["se_tag"]}`, { method: "GET" });
     const response = await request.json();
 
     setSharedOverlays(response);
+    setLoading(false);
+    console.log(sharedOverlays);
   }
 
   async function confirmDialog(e) {
@@ -95,25 +99,36 @@ export default function ShowShared({ _, searchParams }) {
             </h3>
             <div className="main" id="overlay-list">
 
-              <table>
-                <thead>
-                  <tr>
-                    <th style={{ padding: "0.4rem" }}>Name</th>
-                    <th style={{ padding: "0.4rem" }}>Code</th>
-                    <th style={{ padding: "0.4rem" }}>Delete</th>
-                  </tr>
-                  {sharedOverlays < 1 && <tr>No shared overlays</tr>}
-                </thead>
-                <tbody>
-                  {sharedOverlays && sharedOverlays.map((overlay) => (
-                    <tr key={overlay.code}>
-                      <th style={{ padding: "0.4rem" }}>{overlay.name}</th>
-                      <td>{overlay.code}</td>
-                      <td><a href="#" data-overlay-code={overlay.code} data-overlay-name={overlay.name} data-overlay-image={overlay.image} onClick={e => confirmDialog(e)}>🗑️</a></td>
+              {loading && !sharedOverlays.length && <p>Loading...</p>}
+              {!loading && !sharedOverlays.length && <p>No shared overlays</p>}
+              {sharedOverlays.length > 0 && (
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ padding: "0.4rem" }}>Name</th>
+                      <th style={{ padding: "0.4rem" }}>Code</th>
+                      <th style={{ padding: "0.4rem" }}>Delete</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {sharedOverlays.map((overlay) =>
+                    (
+                      <tr key={overlay.code}>
+                        <th style={{ padding: "0.4rem" }}>{overlay.name}</th>
+                        <td>{overlay.code}</td>
+                        <td>
+                          <a href="#"
+                            data-overlay-code={overlay.code}
+                            data-overlay-name={overlay.name}
+                            data-overlay-image={overlay.image}
+                            onClick={e => confirmDialog(e)}>🗑️
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
 
             </div>
             <Dialog />
