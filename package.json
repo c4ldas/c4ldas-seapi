@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "schtasks /run /tn custom_tasks\\postgres_start && next dev",
-    "dev_backup": "next dev",
+    "dev": "next dev",
+    "pg": "schtasks /run /tn custom_tasks\\postgres_start && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
