@@ -20,7 +20,7 @@
 <p>The project main URL is: </p>
 <p><a href="https://seapi.c4ldas.com.br" target="_blank">https://seapi.c4ldas.com.br</a></p>
 
-<h2>How to use the website</h2>
+<h2>How to use</h2>
 
 <h3>- If you want to share an overlay you created:</h3>
 <ul>
