@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { seSaveToDatabase } from "@/app/lib/database";
+import { checkIfTagExists, seSaveToDatabase } from "@/app/lib/database";
 import { getTokenCode, getUserData, decodeData, generateTag } from "@/app/lib/streamelements";
 
 export async function GET(request) {
@@ -7,6 +7,7 @@ export async function GET(request) {
   const obj = Object.fromEntries(request.nextUrl.searchParams);
   const state = decodeData(obj.state);
   const origin = request.nextUrl.origin;
+  let tag;
 
   if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
   if ((state.status == "failed") ||
@@ -16,7 +17,11 @@ export async function GET(request) {
 
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
-  const tag = await generateTag();
+
+  const tagExists = await checkIfTagExists({ account_id: user._id, username: user.username });
+
+  if (!tagExists.success) tag = await generateTag();
+  else tag = tagExists.details[0].tag;
 
   const data = {
     tag: tag,
