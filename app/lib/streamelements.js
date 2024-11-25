@@ -46,7 +46,11 @@ export async function getUserData(accessToken) {
 
 // Revoke token
 export async function revokeToken(data) {
+
   try {
+
+    if (!data) return true;
+
     const request = await fetch(`https://api.streamelements.com/oauth2/revoke?client_id=${process.env.SE_CLIENT_ID}&token=${data.access_token}`)
     if (!request.ok) {
       throw new Error('Failed to revoke token');
