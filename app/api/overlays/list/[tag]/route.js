@@ -15,7 +15,7 @@ export async function GET(_, request) {
     return NextResponse.json(response, { status: 200 });
 
   } catch (error) {
-    console.log(error);
+    console.log("/api/overlays/list/[tag]:", error.message);
     return NextResponse.json({ status: "failed", message: "Failed to get overlays, please try again later" });
   }
 }
