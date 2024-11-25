@@ -13,7 +13,7 @@ async function connectToDatabase() {
   }
 }
 
-async function testConnectionDatabase() {
+export async function testConnectionDatabase() {
   let client;
   try {
 
@@ -50,7 +50,7 @@ async function testConnectionDatabase() {
   }
 }
 
-async function getTokenDatabase(request) {
+export async function getTokenDatabase(request) {
   let client;
 
   try {
@@ -90,7 +90,7 @@ async function getTokenDatabase(request) {
   }
 }
 
-async function seSaveToDatabase(data) {
+export async function seSaveToDatabase(data) {
   let client;
 
   try {
@@ -120,10 +120,12 @@ async function seSaveToDatabase(data) {
   }
 }
 
-async function seRemoveDBIntegration(request) {
+export async function seRemoveDBIntegration(request) {
   let client;
 
   const { tag, account_id, username, access_token, refresh_token } = request;
+
+  console.log("seRemoveDBIntegration request:", request);
 
   try {
     const removeQuery = {
@@ -132,13 +134,13 @@ async function seRemoveDBIntegration(request) {
     }
     client = await connectToDatabase();
     const { rowCount } = await client.query(removeQuery);
-    if (rowCount === 0) {
-      throw { error: "User not registered!" };
-    }
+    /*     if (rowCount === 0) {
+          throw { error: "User not registered!" };
+        } */
     return true;
 
   } catch (error) {
-    console.log("seRemoveIntegration(): ", error);
+    console.log("seRemoveDBIntegration(): ", error);
     // throw error.message;
     return false;
 
@@ -148,7 +150,7 @@ async function seRemoveDBIntegration(request) {
   }
 }
 
-async function saveOverlayToDB(data) {
+export async function saveOverlayToDB(data) {
   let client;
 
   try {
@@ -176,7 +178,7 @@ async function saveOverlayToDB(data) {
   }
 }
 
-async function getOverlayFromDB(request) {
+export async function getOverlayFromDB(request) {
   let client;
 
   try {
@@ -216,7 +218,7 @@ async function getOverlayFromDB(request) {
   }
 }
 
-async function getSharedOverlaysFromDB(request) {
+export async function getSharedOverlaysFromDB(request) {
   let client;
 
   try {
@@ -256,7 +258,7 @@ async function getSharedOverlaysFromDB(request) {
   }
 }
 
-async function removeOverlayFromDB(request) {
+export async function removeOverlayFromDB(request) {
   let client;
 
   try {
@@ -303,4 +305,53 @@ async function removeOverlayFromDB(request) {
   }
 }
 
-export { testConnectionDatabase, seSaveToDatabase, seRemoveDBIntegration, saveOverlayToDB, getOverlayFromDB, getTokenDatabase, getSharedOverlaysFromDB, removeOverlayFromDB };
+export async function checkIfTagExists(request) {
+  let client;
+
+  try {
+    const { tag, account_id } = request;
+
+    const selectQuery = {
+      text: `SELECT tag FROM streamelements WHERE account_id = $1`,
+      values: [account_id],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(selectQuery);
+
+    if (rows.length == 0) {
+      const data = {
+        success: false,
+        message: "Tag not found",
+        details: null,
+        status: 200
+      }
+      return data;
+    }
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: rows,
+      status: 200
+    }
+
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: 500
+    }
+    return data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
