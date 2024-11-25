@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { getCookies } from "cookies-next";
+import { getCookies, deleteCookie } from "cookies-next";
 import Link from "next/link";
 
 import Header from "@/app/components/Header";
@@ -29,6 +29,14 @@ export default function Share({ _, searchParams }) {
     if (!cookie["se_id"]) return;
     const request = await fetch(`/api/overlays/list/${cookie["se_tag"]}`, { method: "GET" });
     const response = await request.json();
+
+    if (response.status == "failed") {
+      deleteCookie("se_id");
+      deleteCookie("se_tag");
+      deleteCookie("se_username");
+      window.location.reload();
+    }
+
     setOverlays(response.docs);
   }
 
