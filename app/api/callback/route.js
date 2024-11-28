@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { checkIfTagExists, seSaveToDatabase } from "@/app/lib/database";
 import { getTokenCode, getUserData, decodeData, generateTag } from "@/app/lib/streamelements";
+import { NextResponse } from "next/server";
 
 export async function GET(request) {
   // Convert query strings (map format) to object format - Only works for this specific case!
@@ -11,7 +12,8 @@ export async function GET(request) {
 
   if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
   if ((state.status == "failed") ||
-    (!state.startsWith("overlay_share") && !state.startsWith("overlay_install") && !state.startsWith("overlay_show-shared"))) {
+    (!state.startsWith("overlay_share") && !state.startsWith("overlay_install") && !state.startsWith("overlay_show-shared") && !state.startsWith("overlay_auth"))
+  ) {
     return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
   }
 
@@ -33,6 +35,10 @@ export async function GET(request) {
 
   const saved = await seSaveToDatabase(data);
   if (!saved) return Response.redirect(`${origin}?error=Error while saving to database. Please try again later.`);
+
+  if (state.startsWith("overlay_auth")) {
+    return NextResponse.json({ status: "success", data: data });
+  }
 
   cookies().set('se_id', data.account_id);
   cookies().set('se_username', data.username);
