@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { getCookies } from "cookies-next";
+import { usePathname } from "next/navigation";
+import { getCookies, deleteCookie } from "cookies-next";
 import Link from "next/link";
 
 import Header from "@/app/components/Header";
@@ -10,8 +11,10 @@ import FooterComponent from "@/app/components/Footer";
 
 import { encodeData } from "@/app/lib/streamelements";
 
+
 export default function ShowShared({ _, searchParams }) {
   const error = searchParams.error;
+  const pathName = usePathname();
 
   const [cookie, setCookie] = useState({});
   const [sharedOverlays, setSharedOverlays] = useState([]);
@@ -30,6 +33,13 @@ export default function ShowShared({ _, searchParams }) {
     setLoading(true);
     const request = await fetch(`/api/overlays/show-shared/${cookie["se_tag"]}`, { method: "GET" });
     const response = await request.json();
+
+    if (response.status == "failed") {
+      deleteCookie("se_id");
+      deleteCookie("se_tag");
+      deleteCookie("se_username");
+      window.location.reload();
+    }
 
     setSharedOverlays(response);
     setLoading(false);
@@ -88,7 +98,7 @@ export default function ShowShared({ _, searchParams }) {
           <>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
+            <p><button id="remove-integration" type="button" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <h2 className="title">Shared overlays</h2>
             <h3 className="subtitle">
               Here you can see all overlays you have shared. Check the code again or simply remove the overlay so it is not shared anymore:
