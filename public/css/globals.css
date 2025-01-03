@@ -176,7 +176,9 @@ a:visited {
   /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
 }
 
-.se-install-overlay {
+.se-install-overlay,
+.se-download-leaderboard,
+.se-download-redemptions {
   font-size: 1.1rem;
   background: #7fcc7f;
   height: 3em;
@@ -435,4 +437,8 @@ td {
 .region {
   color: #ff0000;
   font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
 }
