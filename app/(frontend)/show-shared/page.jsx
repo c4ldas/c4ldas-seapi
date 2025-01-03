@@ -1,6 +1,3 @@
-// SHOW PAGE
-// PENDING
-
 "use client"
 
 import { useEffect, useState } from "react";
