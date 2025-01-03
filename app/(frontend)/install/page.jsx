@@ -1,26 +1,30 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { getCookies } from "cookies-next";
+import Link from "next/link";
+import confetti from "canvas-confetti";
+
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
 
 import { encodeData } from "@/app/lib/streamelements";
 
-import { useEffect, useState } from "react";
-import { getCookies } from "cookies-next";
-import Link from "next/link";
-import confetti from "canvas-confetti";
-
 export default function Install({ _, searchParams }) {
   const error = searchParams.error;
+  const pathName = usePathname();
 
   const [cookie, setCookie] = useState({});
   const [code, setCode] = useState();
   const [isInstalled, setIsInstalled] = useState(false);
   const [overlayUrl, setOverlayUrl] = useState();
+  const [encoded, setEncoded] = useState("");
   const [obsUrl, setObsUrl] = useState();
 
   useEffect(() => {
+    setEncoded(encodeData("overlay_install"));
     setCookie(getCookies());
   }, [cookie.se_id]);
 
@@ -84,7 +88,7 @@ export default function Install({ _, searchParams }) {
               Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
-              <Link href={`/login?state=${encodeData("overlay_install")}`}>
+              <Link href={`/login?state=${encoded}`}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
@@ -95,7 +99,7 @@ export default function Install({ _, searchParams }) {
             <p className="description">This page will help you to install the overlay in your account.</p>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <form id="form" onSubmit={handleSubmit} className="form" style={{ paddingTop: "10px" }}>
               <input type="text" id="se-code" className="se-code" placeholder="Type the overlay code here" onChange={e => setCode(e.target.value)} required={true} />
               <input type="submit" id="se-install-overlay" className="se-install-overlay" value="Install overlay" />
