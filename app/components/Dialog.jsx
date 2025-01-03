@@ -1,4 +1,9 @@
-import React from 'react'
+import React from 'react';
+
+// This variable will get the pathname from the pages that use the openDialog() function
+// So that the page can reload to the same page when integration is removed
+//  "data" gets its value from openDialog() and used in confirmRemoval(), at the end
+let data;
 
 export function Dialog() {
   return (
@@ -8,7 +13,7 @@ export function Dialog() {
         <div id="dialog-title">Are you sure you want to remove the integration?<br />You can re-add it at any time.</div>
         <br />
         <div id="dialog-buttons">
-          <button id="submit" style={{ padding: "0.5rem", marginRight: "0.5rem" }} type="submit" onClick={confirmRemoval}>Confirm</button>
+          <button id="submit" style={{ padding: "0.5rem", marginRight: "0.5rem" }} type="submit" onClick={() => confirmRemoval(data)}>Confirm</button>
           <button id="cancel" style={{ padding: "0.5rem", marginRight: "0.5rem" }} type="reset" onClick={closeDialog}>Cancel</button>
         </div>
       </dialog>
@@ -16,7 +21,8 @@ export function Dialog() {
   )
 }
 
-export async function openDialog() {
+export async function openDialog(e) {
+  data = e;
   const dialog = document.querySelector("#dialog");
   dialog.style.marginLeft = "auto";
   dialog.showModal();
@@ -27,7 +33,7 @@ function closeDialog() {
   dialog.close();
 }
 
-async function confirmRemoval() {
+async function confirmRemoval(data) {
   const dialogTitle = document.querySelector("#dialog-title");
   const submit = document.querySelector("#submit");
   const cancel = document.querySelector("#cancel");
@@ -39,10 +45,10 @@ async function confirmRemoval() {
     const request = await fetch("/api/logout", { "method": "POST" });
     const response = await request.json();
 
-    dialogTitle.innerHTML = `${response.message}.<br/> Redirecting back to home page...`;
+    dialogTitle.innerHTML = `${response.message}.<br/> Reloading page...`;
   }, 1500);
 
   setTimeout(() => {
-    window.location.assign("/");
+    window.location.assign(data.pathName);
   }, 3000);
 }

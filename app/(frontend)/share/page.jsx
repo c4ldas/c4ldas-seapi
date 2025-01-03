@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { getCookies, deleteCookie } from "cookies-next";
 import Link from "next/link";
 
@@ -13,6 +14,7 @@ import { encodeData } from "@/app/lib/streamelements";
 
 export default function Share({ _, searchParams }) {
   const error = searchParams.error;
+  const pathName = usePathname();
 
   const [cookie, setCookie] = useState({});
   const [overlays, setOverlays] = useState([]);
@@ -77,7 +79,7 @@ export default function Share({ _, searchParams }) {
           <>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <h2 className="title">Overlay list</h2>
             <h3 className="subtitle">
               Here you can see all overlays you have installed on your account. Click in one of them to generate a sharing code:
