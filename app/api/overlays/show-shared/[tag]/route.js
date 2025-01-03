@@ -6,6 +6,8 @@ export async function GET(_, request) {
     const getAccountId = await getTokenDatabase(request.params);
     const overlayList = await getSharedOverlaysFromDB(getAccountId.details);
 
+    if (!getAccountId.success || !overlayList.success) throw error;
+
     return NextResponse.json(overlayList.details, { status: 200 });
 
   } catch (error) {
