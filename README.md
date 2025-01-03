@@ -73,6 +73,8 @@ At the moment the structure of the application is:
 |  |  |-- install/            # done
 |  |  |-- show-shared/        # done
 |  |  |-- leaderboard/        # done
+|  |  |-- endpoints/          # done
+|  |  |-- redemptions/        # done
 |  |  
 |  |--api/
 |     |-- overlays/
@@ -81,6 +83,9 @@ At the moment the structure of the application is:
 |     |     |-- share/        # done
 |     |     |-- show-shared/  # done
 |     |     |-- unshare/      # done
+|     |
+|     |-- redemptions/
+|     |     |-- download/     # done
 |     |
 |     |-- github/
 |     |    |-- widgets/       # done
