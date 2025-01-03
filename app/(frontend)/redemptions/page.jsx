@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { getCookies } from "cookies-next";
 import Link from "next/link";
 
@@ -11,7 +12,9 @@ import FooterComponent from "@/app/components/Footer";
 import { encodeData } from "@/app/lib/streamelements";
 
 
-export default function Leaderboard() {
+export default function Redemptions({ _, searchParams }) {
+  const error = searchParams.error;
+  const pathName = usePathname();
 
   const [cookie, setCookie] = useState({});
   const [amount, setAmount] = useState("");
@@ -34,6 +37,15 @@ export default function Leaderboard() {
         offset: offset
       }), { method: "GET" });
     const response = await request.json();
+
+    if (response.status == "failed") {
+      const dialog = document.querySelector("#download-failed");
+      dialog.style.marginLeft = "auto";
+      dialog.style.backgroundColor = "rgba(255, 0, 0, 0.4)";
+      dialog.showModal();
+      document.querySelector("#error-code").innerHTML = `Description: ${response.message}<br />&nbsp`;
+      return;
+    }
 
     const title = "Item name, Username, Details, Completed, Time";
     const lineBreak = '\r\n';
@@ -87,7 +99,7 @@ export default function Leaderboard() {
           <>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
 
             <h3 className="subtitle">
               <p>You can use this page to download the redemptions from your StreamElements store.</p>
@@ -104,20 +116,16 @@ export default function Leaderboard() {
             <p className="italic red">Note: In case it fails to generate the file to download, use a smaller amount and play with offset to download in parts.</p>
 
 
-
             <Dialog />
 
-            {/* Check below before deployment */}
-            {/* The code below is related to overlay installation, not redemption download */}
-            <dialog id="installation-failed" className="dialog">
+            <dialog id="download-failed" className="dialog">
               <div id="dialog-title">
-                An error has occurred during the installation.<br />
-                If you are sure the code is correct, try to remove the integration and install it again.<br />&nbsp;
+                An error has occurred when trying to generate a download link.<br />
+                Please remove the integration and try again.<br />&nbsp;
               </div>
               <div id="error-code"></div>
               <div id="dialog-buttons">
-                {/* <button id="submit" type="submit" onClick={""}>Confirm</button> */}
-                <button id="cancel" type="reset" onClick={() => document.querySelector("#installation-failed").close()}>Close popup</button>
+                <button id="cancel" type="reset" onClick={() => document.querySelector("#download-failed").close()}>Close popup</button>
               </div>
             </dialog>
           </>
