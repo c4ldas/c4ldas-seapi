@@ -24,6 +24,25 @@ export async function getTokenCode(code) {
   }
 }
 
+// Get bearer from Streamelements
+export async function getBearer(data) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/channels/${data.account_id}/roleplay`, {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "authorization": `oauth ${data.access_token}`
+      }
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log(error);
+    throw { status: "failed", message: error.message };
+  }
+}
+
 // Get data from Streamelements user
 export async function getUserData(accessToken) {
   try {
@@ -262,6 +281,34 @@ export async function getTopWatchtime(data) {
     throw { status: "failed", message: error.message };
   }
 }
+
+// Redemptions CSV download
+export async function getRedemptions(data) {
+  try {
+    const streamelementsUrl = `https://api.streamelements.com/kappa/v2/store/${data.account_id}/redemptions?` +
+      new URLSearchParams({
+        offset: data.offset || 0,
+        limit: data.amount || 0
+      });
+
+    const request = await fetch(streamelementsUrl, {
+      "method": "GET",
+      "next": { revalidate: 0 },
+      "headers": {
+        "accept": "application/json",
+        "authorization": `bearer ${data.bearer}`
+      }
+    });
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log("getRedemptions():", error);
+    throw { status: "faiiled", message: error.message };
+  }
+}
+
+
 
 // Convert minutes in days, hours and minutes
 function calculateTime(minutes) {
