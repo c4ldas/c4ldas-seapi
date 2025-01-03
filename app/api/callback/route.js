@@ -11,9 +11,11 @@ export async function GET(request) {
   let tag;
 
   if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
-  if ((state.status == "failed") ||
-    (!state.startsWith("overlay_share") && !state.startsWith("overlay_install") && !state.startsWith("overlay_show-shared") && !state.startsWith("overlay_auth"))
-  ) {
+  if ((state.status == "failed") || (
+    !state.startsWith("overlay_share") && !state.startsWith("overlay_install") &&
+    !state.startsWith("overlay_show-shared") && !state.startsWith("full-auth") &&
+    !state.startsWith("basic-auth_redemptions")
+  )) {
     return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
   }
 
