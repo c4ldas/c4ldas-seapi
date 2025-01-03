@@ -25,6 +25,7 @@ export default function Header(props) {
         <Link id="share" href="/share"><div style={{ color: "var(--color)" }}>Share overlay</div></Link>
         <Link id="install" href="/install"><div style={{ color: "var(--color)" }}>Install overlay</div></Link>
         <Link id="show-shared" href="/show-shared"><div style={{ color: "var(--color)" }}>Overlays shared</div></Link>
+        <Link id="endpoints" href="/redemptions"><div style={{ color: "var(--color)" }}>Redemptions</div></Link>
         <Link id="leaderboard" href="/leaderboard"><div style={{ color: "var(--color)" }}>Leaderboard</div></Link>
         <Link id="endpoints" href="/endpoints"><div style={{ color: "var(--color)" }}>Endpoints</div></Link>
       </div>
