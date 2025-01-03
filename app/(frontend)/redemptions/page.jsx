@@ -91,7 +91,7 @@ export default function Leaderboard() {
             <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
 
             <h3 className="subtitle">
-              <p>You can use this page to download the redemptions from your StreamElements store. <span className="red code">Amount</span> and <span className="red code">Offset</span> are optional, it will load all redemptions by default.</p>
+              <p>You can use this page to download the redemptions from your StreamElements store.</p>
               <p>Click on <span className="red">Download CSV</span> button to generate and download the store redemptions from your channel in CSV file.</p>
             </h3>
 
