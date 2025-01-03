@@ -11,7 +11,7 @@ export default function Share({ _, searchParams }) {
   const [encoded, setEncoded] = useState("");
 
   useEffect(() => {
-    setEncoded(encodeData("overlay_auth"));
+    setEncoded(encodeData("auth_full"));
   }, []);
 
   return (
