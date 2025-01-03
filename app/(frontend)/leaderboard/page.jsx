@@ -81,7 +81,7 @@ export default function Leaderboard() {
             <input style={{ marginTop: "0.6rem" }} id="alltime" type="radio" name="radio" value="alltime" onClick={e => setRadio(e.target.value)} required={true} />
             <label style={{ marginTop: "0.6rem", marginLeft: "0.5rem" }} htmlFor="alltime">Alltime</label><br></br>
           </div>
-          <input type="submit" id="se-install-overlay" className="se-install-overlay" value="Download CSV" />
+          <input type="submit" id="se-download-leaderboard" className="se-download-leaderboard" value="Download CSV" />
         </form>
         {isLoading && <div className="loading">Loading...</div>}
       </main>
