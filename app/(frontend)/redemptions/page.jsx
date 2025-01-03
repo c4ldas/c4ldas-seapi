@@ -70,7 +70,7 @@ export default function Leaderboard() {
           <>
             <h2 className="title">Login with Streamelements</h2>
             <h3 className="subtitle">
-              You can use this page to download the redemptions from your StreamElements store.
+              You can use this page to download the user redemption list from your StreamElements store.
               <br />
               After logging in, just click on Download CSV to download all (or some) redemptions in CSV format.
               <br /><br />
@@ -85,7 +85,6 @@ export default function Leaderboard() {
         }
         {cookie.se_id &&
           <>
-
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
             <p><button id="remove-integration" type="submit" onClick={openDialog}>Remove integration</button></p>
