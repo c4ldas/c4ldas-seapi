@@ -13,7 +13,7 @@ export async function GET(request) {
   if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
   if ((state.status == "failed") || (
     !state.startsWith("overlay_share") && !state.startsWith("overlay_install") &&
-    !state.startsWith("overlay_show-shared") && !state.startsWith("full-auth") &&
+    !state.startsWith("overlay_show-shared") && !state.startsWith("full-auth_auth") &&
     !state.startsWith("basic-auth_redemptions")
   )) {
     return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
