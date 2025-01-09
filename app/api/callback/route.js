@@ -37,11 +37,11 @@ export async function GET(request) {
 
   const saved = await seSaveToDatabase(data);
   if (!saved) return Response.redirect(`${origin}?error=Error while saving to database. Please try again later.`);
-
-  if (state.startsWith("overlay_auth")) {
-    return NextResponse.json({ status: "success", data: data });
-  }
-
+  /* 
+    if (state.startsWith("overlay_auth")) {
+      return NextResponse.json({ status: "success", data: data });
+    }
+   */
   cookies().set('se_id', data.account_id);
   cookies().set('se_username', data.username);
   cookies().set('se_tag', data.tag);
