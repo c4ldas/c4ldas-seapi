@@ -108,7 +108,7 @@ export default function Install({ _, searchParams }) {
             <dialog id="installation-failed" className="dialog">
               <div id="dialog-title">
                 An error has occurred during the installation.<br />
-                If you are sure the code is correct, try to remove the integration and install it again.<br />&nbsp;
+                If you are sure the code is correct, try to remove the integration and install it again.<br />
               </div>
               <div id="error-code"></div>
               <div id="dialog-buttons">
@@ -123,7 +123,7 @@ export default function Install({ _, searchParams }) {
             <p className="description" style={{ color: "green" }}>The overlay has been installed successfully in your account!<br />Use the overlay URL to install it on OBS:</p>
             <p><strong>Overlay URL</strong> (click to copy):
               <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer", fontStyle: "italic" }}>
-                &nbsp;https://streamelements.com/overlay/••••••••••••
+                https://streamelements.com/overlay/••••••••••••
               </span></p>
 
             <p>Alternatively, you can drag the button below to your OBS and it will be added to your scene.</p>
