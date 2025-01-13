@@ -71,6 +71,21 @@ export default function ShowShared({ _, searchParams }) {
     dialog.close();
   }
 
+  async function copyCode(event) {
+    const dialog = document.querySelector("#copy-success");
+    navigator.clipboard.writeText(event.target.textContent);
+
+    // Show the dialog next to the clicked element
+    dialog.style.top = (event.pageY - 70) + "px";
+    dialog.style.marginLeft = (event.pageX) + "px";
+    dialog.show();
+
+    // Close the dialog after 2 seconds
+    setTimeout(() => {
+      dialog.close();
+    }, 2000);
+  }
+
   return (
     <div className="container">
       <Header />
@@ -112,7 +127,7 @@ export default function ShowShared({ _, searchParams }) {
                   <thead>
                     <tr>
                       <th style={{ padding: "0.4rem" }}>Name</th>
-                      <th style={{ padding: "0.4rem" }}>Code</th>
+                      <th style={{ padding: "0.4rem" }}>Code (click to copy)</th>
                       <th style={{ padding: "0.4rem" }}>Delete</th>
                     </tr>
                   </thead>
@@ -121,7 +136,7 @@ export default function ShowShared({ _, searchParams }) {
                     (
                       <tr key={overlay.code}>
                         <th style={{ padding: "0.4rem" }}>{overlay.name}</th>
-                        <td>{overlay.code}</td>
+                        <td style={{ cursor: "pointer" }} onClick={copyCode}>{overlay.code}</td>
                         <td>
                           <a href="#"
                             data-overlay-code={overlay.code}
@@ -138,6 +153,7 @@ export default function ShowShared({ _, searchParams }) {
 
             </div>
             <Dialog />
+            <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
             <dialog id="unshare-overlay" style={{ backgroundColor: "rgba(255,0,0,0.3)" }}>
               <h3 id="dialog-title">Are you sure you want to unshare this overlay?</h3>
               <div>
