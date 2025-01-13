@@ -6,7 +6,7 @@ export default function Linkbox(props) {
     <div
       className="link-box"
       style={{
-        backgroundImage: `url(${props.image})`,
+        backgroundImage: props.image ? `url(${props.image})` : "",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'relative',
