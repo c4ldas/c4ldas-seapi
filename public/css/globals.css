@@ -319,8 +319,8 @@ a:visited {
 
 .switch input {
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 60px;
+  height: 34px;
 }
 
 /* the thing behind the circle - light mode */
