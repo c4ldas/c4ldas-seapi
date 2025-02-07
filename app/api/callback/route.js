@@ -19,7 +19,7 @@ export async function GET(request) {
     return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
   }
 
-  if (state.endsWith("milaeshop")) {
+  if (state.includes("milaeshop")) {
     return Response.redirect(`https://test.c4ldas.com.br/api/callback?code=${obj.code}&state=${obj.state}`);
   }
 
