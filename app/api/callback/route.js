@@ -20,7 +20,7 @@ export async function GET(request) {
   }
 
   if (state.endsWith("milaeshop")) {
-    redirect(`https://test.c4ldas.com.br/api/callback?code=${obj.code}&state=${obj.state}`);
+    return Response.redirect(`https://test.c4ldas.com.br/api/callback?code=${obj.code}&state=${obj.state}`);
   }
 
   const token = await getTokenCode(obj.code);
