@@ -22,30 +22,39 @@
 
 <h2>How to use</h2>
 
-<h3>- If you want to share an overlay you created:</h3>
+<h3>If you want to share an overlay you created:</h3>
 <ul>
-<li>Go to https://seapi.c4ldas.com.br and click on <code>Share overlay / widget</code>;</li> <br />
-<li>Click on <code>Login with Streamelements</code> and authorize the application to have access to your overlays;</li><br />
-<li>After authorization, the page will show all of your overlays, simply click on the one you want to share and a popup will appear with a code;</li><br />
-<li>Copy that code and send to your friend.</li><br />
+  <li>Go to https://seapi.c4ldas.com.br and click on <code>Share overlay / widget</code>;</li>
+  <li>Click on <code>Login with Streamelements</code> and authorize the application to have access to your overlays;</li>
+  <li>After authorization, the page will show all of your overlays, simply click on the one you want to share and a popup will appear with a Quicklink and code;</li>
+  <li>Copy that Quicklink or code and send to your friend.</li>
 </ul>
 
-<h3>- If you want to install an overlay:</h3>
+<h3>If you want to install an overlay:</h3>
+<p>Option 1: You received a Quicklink:</p>
 <ul>
-  <li>Go to https://seapi.c4ldas.com.br and click on <code>Install overlay / widget</code>;</li><br />
-  <li>Click on <code>Login with Streamelements</code> and authorize the application to install overlays on your account;</li><br />
-  <li>After authorization, type the overlay code in the text box and click on <code>Install overlay</code>;</li><br />
-  <li>The overlay will be installed in your account! Click on the <code>••••••••••••</code> from "Overlay URL (click to copy)" and then add it to OBS;</li> <br />
-  <li>Alternatively, you can just drag the button called <code>Drag me to OBS Studio</code> to your OBS and the overlay will be added directly.</li><br />
+  <li>Just open it and login with your Streamelements account;</li>
+  <li>Overlay will be installed automatically;</li>
 </ul>
 
-<h3>- If you want to see which overlays you have shared:</h3>
+<p>Option 2: You have received a code:</p>
 <ul>
-  <li>Go to https://seapi.c4ldas.com.br and click on <code>My shared overlay / widgets</code>;</li><br />
-  <li>If you haven't connected, click <code>Login with Streamelements</code> and authorize the application;</li><br />
-  <li>After authorization, you will see the overlays you have shared and the corresponding code;</li><br />
-  <li>If you want to remove it, just click on the 🗑️ icon and confirm;</li><br />
-  <li>Attention: That will not remove the overlay from the accounts that have it installed! It will just remove the option to be installed again.</li><br />
+  <li>Go to https://seapi.c4ldas.com.br and click on <code>Install overlay / widget</code>;</li>
+  <li>Click on <code>Login with Streamelements</code> and authorize the application to install overlays on your account;</li>
+  <li>After authorization, type the overlay code in the text box and click on <code>Install overlay</code>;</li>
+  <li>The overlay will be installed in your account;</li>
+  <li>To configure it, click on <code>Overlay Config Page</code> link;</li>
+  <li>To add it to OBS, click on <code>OBS Browser source</code> and create a new browser source with the URL copied;</li>
+  <li>Alternatively, you can just drag the button called <code>Drag me to OBS Studio</code> to your OBS and the overlay will be added directly.</li>
+</ul>
+
+<h3>If you want to see which overlays you have shared:</h3>
+<ul>
+  <li>Go to https://seapi.c4ldas.com.br and click on <code>My shared overlay / widgets</code>;</li>
+  <li>If you haven't connected, click <code>Login with Streamelements</code> and authorize the application;</li>
+  <li>After authorization, you will see the overlays you have shared and the corresponding code;</li>
+  <li>If you want to remove it, just click on the 🗑️ icon and confirm;</li>
+  <li>Attention: That will not remove the overlay from the accounts that have it installed! It will just remove the option to be installed again.</li>
 </ul>
   
 <h2>Code and hosting</h2>
