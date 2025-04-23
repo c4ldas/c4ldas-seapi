@@ -4,10 +4,22 @@
   .header-links {
     display: none;
   }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  .table-code {
+    display: none;
+  }
+
+  .table-quicklink {
+    display: none;
+  }
 }
 
-/* Devices with at least 800px will fit 2 boxes per row */
-@media (min-width: 800px) {
+
+@media (min-width: 800px) and (max-width: 1199px) {
   .link-box {
     width: calc(50% - 20px);
   }
@@ -25,9 +37,13 @@
   .header-links {
     display: none;
   }
+
+  .table-code {
+    display: none;
+  }
 }
 
-/* Devices with at least 1200px will fit 3 boxes per row */
+
 @media (min-width: 1200px) {
   .link-box {
     width: calc(33% - 20px);

@@ -24,6 +24,7 @@ export async function POST(_, request) {
       overlay_height: overlayResult.settings.height,
       apiToken: userData.apiToken,
       overlay_url: `https://streamelements.com/overlay/${overlayResult._id}/${userData.apiToken}`,
+      overlay_config_url: `https://streamelements.com/overlay/${overlayResult._id}/editor`,
       account_id: userData._id
     }
 

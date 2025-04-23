@@ -21,11 +21,14 @@ export default function ShowShared({ _, searchParams }) {
   const [overlayToDelete, setOverlayToDelete] = useState({});
   const [encoded, setEncoded] = useState("");
   const [loading, setLoading] = useState(false);
+  const [origin, setOrigin] = useState();
+  const [quicklink, setQuicklink] = useState();
 
   useEffect(() => {
     setEncoded(encodeData("overlay_show-shared"));
     setCookie(getCookies());
     overlayShowShared();
+    setOrigin(window.location.origin);
   }, [cookie.se_id]);
 
   async function overlayShowShared() {
@@ -41,6 +44,7 @@ export default function ShowShared({ _, searchParams }) {
       window.location.reload();
     }
 
+    setQuicklink(`${origin}/install`);
     setSharedOverlays(response);
     setLoading(false);
   }
@@ -71,9 +75,9 @@ export default function ShowShared({ _, searchParams }) {
     dialog.close();
   }
 
-  async function copyCode(event) {
+  async function copyCode(event, data) {
     const dialog = document.querySelector("#copy-success");
-    navigator.clipboard.writeText(event.target.textContent);
+    navigator.clipboard.writeText(data/* event.target.textContent */);
 
     // Show the dialog next to the clicked element
     dialog.style.top = (event.pageY - 70) + "px";
@@ -127,7 +131,8 @@ export default function ShowShared({ _, searchParams }) {
                   <thead>
                     <tr>
                       <th style={{ padding: "0.4rem" }}>Name</th>
-                      <th style={{ padding: "0.4rem" }}>Code (click to copy)</th>
+                      <th className="table-code" style={{ padding: "0.4rem" }}>Code (click to copy)</th>
+                      <th className="table-quicklink" style={{ padding: "0.4rem" }}>Quick link (click to copy)</th>
                       <th style={{ padding: "0.4rem" }}>Delete</th>
                     </tr>
                   </thead>
@@ -135,8 +140,9 @@ export default function ShowShared({ _, searchParams }) {
                     {sharedOverlays.map((overlay) =>
                     (
                       <tr key={overlay.code}>
-                        <th style={{ padding: "0.4rem" }}>{overlay.name}</th>
-                        <td style={{ cursor: "pointer" }} onClick={copyCode}>{overlay.code}</td>
+                        <th className="pointer" style={{ padding: "0.4rem" }} onClick={(event) => copyCode(event, `${quicklink}/${overlay.code}`)}>{overlay.name}</th>
+                        <td className="table-code pointer" style={{ cursor: "pointer" }} onClick={(event) => copyCode(event, overlay.code)}>{overlay.code}</td>
+                        <td className="table-quicklink pointer" onClick={(event) => copyCode(event, `${quicklink}/${overlay.code}`)}>{`${quicklink}/${overlay.code}`}</td>
                         <td>
                           <a href="#"
                             data-overlay-code={overlay.code}
@@ -153,7 +159,7 @@ export default function ShowShared({ _, searchParams }) {
 
             </div>
             <Dialog />
-            <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
+            {/* <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Quicklink copied to clipboard</dialog> */}
             <dialog id="unshare-overlay" style={{ backgroundColor: "rgba(255,0,0,0.3)" }}>
               <h3 id="dialog-title">Are you sure you want to unshare this overlay?</h3>
               <div>

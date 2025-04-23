@@ -19,6 +19,7 @@ export default function Install({ _, searchParams }) {
   const [cookie, setCookie] = useState({});
   const [code, setCode] = useState();
   const [isInstalled, setIsInstalled] = useState(false);
+  const [overlayConfigURL, setOverlayConfigURL] = useState();
   const [overlayUrl, setOverlayUrl] = useState();
   const [encoded, setEncoded] = useState("");
   const [obsUrl, setObsUrl] = useState();
@@ -46,6 +47,7 @@ export default function Install({ _, searchParams }) {
 
     setIsInstalled(true);
     setOverlayUrl(data.overlay_url);
+    setOverlayConfigURL(data.overlay_config_url);
     setObsUrl(`${data.overlay_url}?layer-name=${data.overlay_name}&layer-width=${data.overlay_width}&layer-height=${data.overlay_height}`);
 
     confetti({
@@ -120,8 +122,16 @@ export default function Install({ _, searchParams }) {
         }
         {isInstalled &&
           <>
-            <p className="description" style={{ color: "green" }}>The overlay has been installed successfully in your account!<br />Use the overlay URL to install it on OBS:</p>
-            <p><strong>Overlay URL</strong> (click to copy):
+            <p className="description" style={{ color: "green" }}>
+              The overlay has been installed successfully in your account!<br /><br />
+              - To configure it, click on the "Overlay Config page" link below.<br />
+              - Use the OBS Browser source URL to add it to your OBS Studio.</p>
+            <p><strong>Overlay Config page</strong>:
+              <a href={overlayConfigURL} target="_blank" style={{ cursor: "pointer", fontStyle: "italic" }}>{overlayConfigURL}
+              </a>
+            </p>
+
+            <p><strong>OBS Browser source</strong> (click to copy):
               <span id="overlay-url" onClick={copyOBSUrl} datacommand={overlayUrl} style={{ cursor: "pointer", fontStyle: "italic" }}>
                 https://streamelements.com/overlay/••••••••••••
               </span></p>

@@ -8,7 +8,7 @@ let data;
 export function Dialog() {
   return (
     <>
-      <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Code copied to clipboard</dialog>
+      <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Copied to clipboard</dialog>
       <dialog id="dialog" className="dialog">
         <div id="dialog-title">Are you sure you want to remove the integration?<br />You can re-add it at any time.</div>
         <br />

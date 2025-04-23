@@ -20,11 +20,14 @@ export default function Share({ _, searchParams }) {
   const [overlays, setOverlays] = useState([]);
   const [encoded, setEncoded] = useState("");
   const [code, setCode] = useState("");
+  const [origin, setOrigin] = useState();
+  const [quicklink, setQuicklink] = useState("");
 
   useEffect(() => {
     setEncoded(encodeData("overlay_share"));
     setCookie(getCookies());
     overlayList();
+    setOrigin(window.location.origin);
   }, [cookie.se_id]);
 
   async function overlayList() {
@@ -49,6 +52,7 @@ export default function Share({ _, searchParams }) {
     const response = await request.json();
 
     setCode(response.code);
+    setQuicklink(`${origin}/install`);
     const dialog = document.querySelector("#code-generated");
     dialog.style.marginLeft = "auto";
     dialog.showModal();
@@ -98,11 +102,13 @@ export default function Share({ _, searchParams }) {
             <dialog id="code-generated" >
               <h3 id="dialog-title">
                 Code generated successfully!<br />
+                Quicklink: {quicklink}/{code}<br />
                 Code: {code}
+
               </h3>
               <div id="dialog-copy">
-                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="copy" onClick={() => { navigator.clipboard.writeText(code) }}>Copy code</button>
-                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="cancel" onClick={() => { navigator.clipboard.writeText(code); document.querySelector("#code-generated").close() }}>Copy code and close</button>
+                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="copy" onClick={() => { navigator.clipboard.writeText(`${quicklink}/${code}`) }}>Copy Quicklink</button>
+                <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="cancel" onClick={() => { navigator.clipboard.writeText(`${quicklink}/${code}`); document.querySelector("#code-generated").close() }}>Copy Quicklink and close</button>
               </div>
             </dialog>
           </>
