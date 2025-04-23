@@ -124,7 +124,7 @@ export default function Install({ _, searchParams }) {
           <>
             <p className="description" style={{ color: "green" }}>
               The overlay has been installed successfully in your account!<br /><br />
-              - To configure it, click on the "Overlay Config page" link below.<br />
+              - To configure it, click on the &quot;Overlay Config page&quot; link below.<br />
               - Use the OBS Browser source URL to add it to your OBS Studio.</p>
             <p><strong>Overlay Config page</strong>:
               <a href={overlayConfigURL} target="_blank" style={{ cursor: "pointer", fontStyle: "italic" }}>{overlayConfigURL}
