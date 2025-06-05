@@ -1,6 +1,6 @@
 <h2>Getting Started</h2>
 
-<p>This project aims to have an easy way to share and install Streamelements overlays in your Twitch channel using a simple code. Also, here I am going to share some widgets that I created so the community can use it on their channels.</p>
+<p>This project aims to have an easy way to share and install Streamelements overlays in your Twitch channel using a simple code or URL. Also, here I am going to share some widgets that I created so the community can use it on their channels.</p>
 
 <p>Most of the overlays are written for Twitch, but nothing is stopping you from using them on other platforms (unless they are specifically designed for it).</p>
 
@@ -9,11 +9,12 @@
 <p>If you find any issues on the page or something is not working as expected, please let me know. Also, if you have any idea or suggestions feel free to contact me.</p>
 
 <p>You can find instructions on how to use it below:</p>
-<a href="#--if-you-want-to-share-an-overlay-you-created">How to share an overlay</a>
+
+<a href="#if-you-want-to-share-an-overlay-you-created">How to share an overlay</a>
 <br /><br />
-<a href="#--if-you-want-to-install-an-overlay">How to install an overlay</a>
+<a href="#if-you-want-to-install-an-overlay">How to install an overlay</a>
 <br /><br />
-<a href="#--if-you-want-to-see-which-overlays-you-have-shared">How to check the overlays I shared / how to unshare them</a>
+<a href="#if-you-want-to-see-which-overlays-you-have-shared">How to check the overlays I shared / how to unshare them</a>
 
 <h2>Webpage</h2>
 
