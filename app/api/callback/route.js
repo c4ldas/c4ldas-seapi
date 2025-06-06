@@ -9,13 +9,19 @@ export async function GET(request) {
   const state = decodeData(obj.state);
   const origin = request.nextUrl.origin;
   let tag;
+  const validPrefixes = [
+    "overlay_share",
+    "overlay_install",
+    "overlay_show-shared",
+    "full-auth_auth",
+    "basic-auth_redemptions",
+    "chatCommand"
+  ];
 
   if (obj.error) return Response.redirect(`${origin}/?error=${obj.error}`);
-  if ((state.status == "failed") || (
-    !state.startsWith("overlay_share") && !state.startsWith("overlay_install") &&
-    !state.startsWith("overlay_show-shared") && !state.startsWith("full-auth_auth") &&
-    !state.startsWith("basic-auth_redemptions")
-  )) {
+  const isValid = validPrefixes.some((prefix) => state.startsWith(prefix));
+
+  if (state.status == "failed" || !isValid) {
     return Response.redirect(`${origin}?error=State changed during login. Please try again.`);
   }
 
