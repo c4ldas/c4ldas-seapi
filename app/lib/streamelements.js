@@ -142,6 +142,11 @@ export async function overlayInstall(data) {
 }
 
 // Encode state for token request
+// The data string is joined with a timestamp using an underscore, then base64-encoded.
+// The encoded string is then modified as follows:
+// '+' becomes '-'
+// '/' becomes '_'
+// '=' characters are removed
 export function encodeData(data) {
   try {
     const dateNow = Date.now();
@@ -157,6 +162,11 @@ export function encodeData(data) {
 }
 
 // Decode state from token request
+// The encoded string is first reverted to its original base64 format by:
+// '-' becoming '+'
+// '_' becoming '/'
+// Padding with '=' is added if needed to make the length a multiple of 4
+// Then, the base64 string is decoded back to its original form
 export function decodeData(data) {
   try {
     // Re-add the URL unsafe characters
