@@ -20,7 +20,8 @@ export default function NotFound() {
         </h3>
         <div className="main">
 
-          <button style={{ padding: "0.5rem" }} onClick={() => router.back()}>Go back to previous page</button>
+          <button style={{ padding: "0.5rem" }}
+            onClick={() => window.history.length > 1 ? router.back() : router.push('/')} >Go back</button>
         </div>
       </main >
       <FooterComponent />
