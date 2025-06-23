@@ -141,60 +141,6 @@ export async function overlayInstall(data) {
   }
 }
 
-// Encode state for token request
-// The data string is joined with a timestamp using an underscore, then base64-encoded.
-// The encoded string is then modified as follows:
-// '+' becomes '-'
-// '/' becomes '_'
-// '=' characters are removed
-export function encodeData(data) {
-  try {
-    const dateNow = Date.now();
-    const encoded = btoa(`${data}_${dateNow}`);
-    const urlEncoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-
-    // console.log(urlEncoded);
-    return urlEncoded;
-  } catch (error) {
-    console.log(error);
-    return { status: "failed", message: error.message };
-  }
-}
-
-// Decode state from token request
-// The encoded string is first reverted to its original base64 format by:
-// '-' becoming '+'
-// '_' becoming '/'
-// Padding with '=' is added if needed to make the length a multiple of 4
-// Then, the base64 string is decoded back to its original form
-export function decodeData(data) {
-  try {
-    // Re-add the URL unsafe characters
-    let urlDecoded = data.replace(/-/g, '+').replace(/_/g, '/');
-    // Add padding
-    const padding = 4 - (urlDecoded.length % 4);
-    if (padding !== 4) urlDecoded += '='.repeat(padding);
-
-    return atob(urlDecoded);
-  } catch (error) {
-    console.error("decodeData() error:", error.message);
-    return { status: "failed", message: error.message };
-  }
-}
-
-// Generate Tag
-// Pending check if the account ID is already registered. If so, uses the same tag
-export async function generateTag() {
-  try {
-    const tag = crypto.randomUUID().split("-")[4];
-    return tag;
-
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-}
-
 // Get Account ID from username
 export async function getAccountInfo(username) {
   try {
@@ -318,6 +264,25 @@ export async function getRedemptions(data) {
   }
 }
 
+// Get user chat command list
+export async function getCommandList(data) {
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/bot/commands/${data.account_id}`, {
+      "method": "GET",
+      "headers": {
+        "Accept": "application/json",
+        "Authorization": `oAuth ${data.access_token}`
+      }
+    });
+
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log("chatCommandDownload():", error);
+    throw { status: "failed", message: error.message };
+  }
+}
 
 
 // Convert minutes in days, hours and minutes
@@ -343,4 +308,59 @@ function calculateTime(minutes) {
     result += `${remainingMinutes}m`;
   }
   return result;
+}
+
+
+// Encode state for token request
+// The data string is joined with a timestamp using an underscore, then base64-encoded.
+// The encoded string is then modified as follows:
+// '+' becomes '-'
+// '/' becomes '_'
+// '=' characters are removed
+export function encodeData(data) {
+  try {
+    const dateNow = Date.now();
+    const encoded = btoa(`${data}_${dateNow}`);
+    const urlEncoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+
+    // console.log(urlEncoded);
+    return urlEncoded;
+  } catch (error) {
+    console.log(error);
+    return { status: "failed", message: error.message };
+  }
+}
+
+// Decode state from token request
+// The encoded string is first reverted to its original base64 format by:
+// '-' becoming '+'
+// '_' becoming '/'
+// Padding with '=' is added if needed to make the length a multiple of 4
+// Then, the base64 string is decoded back to its original form
+export function decodeData(data) {
+  try {
+    // Re-add the URL unsafe characters
+    let urlDecoded = data.replace(/-/g, '+').replace(/_/g, '/');
+    // Add padding
+    const padding = 4 - (urlDecoded.length % 4);
+    if (padding !== 4) urlDecoded += '='.repeat(padding);
+
+    return atob(urlDecoded);
+  } catch (error) {
+    console.error("decodeData() error:", error.message);
+    return { status: "failed", message: error.message };
+  }
+}
+
+// Generate Tag
+// Pending check if the account ID is already registered. If so, uses the same tag
+export async function generateTag() {
+  try {
+    const tag = crypto.randomUUID().split("-")[4];
+    return tag;
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }
