@@ -6,6 +6,7 @@ export default async function Login({ _, searchParams }) {
   const fullScope = "tips:read tips:write activities:read activities:write loyalty:read loyalty:write overlays:read overlays:write bot:read bot:write";
   const overlayScope = "overlays:read overlays:write";
   const basicScope = "channel:read";
+  const chatCommandScope = "bot:read bot:write";
   let scope;
 
   if (state.startsWith("YmFzaWMtYXV")) { // basic-auth_redemptions
@@ -13,6 +14,9 @@ export default async function Login({ _, searchParams }) {
 
   } else if (state.startsWith("b3ZlcmxheV9")) {  // overlay_share, overlay_install, overlay_show-shared
     scope = overlayScope;
+
+  } else if (state.startsWith("Y2hhdENvbW1hbm")) { // chatCommand
+    scope = chatCommandScope;
 
   } else {
     scope = fullScope;
