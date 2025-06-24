@@ -154,7 +154,7 @@ a:visited {
   display: inline-block;
 }
 
-.playername,
+.site,
 .tagline,
 .puuid,
 .regionName,
@@ -206,58 +206,18 @@ a:visited {
   cursor: grabbing;
 }
 
-.playername {
+.site {
   grid-row-start: 1;
   grid-column-start: 1;
   grid-column-end: 3;
-  box-shadow: rgba(55, 47, 47, 0.48);
-  /* box-shadow: rgba(55, 47, 47, 0.48) 0px 2px 10px 0px, rgba(55, 47, 47, 0.8) -6px -2px 10px 0px; */
-}
-
-.tagline {
-  grid-row-start: 1;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  box-shadow: rgba(55, 47, 47, 0.48);
-}
-
-.puuid {
-  grid-row-start: 2;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  box-shadow: rgba(55, 47, 47, 0.48);
-}
-
-.regionName {
-  grid-row-start: 3;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  box-shadow: rgba(55, 47, 47, 0.48);
 }
 
 .message {
-  grid-row-start: 4;
+  grid-row-start: 2;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
 }
 
-.variables {
-  margin: 0;
-  color: grey;
-  margin-top: 5px;
-  grid-row-start: 5;
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
-
-.radiant {
-  margin: 0;
-  color: grey;
-  margin-bottom: 5px;
-  grid-row-start: 6;
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
 
 .formatted {
   font-size: 1.1rem;
