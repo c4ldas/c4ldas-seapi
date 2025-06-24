@@ -11,7 +11,7 @@
  * - msg: Template string with keys to extract from the JSON
  * 
  * Example:
- * /api/json-textify?site=https://pokeapi.co/api/v2/pokemon/squirtle&msg=Base experience: (base_experience). First ability: (abilities[0].ability.name)
+ * https://seapi.c4ldas.com.br/api/json-textify?site=https://pokeapi.co/api/v2/pokemon/squirtle&msg="Base experience: (base_experience). First ability: (abilities[0].ability.name)"
  */
 
 
