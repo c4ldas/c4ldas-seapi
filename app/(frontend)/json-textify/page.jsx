@@ -86,7 +86,7 @@ export default function Valorant({ params, searchParams }) {
         </div>
 
         <h3>Example:</h3>
-        <p>Let&quot;s say you want to show the first ability name of Pokémon Pikachu from PokeAPI:</p>
+        <p>Let&apos;s say you want to show the first ability name of Pokémon Pikachu from PokeAPI:</p>
         <div>site=<span className="blue">https://pokeapi.co/api/v2/pokemon/pikachu</span></div>
         <div>msg="<span className="blue">First ability: (abilities[0].ability.name)</span>"</div>
 
