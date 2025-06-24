@@ -120,7 +120,7 @@ export default function Valorant({ params, searchParams }) {
           <input type="text" id="site" className="site" placeholder="site: https://pokeapi.co/api/v2/pokemon/pikachu" onChange={(e) => { setSite(e.target.value) }} required={true} />
           <input type="text" id="message" className="message" placeholder="msg: First ability: (abilities[0].ability.name)" onChange={(e) => { setMsg(e.target.value) }} required={true} />
 
-          <input type="submit" id="formatted" className="formatted" value="Show formatted message" />
+          <input type="submit" id="formatted" className="formatted" value="Show response" />
           <input type="submit" id="generate-code" className="generate-code" value="Generate chat code" />
           {isLoading && (<div id="loading" className="loading">Loading...</div>)}
           <div id="response" className="response"></div>
