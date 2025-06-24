@@ -33,7 +33,11 @@ export async function GET(query) {
     // Replace placeholders
     const data = msg.replace(/\(([^)]+)\)/g, (_, path) => {
       const value = resolvePath(response, path);
-      return value !== undefined ? String(value) : `(${path})`;
+
+      if (value === undefined) return `(${path})`;
+      if (typeof value === 'object') return JSON.stringify(value);
+      return String(value);
+      // return value !== undefined ? String(value) : `(${path})`;
     });
 
     // Return plain text
