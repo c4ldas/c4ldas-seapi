@@ -19,11 +19,11 @@ export async function GET(query, request) {
   try {
     // Convert query strings (map format) to object format - Only works for this specific case!
     const obj = Object.fromEntries(query.nextUrl.searchParams);
-    let { site, msg } = obj;
+    let { site, msg, channel } = obj;
 
     // Validate parameters
     if (!site || !msg) {
-      return new Response("Missing 'site' or 'msg' parameter", { status: 400 });
+      return new Response("Missing 'site' or 'msg' parameter", { status: 200 });
     }
 
     // Try to fetch JSON
@@ -37,11 +37,12 @@ export async function GET(query, request) {
     });
 
     // Return plain text
+    console.log(`channel: ${channel} \nsite: ${site} \nmsg: ${msg} \ndata: ${data}`);
     return new Response(data.toString(), { status: 200 });
 
   } catch (error) {
     console.log(error.message);
-    return new Response("Failed to fetch JSON data", { status: 500 });
+    return new Response("Failed to get JSON data from the site", { status: 200 });
   }
 }
 
