@@ -85,6 +85,7 @@ At the moment the structure of the application is:
 |  |  |-- leaderboard/        # done
 |  |  |-- endpoints/          # done
 |  |  |-- redemptions/        # done
+|  |  |-- json-textify/       # done
 |  |  
 |  |--api/
 |     |-- overlays/
@@ -104,4 +105,5 @@ At the moment the structure of the application is:
 |     |-- callback/           # done
 |     |-- top/                # done
 |     |-- watchtime/          # done
+|     |-- json-textify/       # done
 </pre>
