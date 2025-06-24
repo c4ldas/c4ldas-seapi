@@ -65,6 +65,18 @@ export default function Home({ _, searchParams }) {
         </div>
         {seError && <p className="error red">Error: {seError}</p>}
         <hr />
+
+        <h2 className="title">Json Textify</h2>
+        <h3 className="subtitle">Use the buttons below to transfer chat commands from one channel to another.</h3>
+        <div className="main">
+          <Linkbox
+            title="JSON Textify"
+            description="Generate plain text response from JSON output."
+            link="/json-textify"
+          />
+        </div>
+        <hr />
+
         {/* 
         <h2 className="title">Command transfer system</h2>
         <h3 className="subtitle">Use the buttons below to transfer chat commands from one channel to another.</h3>
