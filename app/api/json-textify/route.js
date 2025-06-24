@@ -15,7 +15,7 @@
  */
 
 
-export async function GET(query, request) {
+export async function GET(query) {
   try {
     // Convert query strings (map format) to object format - Only works for this specific case!
     const obj = Object.fromEntries(query.nextUrl.searchParams);
