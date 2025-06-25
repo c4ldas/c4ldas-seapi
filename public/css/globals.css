@@ -262,6 +262,8 @@ a:visited {
   grid-column-end: 4;
   cursor: pointer;
   padding: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .error {
