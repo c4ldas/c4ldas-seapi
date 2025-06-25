@@ -47,9 +47,9 @@ export default function Valorant({ params, searchParams }) {
 
     const responseCode = `.me $(touser) ► $\{customapi.${origin}/api/json-textify?channel=$(channel)&site=${site}&msg="${msg}"\}`;
     const formattedResponseCode = responseCode
-      .replace(/\//g, '\u200B/')
-      .replace(/&/g, '\u200B&')
-      .replace(/\?/g, '\u200B?');
+    //   .replace(/\//g, '\u200B/')
+    //   .replace(/&/g, '\u200B&')
+    //   .replace(/\?/g, '\u200B?');
     /* document.querySelector('#response-code').innerText = responseCode; */
     document.querySelector('#response-code').innerText = formattedResponseCode;
   }
