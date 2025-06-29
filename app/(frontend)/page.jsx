@@ -67,7 +67,7 @@ export default function Home({ _, searchParams }) {
         <hr />
 
         <h2 className="title">Json Textify</h2>
-        <h3 className="subtitle">Use the buttons below to transfer chat commands from one channel to another.</h3>
+        <h3 className="subtitle">You can use this tool to generate plain text response from websites that only provide JSON output.</h3>
         <div className="main">
           <Linkbox
             title="JSON Textify"
