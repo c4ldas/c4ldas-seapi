@@ -16,7 +16,7 @@ export default function NotFound() {
         <hr />
 
         <h3 className="subtitle">
-          The page you are looking for is not found.
+          The page you are looking for could not be found.
         </h3>
         <div className="main">
 
