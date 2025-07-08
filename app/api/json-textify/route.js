@@ -22,9 +22,8 @@ export async function GET(query) {
     let { site, msg, channel } = obj;
 
     // Validate parameters
-    if (!site || !msg) {
-      return new Response("Missing 'site' or 'msg' parameter", { status: 200 });
-    }
+    if (!channel) return new Response("Missing 'channel' parameter", { status: 200 });
+    if (!site || !msg) return new Response("Missing 'site' or 'msg' parameter", { status: 200 });
 
     // Try to fetch JSON
     const request = await fetch(site);
@@ -52,6 +51,7 @@ export async function GET(query) {
 
 // Recursive function to resolve object paths
 function resolvePath(obj, path) {
+  if (path === '.') return obj;
   return path
     .replace(/\[(\d+)\]/g, '.$1') // convert [0] to .0
     .split('.')
