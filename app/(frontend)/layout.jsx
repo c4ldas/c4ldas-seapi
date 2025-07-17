@@ -1,5 +1,6 @@
 import { Quicksand } from "next/font/google";
 import { ThemeProvider } from 'next-themes';
+import { Analytics } from "@vercel/analytics/next"
 
 // CSS imports
 import "@/public/css/globals.css";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning >
       <body className={quicksand.className}>
         <ThemeProvider attribute="class">{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
