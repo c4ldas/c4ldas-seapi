@@ -10,9 +10,9 @@ export async function GET(request) {
   const origin = request.nextUrl.origin;
   let tag;
   const validPrefixes = [
-    "overlay_share",
-    "overlay_install",
-    "overlay_show-shared",
+    "overlay_overlays/share",
+    "overlay_overlays/install",
+    "overlay_overlays/show-shared",
     "full-auth_auth",
     "basic-auth_redemptions",
     "chatCommand"

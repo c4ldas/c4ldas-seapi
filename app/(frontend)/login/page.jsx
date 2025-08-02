@@ -12,7 +12,7 @@ export default async function Login({ _, searchParams }) {
   if (state.startsWith("YmFzaWMtYXV")) { // basic-auth_redemptions
     scope = basicScope;
 
-  } else if (state.startsWith("b3ZlcmxheV9")) {  // overlay_share, overlay_install, overlay_show-shared
+  } else if (state.startsWith("b3ZlcmxheV9vdmVybGF5cy9")) {  // overlay_overlays/share, overlay_overlays/install, overlay_overlays/show-shared
     scope = overlayScope;
 
   } else if (state.startsWith("Y2hhdENvbW1hbm")) { // chatCommand
@@ -22,7 +22,6 @@ export default async function Login({ _, searchParams }) {
     scope = fullScope;
 
   }
-
 
   const baseURL = "https://streamelements.com/oauth2/authorize?";
   const urlSearchParams = new URLSearchParams({
