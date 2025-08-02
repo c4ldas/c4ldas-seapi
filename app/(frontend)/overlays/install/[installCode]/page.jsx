@@ -22,7 +22,7 @@ export default function Install({ _, searchParams }) {
 
   useEffect(() => {
     if (!cookie.se_id) {
-      setEncoded(encodeData(`overlay_install/${installCode}`));
+      setEncoded(encodeData(`overlay_overlays/install/${installCode}`));
       setCookie(getCookies());
     }
 

@@ -25,7 +25,7 @@ export default function Install({ _, searchParams }) {
   const [obsUrl, setObsUrl] = useState();
 
   useEffect(() => {
-    setEncoded(encodeData("overlay_install"));
+    setEncoded(encodeData("overlay_overlays/install"));
     setCookie(getCookies());
   }, [cookie.se_id]);
 

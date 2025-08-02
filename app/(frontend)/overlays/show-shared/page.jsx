@@ -25,7 +25,7 @@ export default function ShowShared({ _, searchParams }) {
   const [quicklink, setQuicklink] = useState();
 
   useEffect(() => {
-    setEncoded(encodeData("overlay_show-shared"));
+    setEncoded(encodeData("overlay_overlays/show-shared"));
     setCookie(getCookies());
     overlayShowShared();
     setOrigin(window.location.origin);
