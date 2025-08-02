@@ -19,19 +19,19 @@ export default function Overlays() {
           <Linkbox
             title="Share overlay / widget"
             description="Generate a code to share your Streamelements overlay / widget."
-            link="/share"
+            link="/overlays/share"
             image=""
           />
           <Linkbox
             title="Install overlay / widget"
             description="Install the overlay into your Streamelements account using a code."
-            link="/install"
+            link="/overlays/install"
             image=""
           />
           <Linkbox
             title="My shared overlays / widgets"
             description="See your shared overlays / widgets, confirm the code or unshare them."
-            link="/show-shared"
+            link="/overlays/show-shared"
             image=""
           />
         </div>
