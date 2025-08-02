@@ -37,12 +37,18 @@ export default function Linkbox(props) {
           {...props}
         >
           <h3 style={{ color: 'black' }}>{props.title}</h3>
-          <p className="description">{props.description}<span className={props.spanClass}>{props.span}</span></p>
+          <p className="description">{props.description}
+            <br />
+            <span className={props.spanClass}>{props.span}</span>
+          </p>
         </a>)
         : (
           <Link href={props.link} className="link-content" style={{ position: 'relative', zIndex: 2 }}>
             <h3 style={{ color: 'black' }}>{props.title}</h3>
-            <p className="description">{props.description}<span className={props.spanClass}>{props.span}</span></p>
+            <p className="description">{props.description}
+              <br />
+              <span className={props.spanClass}>{props.span}</span>
+            </p>
           </Link>
         )}
     </div>
