@@ -24,7 +24,7 @@ export default function Share({ _, searchParams }) {
   const [quicklink, setQuicklink] = useState("");
 
   useEffect(() => {
-    setEncoded(encodeData("overlay_share"));
+    setEncoded(encodeData("overlay_overlays/share"));
     setCookie(getCookies());
     overlayList();
     setOrigin(window.location.origin);
