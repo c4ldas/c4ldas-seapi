@@ -101,6 +101,7 @@ export default function Install({ _, searchParams }) {
             <p className="description">This page will help you to install the overlay in your account.</p>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+            <p><strong>Platform:</strong> {cookie.se_provider}</p>
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <form id="form" onSubmit={handleSubmit} className="form" style={{ paddingTop: "10px" }}>
               <input type="text" id="se-code" className="se-code" placeholder="Type the overlay code here" onChange={e => setCode(e.target.value)} required={true} />

@@ -83,6 +83,7 @@ export default function Share({ _, searchParams }) {
           <>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+            <p><strong>Platform:</strong> {cookie.se_provider}</p>
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <h2 className="title">Overlay list</h2>
             <h3 className="subtitle">

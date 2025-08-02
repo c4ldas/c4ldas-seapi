@@ -117,6 +117,7 @@ export default function ShowShared({ _, searchParams }) {
           <>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+            <p><strong>Platform:</strong> {cookie.se_provider}</p>
             <p><button id="remove-integration" type="button" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <h2 className="title">Shared overlays</h2>
             <h3 className="subtitle">
