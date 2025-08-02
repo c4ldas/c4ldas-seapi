@@ -23,9 +23,6 @@ export default function Header(props) {
       <div className="header-links">
         <Link id="home" href="/"><div style={{ color: "var(--color)" }}>Home</div></Link>
         <Link id="overlays" href="/overlays"><div style={{ color: "var(--color)" }}>Share / Install Overlays</div></Link>
-        {/* <Link id="share" href="/share"><div style={{ color: "var(--color)" }}>Share overlay</div></Link> */}
-        {/* <Link id="install" href="/install"><div style={{ color: "var(--color)" }}>Install overlay</div></Link> */}
-        {/* <Link id="show-shared" href="/show-shared"><div style={{ color: "var(--color)" }}>Overlays shared</div></Link> */}
         <Link id="json-textify" href="/json-textify"><div style={{ color: "var(--color)" }}>JSON Textify</div></Link>
         <Link id="chat-commands" href="/chat-commands"><div style={{ color: "var(--color)" }}>Chat Commands Transfer</div></Link>
         <Link id="endpoints" href="/redemptions"><div style={{ color: "var(--color)" }}>Redemptions</div></Link>
