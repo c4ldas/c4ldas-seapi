@@ -285,6 +285,60 @@ export async function getCommandList(data) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// Install chat commands - PENDING
+export async function installChatCommands(data) {
+
+  console.log(data);
+  return { status: "success", message: "Commands installed successfully" };
+
+  try {
+    const request = await fetch(`https://api.streamelements.com/kappa/v2/bot/commands/${data.account_id}`, {
+      "method": "POST",
+      "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": `oAuth ${data.access_token}`
+      },
+      "body": JSON.stringify(data.commands)
+    });
+
+    const response = await request.json();
+    return response;
+
+  } catch (error) {
+    console.log("installChatCommands():", error);
+    throw { status: "failed", message: error.message };
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Convert minutes in days, hours and minutes
 function calculateTime(minutes) {
   const days = Math.floor(minutes / (60 * 24));

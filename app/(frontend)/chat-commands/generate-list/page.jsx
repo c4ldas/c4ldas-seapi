@@ -75,7 +75,8 @@ export default function Generate({ request, searchParams }) {
           <>
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
+            <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Logout</button></p>
             <h2 className="title">Generate command list</h2>
             <h3 className="subtitle">
               Click below to download the list of custom commands of your channel.

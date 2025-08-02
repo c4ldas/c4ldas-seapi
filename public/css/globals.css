@@ -178,7 +178,8 @@ a:visited {
 
 .se-install-overlay,
 .se-download-leaderboard,
-.se-download-redemptions {
+.se-download-redemptions,
+.se-install-commands {
   font-size: 1.1rem;
   background: #7fcc7f;
   height: 3em;
@@ -408,4 +409,60 @@ td {
 
 .pointer {
   cursor: pointer;
+}
+
+
+.se-input-install-commands {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #fff;
+  background: hsl(120, 43%, 65%);
+  /* background-color: hsl(217, 91%, 60%); */
+  /* blue-500 */
+  border: none;
+  border-radius: 0.375rem;
+  /* rounded-md */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.se-input-install-commands:hover {
+  background-color: hsl(120, 43%, 55%);
+  /* background-color: hsl(221, 83%, 53%); */
+
+}
+
+.se-input-install-commands:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px hsla(217, 91%, 60%, 0.5);
+}
+
+
+.se-install-commands {
+  border-radius: 0.375rem;
+}
+
+.se-install-commands:hover {
+  background-color: hsl(120, 43%, 55%);
+  cursor: pointer;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+}
+
+.status-indicator.valid {
+  background-color: #16a34a;
+  /* green-600 */
+}
+
+.status-indicator.invalid {
+  background-color: #dc2626;
+  /* red-600 */
 }
