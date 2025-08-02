@@ -55,6 +55,7 @@ export async function GET(request) {
   cookies().set('se_id', data.account_id);
   cookies().set('se_username', data.username);
   cookies().set('se_tag', data.tag);
+  cookies().set('se_provider', user.provider);
 
   return Response.redirect(`${origin}/${state.split("_")[1]}`);
 }
