@@ -19,13 +19,13 @@ export default function Commands() {
         <div className="main">
           <Linkbox
             title="Generate chat command list"
-            description="Import all public commands from your channel."
+            description="Download all custom commands from your channel in a JSON file."
             link="/chat-commands/generate-list"
             image=""
           />
           <Linkbox
             title="Install chat commands"
-            description="Export the command list to your destination channel."
+            description="Use the generated list to install the chat commands into your destination channel."
             link="/chat-commands/install-list"
             span="Under development"
             spanClass="red"
