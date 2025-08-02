@@ -77,13 +77,12 @@ export default function Home({ _, searchParams }) {
         </div>
         <hr />
 
-        {/* 
-        <h2 className="title">Command transfer system</h2>
-        <h3 className="subtitle">Use the buttons below to transfer chat commands from one channel to another.</h3>
+        <h2 className="title">Chat commands transfer</h2>
+        <h3 className="subtitle">Use the buttons below to copy chat commands from one channel to another.</h3>
         <div className="main">
           <Linkbox
             title="Generate chat command list"
-            description="Import all commands from your channel."
+            description="Import all custom commands from your channel."
             link="/chat-commands/generate-list"
             image=""
           />
@@ -91,13 +90,12 @@ export default function Home({ _, searchParams }) {
             title="Install chat commands"
             description="Export the command list to your destination channel."
             link="/chat-commands/install-list"
-            span=" Not ready yet. Soon."
+            span="Under development."
             spanClass="red"
             image=""
           />
         </div>
         <hr />
-        */}
 
         <h2 className="title">Custom widgets</h2>
         <h3 className="subtitle">
