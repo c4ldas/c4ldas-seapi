@@ -1,11 +1,17 @@
 import { cookies } from "next/headers";
 import { checkIfTagExists, seSaveToDatabase } from "@/app/lib/database";
-import { getTokenCode, getUserData, decodeData, generateTag } from "@/app/lib/streamelements";
+import { getTokenCode, getUserData, decodeData, generateTag, getBearer } from "@/app/lib/streamelements";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
+
+  // Testing subathon multichannel overlay
+  if (obj.state.includes("subathon_multichannel")) {
+    return Response.redirect(`http://localhost:5000/api/callback?code=${obj.code}&state=${obj.state}`);
+  }
+
   const state = decodeData(obj.state);
   const origin = request.nextUrl.origin;
   let tag;
