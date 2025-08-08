@@ -9,7 +9,7 @@ export async function GET(request) {
 
   // Testing subathon multichannel overlay
   if (obj.state.includes("subathon_multichannel")) {
-    return Response.redirect(`http://localhost:5000/api/callback?code=${obj.code}&state=${obj.state}`);
+    return Response.redirect(`http://subathon.c4ldas.com.br/api/callback?code=${obj.code}&state=${obj.state}`);
   }
 
   const state = decodeData(obj.state);
