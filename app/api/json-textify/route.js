@@ -44,6 +44,7 @@ export async function GET(query) {
     return new Response(data.toString(), { status: 200 });
 
   } catch (error) {
+    console.log(error);
     console.log(error.message);
     return new Response("Failed to get JSON data from the site", { status: 200 });
   }
