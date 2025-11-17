@@ -27,7 +27,9 @@ export async function GET(query) {
 
     // Try to fetch JSON
     const request = await fetch(site);
+    console.log("Request:", request);
     const response = await request.json();
+    console.log("Response:", response);
 
     // Replace placeholders
     const data = msg.replace(/\(([^)]+)\)/g, (_, path) => {
