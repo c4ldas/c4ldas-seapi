@@ -1,47 +1,47 @@
 
-// Not working, still need work to do
-
 import { getTokenDatabase } from "@/app/lib/database";
 import { installChatCommands } from "@/app/lib/streamelements";
 import { NextResponse } from "next/server";
 
-export async function POST(request) {
-
-  let success = 0;
-  let failed = 0;
-
-  const body = await request.json();
-
-  for (const item of body) {
-    const response = await installChatCommands(item);
-    if (response.status === "failed") {
-      failed++;
-      continue;
-    }
-    success++;
-  }
-
-  return NextResponse.json({ status: "success", message: "Still under development." });
-  return NextResponse.json({ status: "success", result: { success: success, failed: failed }, message: "Commands installed successfully!" });
-
+export async function POST(data, request) {
   try {
-    // const overlayData = await getOverlayFromDB(request.params);
+    let success = 0;
+    let failed = 0;
+    let failedCommands = [];
+
+    const body = await data.json();
+
+    // console.log("Request Params:", request.params);
     const tokenDatabase = await getTokenDatabase(request.params);
 
-    const data = {
+    const userData = {
       access_token: tokenDatabase.details.access_token,
       account_id: tokenDatabase.details.account_id,
     }
 
-    // const userData = await getUserData(tokenDatabase.details.access_token);
+    for (const item of body) {
+      const command = {
+        account_id: userData.account_id,
+        access_token: userData.access_token,
+        command: item
+      };
 
+      const response = await installChatCommands(command);
 
-    const response = await installChatCommands(data);
+      if (response.status === "failed") {
+        failed++;
+        failedCommands.push(`${response.command} - ${response.message}`);
+        continue;
+      }
+      success++;
+    }
 
-    return NextResponse.json(response, { status: 200 });
+    console.log({ result: { success: success, failed: failed }, failed_commands: failedCommands });
+    return NextResponse.json({ status: "success", message: "Commands installed successfully!", result: { success: success, failed: failed }, failed_commands: failedCommands }, { status: 200 });
 
   } catch (error) {
     console.log("/chat-commands/install/[tag] error:", error.message);
     return NextResponse.json({ status: "failed", message: error.message }, { status: 500 });
   }
+
 }
