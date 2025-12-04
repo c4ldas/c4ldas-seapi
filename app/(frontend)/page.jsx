@@ -90,8 +90,8 @@ export default function Home({ _, searchParams }) {
             title="Install chat commands"
             description="Use the generated list to install the chat commands into your destination channel."
             link="/chat-commands/install-list"
-            span="Under development."
-            spanClass="red"
+            /* span="Under development." */
+            /* spanClass="red" */
             image=""
           />
         </div>
