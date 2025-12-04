@@ -33,6 +33,7 @@ export default function Generate({ request, searchParams }) {
   }, [cookie.se_id]);
 
   async function installList() {
+
     if (!jsonData || commandsToInstall.length === 0) return;
 
     const dialog = document.querySelector("#code-generated");
@@ -40,42 +41,58 @@ export default function Generate({ request, searchParams }) {
     const dialogResult = dialog.querySelector("#dialog-result");
     const dialogButton = dialog.querySelector("#dialog-copy");
 
+    try {
+      setLoading(true);
+      dialogTitle.innerText = "Installing commands, please wait...";
+      dialogResult.innerText = "";
+      dialog.style.marginLeft = "auto";
+      dialogButton.style.display = "none";
+      dialog.showModal();
 
-    setLoading(true);
-    dialogTitle.innerText = "Installing commands, please wait...";
-    dialogResult.innerText = "";
-    dialog.style.marginLeft = "auto";
-    dialogButton.style.display = "none";
-    dialog.showModal();
 
+      const commands = jsonData.filter((item) => commandsToInstall.includes(item.command));
+      console.log("Commands to install:", commands);
 
-    const commands = jsonData.filter((item) => commandsToInstall.includes(item.command));
-    console.log("Commands to install:", commands);
+      const request = await fetch(`/api/chat-commands/install/${cookie["se_tag"]}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(commands)
+      });
 
-    const request = await fetch(`/api/chat-commands/install/${cookie["se_tag"]}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(commands)
-    });
+      if (!request.ok) {
+        if (request.headers.get("x-vercel-error")) {
+          throw new Error(`Please try to select fewer commands to install at a time.`);
+        }
+        throw new Error(`Failed to install commands. Status: ${request.status}`);
+      }
 
-    const response = await request.json();
-    console.log(response);
+      const response = await request.json();
+      console.log(response);
 
-    dialogTitle.innerText = "Commands installed, see results below:";
-    dialogResult.innerText = `Successfully installed: ${response.result.success}. 
+      dialogTitle.innerText = "Commands installed, see results below:";
+      dialogResult.innerText = `Successfully installed: ${response.result.success}. 
         Failed to install: ${response.result.failed}.
 
         Failed commands:
           ${response.failed_commands.join("\r\n")}
     `;
-    dialogButton.style.display = "block";
-    dialog.style.marginLeft = "auto";
-    dialog.showModal();
+      dialogButton.style.display = "block";
+      dialog.style.marginLeft = "auto";
+      dialog.showModal();
 
-    setLoading(false);
-    return response;
+      setLoading(false);
+      return response;
+
+    } catch (error) {
+      dialogTitle.innerText = "Commands installed, see results below:";
+      dialogResult.innerText = `Failed to install commands. Error: ${error.message}`;
+      dialogButton.style.display = "none";
+      dialog.style.marginLeft = "auto";
+      dialog.showModal();
+      setLoading(false);
+    }
   }
 
 
