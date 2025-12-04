@@ -285,23 +285,11 @@ export async function getCommandList(data) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Install chat commands - PENDING
+// Install chat commands
 export async function installChatCommands(data) {
 
-  console.log(data);
-  return { status: "success", message: "Commands installed successfully" };
+  // console.log(data);
+  // return { status: "success", message: "Commands installed successfully" };
 
   try {
     const request = await fetch(`https://api.streamelements.com/kappa/v2/bot/commands/${data.account_id}`, {
@@ -311,15 +299,21 @@ export async function installChatCommands(data) {
         "Content-Type": "application/json",
         "Authorization": `oAuth ${data.access_token}`
       },
-      "body": JSON.stringify(data.commands)
+      "body": JSON.stringify(data.command)
     });
 
     const response = await request.json();
-    return response;
+    if (response.error) {
+      // console.log({ status: "failed", error: response.error, statusCode: response.statusCode, message: response.message, command: data.command.command });
+      return { status: "failed", error: response.error, statusCode: response.statusCode, message: response.message, command: data.command.command };
+    }
+
+    console.log("installChatCommands():", response);
+    return { status: "success", message: "Commands installed successfully" };
 
   } catch (error) {
     console.log("installChatCommands():", error);
-    throw { status: "failed", message: error.message };
+    return { status: "failed", message: error.message };
   }
 }
 
