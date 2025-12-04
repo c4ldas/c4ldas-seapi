@@ -60,11 +60,13 @@ export default function Generate({ request, searchParams }) {
         dialogTimer.innerText = `Time remaining: ${remainingTime} seconds`;
         if (remainingTime === 0) {
           clearInterval(timerId);
+
         }
       }, 1000);
 
       dialog.style.marginLeft = "auto";
       dialogButton.style.display = "none";
+      dialogTimer.style.display = "block";
       dialog.showModal();
 
 
@@ -98,6 +100,7 @@ export default function Generate({ request, searchParams }) {
     `;
       dialogButton.style.display = "block";
       dialog.style.marginLeft = "auto";
+      dialogTimer.style.display = "none";
       dialog.showModal();
 
       setLoading(false);
@@ -108,6 +111,7 @@ export default function Generate({ request, searchParams }) {
       dialogResult.innerText = `Failed to install commands. \n${error.message}`;
       dialogButton.style.display = "block";
       dialog.style.marginLeft = "auto";
+      dialogTimer.style.display = "none";
       dialog.showModal();
       setLoading(false);
     }
