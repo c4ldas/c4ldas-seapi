@@ -63,7 +63,7 @@ export default function Generate({ request, searchParams }) {
 
       if (!request.ok) {
         if (request.headers.get("x-vercel-error")) {
-          throw new Error(`Please try to select fewer commands to install at a time.`);
+          throw new Error(`Timed out. Please try to select fewer commands to install at a time.`);
         }
         throw new Error(`Failed to install commands. Status: ${request.status}`);
       }
@@ -71,7 +71,7 @@ export default function Generate({ request, searchParams }) {
       const response = await request.json();
       console.log(response);
 
-      dialogTitle.innerText = "Commands installed, see results below:";
+      dialogTitle.innerText = "Command installation result:";
       dialogResult.innerText = `Successfully installed: ${response.result.success}. 
         Failed to install: ${response.result.failed}.
 
@@ -86,8 +86,8 @@ export default function Generate({ request, searchParams }) {
       return response;
 
     } catch (error) {
-      dialogTitle.innerText = "Commands installed, see results below:";
-      dialogResult.innerText = `Failed to install commands. Error: ${error.message}`;
+      dialogTitle.innerText = "Command installation result:";
+      dialogResult.innerText = `Failed to install commands. \n${error.message}`;
       dialogButton.style.display = "none";
       dialog.style.marginLeft = "auto";
       dialog.showModal();
