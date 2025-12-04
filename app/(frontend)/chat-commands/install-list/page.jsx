@@ -39,12 +39,30 @@ export default function Generate({ request, searchParams }) {
     const dialog = document.querySelector("#code-generated");
     const dialogTitle = dialog.querySelector("#dialog-title");
     const dialogResult = dialog.querySelector("#dialog-result");
+    const dialogTimer = dialog.querySelector("#dialog-timer");
     const dialogButton = dialog.querySelector("#dialog-copy");
 
     try {
       setLoading(true);
+
+      let remainingTime = 60;
+      let timerId;
+
       dialogTitle.innerText = "Installing commands, please wait...";
-      dialogResult.innerText = "";
+      dialogResult.innerText =
+        "The installation may fail if the list of commands is too long (or after 60 seconds).\n" +
+        "If this happens, try again and select fewer commands to install at a time.";
+
+      dialogTimer.innerText = `Time remaining: ${remainingTime} seconds`;
+
+      timerId = setInterval(() => {
+        remainingTime--;
+        dialogTimer.innerText = `Time remaining: ${remainingTime} seconds`;
+        if (remainingTime === 0) {
+          clearInterval(timerId);
+        }
+      }, 1000);
+
       dialog.style.marginLeft = "auto";
       dialogButton.style.display = "none";
       dialog.showModal();
@@ -88,7 +106,7 @@ export default function Generate({ request, searchParams }) {
     } catch (error) {
       dialogTitle.innerText = "Command installation result:";
       dialogResult.innerText = `Failed to install commands. \n${error.message}`;
-      dialogButton.style.display = "none";
+      dialogButton.style.display = "block";
       dialog.style.marginLeft = "auto";
       dialog.showModal();
       setLoading(false);
@@ -235,6 +253,7 @@ export default function Generate({ request, searchParams }) {
             <dialog id="code-generated" >
               <h3 id="dialog-title"></h3>
               <p id="dialog-result"></p>
+              <p id="dialog-timer"></p>
               <div id="dialog-copy">
                 <button style={{ padding: "0.5rem", marginRight: "0.5rem" }} id="cancel" onClick={() => document.querySelector("#code-generated").close()}>Close</button>
               </div>
