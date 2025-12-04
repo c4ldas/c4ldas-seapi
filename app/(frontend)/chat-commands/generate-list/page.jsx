@@ -76,6 +76,9 @@ export default function Generate({ request, searchParams }) {
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
             <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            <hr />
+            <span style={{ color: "red" }}>Make sure you have selected the correct channel and platform to download the command list. Otherwise, click on the button below to logout.</span>
+            <hr />
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Logout</button></p>
             <h2 className="title">Generate command list</h2>
             <h3 className="subtitle">
