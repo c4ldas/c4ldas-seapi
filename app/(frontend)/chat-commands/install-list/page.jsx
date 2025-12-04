@@ -60,7 +60,6 @@ export default function Generate({ request, searchParams }) {
         dialogTimer.innerText = `Time remaining: ${remainingTime} seconds`;
         if (remainingTime === 0) {
           clearInterval(timerId);
-
         }
       }, 1000);
 
@@ -68,7 +67,6 @@ export default function Generate({ request, searchParams }) {
       dialogButton.style.display = "none";
       dialogTimer.style.display = "block";
       dialog.showModal();
-
 
       const commands = jsonData.filter((item) => commandsToInstall.includes(item.command));
       console.log("Commands to install:", commands);
@@ -101,6 +99,7 @@ export default function Generate({ request, searchParams }) {
       dialogButton.style.display = "block";
       dialog.style.marginLeft = "auto";
       dialogTimer.style.display = "none";
+      clearInterval(timerId);
       dialog.showModal();
 
       setLoading(false);
@@ -112,6 +111,7 @@ export default function Generate({ request, searchParams }) {
       dialogButton.style.display = "block";
       dialog.style.marginLeft = "auto";
       dialogTimer.style.display = "none";
+      clearInterval(timerId);
       dialog.showModal();
       setLoading(false);
     }
