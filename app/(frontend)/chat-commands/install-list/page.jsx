@@ -35,7 +35,20 @@ export default function Generate({ request, searchParams }) {
   async function installList() {
     if (!jsonData || commandsToInstall.length === 0) return;
 
+    const dialog = document.querySelector("#code-generated");
+    const dialogTitle = dialog.querySelector("#dialog-title");
+    const dialogResult = dialog.querySelector("#dialog-result");
+    const dialogButton = dialog.querySelector("#dialog-copy");
+
+
     setLoading(true);
+    dialogTitle.innerText = "Installing commands, please wait...";
+    dialogResult.innerText = "";
+    dialog.style.marginLeft = "auto";
+    dialogButton.style.display = "none";
+    dialog.showModal();
+
+
     const commands = jsonData.filter((item) => commandsToInstall.includes(item.command));
     console.log("Commands to install:", commands);
 
@@ -50,12 +63,14 @@ export default function Generate({ request, searchParams }) {
     const response = await request.json();
     console.log(response);
 
-    const dialog = document.querySelector("#code-generated");
-    const dialogTitle = dialog.querySelector("#dialog-title");
-    // const dialogResult = dialog.querySelector("#dialog-result");
+    dialogTitle.innerText = "Commands installed, see results below:";
+    dialogResult.innerText = `Successfully installed: ${response.result.success}. 
+        Failed to install: ${response.result.failed}.
 
-    dialogTitle.innerText = response.message;
-    // dialogResult.innerText = `Successfully installed: ${response.result.success}.\n Failed to install: ${response.result.failed}.`;
+        Failed commands:
+          ${response.failed_commands.join("\r\n")}
+    `;
+    dialogButton.style.display = "block";
     dialog.style.marginLeft = "auto";
     dialog.showModal();
 
@@ -103,7 +118,7 @@ export default function Generate({ request, searchParams }) {
     <div className="container">
       <Header />
       <main className="main block">
-        <h1 className="title">Install command list<br /> (Under development)</h1>
+        <h1 className="title">Install command list</h1>
         <hr />
         {!cookie.se_id &&
           <>
@@ -125,6 +140,9 @@ export default function Generate({ request, searchParams }) {
             <p><strong>Channel name:</strong> {cookie.se_username} </p>
             <p><strong>Channel ID:</strong> {cookie.se_id}</p>
             <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            <hr />
+            <span style={{ color: "red" }}>Make sure you have selected the correct channel and platform to install the commands. Otherwise, click on the button below to logout.</span>
+            <hr />
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Logout</button></p>
             <h2 className="title">Install command list</h2>
             <h3 className="subtitle">
@@ -162,7 +180,7 @@ export default function Generate({ request, searchParams }) {
 
                   <br /><br />
 
-                  {/* Show result of the installation */}
+                  {/* Waiting the command list to be installed */}
                   {loading && <p>Loading...</p>}
 
 
