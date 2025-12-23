@@ -19,8 +19,8 @@ export const viewport = {
 }
 
 export const metadata = {
-  title: "Overlay Share",
-  description: "Share your overlays with your friends.",
+  title: "c4ldas seAPI",
+  description: "Utilities for overlays & chat tools",
 
   // Favicon
   icons: {
