@@ -36,7 +36,10 @@ export default function Home({ _, searchParams }) {
     <div className="container">
       <Header />
       <main className="main block">
-        <h1 className="title">Overlays</h1>
+        <h1 className="title">Welcome!</h1>
+        <h3 className="subtitle">
+          Explore a collection of StreamElements tools designed to help you share overlays, manage chat commands, and create custom integrations for your stream.
+        </h3>
         <hr />
 
         <h2 className="title">Share / Install overlays</h2>
