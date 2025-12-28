@@ -20,11 +20,15 @@ export default function Redemptions({ _, searchParams }) {
   const [cookie, setCookie] = useState({});
   const [amount, setAmount] = useState("");
   const [offset, setOffset] = useState("");
-  const [encoded, setEncoded] = useState("");
+  // const [encoded, setEncoded] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    setEncoded(encodeData("basic-auth_redemptions"));
+    // setEncoded(encodeData("basic-auth_redemptions"));
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    setHref(url);
     setCookie(getCookies());
   }, [cookie.se_id]);
 
@@ -91,7 +95,8 @@ export default function Redemptions({ _, searchParams }) {
             </h3>
             <div className="main">
               {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={`/login?action=${action}`}>
+              {/* <Link href={`/login?action=${action}`}> */}
+              <Link href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
