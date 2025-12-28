@@ -16,7 +16,7 @@ export default function Share({ _, searchParams }) {
   useEffect(() => {
     // setEncoded(encodeData("full-auth_auth"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
   }, []);
 

@@ -25,7 +25,7 @@ export default function Generate({ request, searchParams }) {
   useEffect(() => {
     // setEncoded(encodeData("chatCommand_chat-commands/generate-list"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
     setCookie(getCookies());
     // setOrigin(window.location.origin);

@@ -29,7 +29,7 @@ export default function Share({ _, searchParams }) {
   useEffect(() => {
     // setEncoded(encodeData("overlay_overlays/share"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
     setCookie(getCookies());
     overlayList();

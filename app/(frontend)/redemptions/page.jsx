@@ -27,7 +27,7 @@ export default function Redemptions({ _, searchParams }) {
   useEffect(() => {
     // setEncoded(encodeData("basic-auth_redemptions"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
     setCookie(getCookies());
   }, [cookie.se_id]);
