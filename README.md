@@ -77,39 +77,39 @@ At the moment the structure of the application is:
 |  |--lib/                    
 |  |
 |  |--(frontend)/
-|  |  |-- homepage              # done
-|  |  |-- login/                # done
-|  |  |-- leaderboard/          # done
-|  |  |-- endpoints/            # done
-|  |  |-- redemptions/          # done
-|  |  |-- json-textify/         # done
+|  |  |-- homepage               # done
+|  |  |-- login/                 # done
+|  |  |-- leaderboard/           # done
+|  |  |-- endpoints/             # done
+|  |  |-- redemptions/           # done
+|  |  |-- json-textify/          # done
 |  |  |
 |  |  |-- chat-commands/        
 |  |  |      |-- generate-list/  # done
-|  |  |      |-- install-list/   # in progress
+|  |  |      |-- install-list/   # done
 |  |  |
 |  |  |-- overlays/             
-|  |        |-- share/          # done
-|  |        |-- install/        # done
-|  |        |-- show-shared/    # done
+|  |        |-- share/           # done
+|  |        |-- install/         # done
+|  |        |-- show-shared/     # done
 |  |  
 |  |--api/
 |     |-- overlays/
-|     |     |-- install/        # done
-|     |     |-- list/           # done
-|     |     |-- share/          # done
-|     |     |-- show-shared/    # done
-|     |     |-- unshare/        # done
+|     |     |-- install/         # done
+|     |     |-- list/            # done
+|     |     |-- share/           # done
+|     |     |-- show-shared/     # done
+|     |     |-- unshare/         # done
 |     |
 |     |-- redemptions/
-|     |     |-- download/       # done
+|     |     |-- download/        # done
 |     |
 |     |-- github/
-|     |     |-- widgets/        # done
+|     |     |-- widgets/         # done
 |     | 
-|     |-- logout/               # done
-|     |-- callback/             # done
-|     |-- top/                  # done
-|     |-- watchtime/            # done
-|     |-- json-textify/         # done
+|     |-- logout/                # done
+|     |-- callback/              # done
+|     |-- top/                   # done
+|     |-- watchtime/             # done
+|     |-- json-textify/          # done
 </pre>
