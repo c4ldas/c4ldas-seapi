@@ -1,27 +1,19 @@
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
+import crypto from "crypto";
+import zlib from "zlib";
+import { ACTIONS } from "@/app/lib/streamelements";
 
-export default async function Login({ _, searchParams }) {
+export default function Login({ _, searchParams }) {
 
-  const state = searchParams.state;
-  const fullScope = "tips:read tips:write activities:read activities:write loyalty:read loyalty:write overlays:read overlays:write bot:read bot:write";
-  const overlayScope = "overlays:read overlays:write";
-  const basicScope = "channel:read";
-  const chatCommandScope = "bot:read bot:write";
-  let scope;
+  const action = searchParams.action;
 
-  if (state.startsWith("YmFzaWMtYXV")) { // basic-auth_redemptions
-    scope = basicScope;
-
-  } else if (state.startsWith("b3ZlcmxheV9vdmVybGF5cy9")) {  // overlay_overlays/share, overlay_overlays/install, overlay_overlays/show-shared
-    scope = overlayScope;
-
-  } else if (state.startsWith("Y2hhdENvbW1hbm")) { // chatCommand
-    scope = chatCommandScope;
-
-  } else {
-    scope = fullScope;
-
+  if (!action || !Object.hasOwn(ACTIONS, action)) {
+    console.log("Invalid action:", action);
+    return redirect("/");
   }
+
+  const state = createState({ action: searchParams.action, env: searchParams.env || "prod" });
+  const scope = ACTIONS[searchParams.action].scopes.join(" ");
 
   const baseURL = "https://streamelements.com/oauth2/authorize?";
   const urlSearchParams = new URLSearchParams({
@@ -29,9 +21,32 @@ export default async function Login({ _, searchParams }) {
     client_id: process.env.SE_CLIENT_ID,
     scope: scope,
     redirect_uri: process.env.SE_REDIRECT_URI,
-    state: searchParams.state
+    state: state
   });
 
   redirect(`${baseURL}${urlSearchParams}`);
 }
 
+
+function createState({ action, env }) {
+
+  const def = ACTIONS[action];
+  if (!def) throw new Error("Invalid action");
+
+  const stateObj = JSON.stringify({
+    v: 1,
+    action: action,
+    env: env,
+    redirect: def.redirect,
+    scopes: def.scopes,
+    csrf: crypto.randomBytes(8).toString("hex"),
+    iat: Math.floor(Date.now() / 1000)
+  });
+
+  const compressed = zlib.gzipSync(stateObj);
+  const state = Buffer.from(compressed).toString("base64url");
+  console.log("state:", state);
+  console.log("env:", env);
+  return state;
+
+}
