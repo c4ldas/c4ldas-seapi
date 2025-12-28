@@ -14,6 +14,9 @@
  * https://seapi.c4ldas.com.br/api/json-textify?site=https://pokeapi.co/api/v2/pokemon/squirtle&msg="Base experience: (base_experience). First ability: (abilities[0].ability.name)"
  */
 
+// The line below clears the error during the deployment:
+// [Error]: Dynamic server usage: Route /api/json-textify couldn't be rendered statically because it used `nextUrl.searchParams`.
+export const dynamic = 'force-dynamic';
 
 export async function GET(query) {
   try {
