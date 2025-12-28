@@ -2,6 +2,45 @@ const SE_CLIENT_ID = process.env.SE_CLIENT_ID;
 const SE_CLIENT_SECRET = process.env.SE_CLIENT_SECRET;
 const SE_REDIRECT_URI = process.env.SE_REDIRECT_URI;
 
+// Oauth2 actions
+export const ACTIONS = Object.freeze({
+  "overlay/share": {
+    "redirect": "/overlays/share",
+    "scopes": ["overlays:read", "overlays:write"]
+  },
+  "overlay/install": {
+    "redirect": "/overlays/install",
+    "scopes": ["overlays:read", "overlays:write"]
+  },
+  "overlay/show": {
+    "redirect": "/overlays/show-shared",
+    "scopes": ["overlays:read", "overlays:write"]
+  },
+  "command/generate": {
+    "redirect": "/chat-commands/generate-list",
+    "scopes": ["bot:read", "bot:write"]
+  },
+  "command/install": {
+    "redirect": "/chat-commands/install-list",
+    "scopes": ["bot:read", "bot:write"]
+  },
+  "redemption/download": {
+    "redirect": "/redemptions",
+    "scopes": ["channel:read"]
+  },
+  "basic": {
+    "redirect": "/",
+    "scopes": ["channel:read"]
+  },
+  "full": {
+    "redirect": "/",
+    "scopes": ["overlays:read", "overlays:write", "channel:read",
+      "tips:read", "tips:write", "activities:read", "activities:write",
+      "loyalty:read", "loyalty:write", "bot:read", "bot:write"]
+  }
+});
+
+
 // Get access_token from Streamelements
 export async function getTokenCode(code) {
   try {
@@ -316,7 +355,6 @@ export async function installChatCommands(data) {
     return { status: "failed", message: error.message };
   }
 }
-
 
 
 
