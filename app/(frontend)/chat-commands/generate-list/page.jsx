@@ -3,7 +3,7 @@
 import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
 import { useEffect, useState } from "react";
-import { encodeData } from "@/app/lib/streamelements";
+// import { encodeData } from "@/app/lib/streamelements";
 import { getCookies } from "cookies-next";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -17,18 +17,18 @@ export default function Generate({ request, searchParams }) {
   const pathName = usePathname();
 
   const [cookie, setCookie] = useState({});
-  const [encoded, setEncoded] = useState("");
-  const [code, setCode] = useState("");
-  const [origin, setOrigin] = useState();
+  // const [encoded, setEncoded] = useState("");
+  // const [code, setCode] = useState("");
+  // const [origin, setOrigin] = useState();
+  const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    // Encoded data will follow the pattern for callback: group_URLPath_timestamp. 
-    // "Group" is used to separate scopes on /login page.
-    // "URLPath" is the path used on callback page.
-    // "Timestamp" is generated on the server. So, when encoded, the encoded data will look like this: chatCommand_generate-list_1749237834453
-    setEncoded(encodeData("chatCommand_chat-commands/generate-list"));
+    // setEncoded(encodeData("chatCommand_chat-commands/generate-list"));
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    setHref(url);
     setCookie(getCookies());
-    setOrigin(window.location.origin);
+    // setOrigin(window.location.origin);
   }, [cookie.se_id]);
 
   async function downloadList() {
@@ -68,7 +68,7 @@ export default function Generate({ request, searchParams }) {
             </h3>
             <div className="main">
               {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={`/login?action=${action}`}>
+              <Link href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>

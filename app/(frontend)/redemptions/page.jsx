@@ -9,7 +9,7 @@ import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
 
-import { encodeData } from "@/app/lib/streamelements";
+// import { encodeData } from "@/app/lib/streamelements";
 
 const action = "redemption/download";
 

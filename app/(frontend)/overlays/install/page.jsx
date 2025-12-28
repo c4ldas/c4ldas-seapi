@@ -10,7 +10,7 @@ import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
 
-import { encodeData } from "@/app/lib/streamelements";
+// import { encodeData } from "@/app/lib/streamelements";
 
 const action = "overlay/install";
 
@@ -23,11 +23,15 @@ export default function Install({ _, searchParams }) {
   const [isInstalled, setIsInstalled] = useState(false);
   const [overlayConfigURL, setOverlayConfigURL] = useState();
   const [overlayUrl, setOverlayUrl] = useState();
-  const [encoded, setEncoded] = useState("");
+  // const [encoded, setEncoded] = useState("");
   const [obsUrl, setObsUrl] = useState();
+  const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    setEncoded(encodeData("overlay_overlays/install"));
+    // setEncoded(encodeData("overlay_overlays/install"));
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    const url = `login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
+    setHref(url);
     setCookie(getCookies());
   }, [cookie.se_id]);
 
@@ -93,7 +97,7 @@ export default function Install({ _, searchParams }) {
             </h3>
             <div className="main">
               {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={`/login?action=${action}`}>
+              <Link href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
