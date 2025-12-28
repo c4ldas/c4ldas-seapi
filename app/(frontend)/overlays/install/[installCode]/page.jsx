@@ -12,6 +12,8 @@ import FooterComponent from "@/app/components/Footer";
 import { useParams } from "next/navigation";
 import { encodeData } from "@/app/lib/streamelements";
 
+const action = "overlay/install";
+
 export default function Install({ _, searchParams }) {
   const error = searchParams.error;
   const { installCode } = useParams();
@@ -77,7 +79,8 @@ export default function Install({ _, searchParams }) {
               <br />
             </h3>
             <div className="main">
-              <Link href={`/login?state=${encoded}`}>
+              {/* <Link href={`/login?state=${encoded}`}> */}
+              <Link href={`/login?action=${action}`}>
                 <button className="button button-login" type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
               </Link>
             </div>
