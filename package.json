@@ -20,5 +20,7 @@
     "react": "^18",
     "react-dom": "^18"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^9.39.2"
+  }
 }
