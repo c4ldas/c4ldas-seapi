@@ -45,8 +45,6 @@ function createState({ action, env }) {
 
   const compressed = zlib.gzipSync(stateObj);
   const state = Buffer.from(compressed).toString("base64url");
-  console.log("state:", state);
-  console.log("env:", env);
   return state;
 
 }
