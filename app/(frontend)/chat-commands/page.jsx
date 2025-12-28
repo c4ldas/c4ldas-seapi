@@ -11,7 +11,7 @@ export default function Commands() {
     <div className="container">
       <Header />
       <main className="main block">
-        <h1 className="title">Overlays</h1>
+        <h1 className="title">Chat commands</h1>
         <hr />
 
         <h2 className="title">Chat commands transfer</h2>
