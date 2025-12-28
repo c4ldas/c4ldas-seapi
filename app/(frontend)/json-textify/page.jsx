@@ -70,6 +70,7 @@ export default function Valorant({ params, searchParams }) {
       <Header />
       <main className="main block">
         <h1>JSON Textify</h1>
+        <hr />
         <h3>How to use this endpoint on Streamelements</h3>
         <p>This API will read the JSON response from the website and convert the values in parenthesis to JSON paths, returning its value</p>
         <div style={{ paddingTop: "10px" }}>
