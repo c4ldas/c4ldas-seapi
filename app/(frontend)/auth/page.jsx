@@ -7,6 +7,8 @@ import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
 import { encodeData } from "@/app/lib/streamelements";
 
+const action = "full";
+
 export default function Share({ _, searchParams }) {
   const [encoded, setEncoded] = useState("");
 
@@ -27,7 +29,8 @@ export default function Share({ _, searchParams }) {
           Click on the button below to login with Streamelements:
         </h3>
         <div className="main">
-          <Link href={`/login?state=${encoded}`}>
+          {/* <Link href={`/login?state=${encoded}`}> */}
+          <Link href={`/login?action=${action}`}>
             <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
           </Link>
         </div>
