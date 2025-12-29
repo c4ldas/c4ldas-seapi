@@ -23,6 +23,8 @@ export async function POST(request) {
     cookies().delete('se_id');
     cookies().delete('se_username');
     cookies().delete('se_tag');
+    cookies().delete('se_provider');
+    cookies().delete('user_avatar');
 
     return NextResponse.json({ status: "success", message: "Integration removed successfully" });
 
