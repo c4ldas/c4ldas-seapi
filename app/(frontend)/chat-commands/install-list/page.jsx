@@ -8,6 +8,7 @@ import { getCookies } from "cookies-next";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Dialog, openDialog } from "@/app/components/Dialog";
+import LoggedUser from "@/app/components/LoggedUser";
 
 const action = "command/install";
 
@@ -179,9 +180,15 @@ export default function Generate({ request, searchParams }) {
         }
         {cookie.se_id &&
           <>
-            <p><strong>Channel name:</strong> {cookie.se_username} </p>
-            <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
+              <div>
+                <p><strong>Channel name:</strong> {cookie.se_username} </p>
+                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+                <p><strong>Platform:</strong> {cookie.se_provider}</p>
+              </div>
+              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
+            </div> */}
+            <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
             <span style={{ color: "red" }}>Make sure you have selected the correct channel and platform to install the commands. Otherwise, click on the button below to logout.</span>
             <hr />

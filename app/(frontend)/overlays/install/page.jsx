@@ -9,6 +9,7 @@ import confetti from "canvas-confetti";
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
+import LoggedUser from "@/app/components/LoggedUser";
 
 // import { encodeData } from "@/app/lib/streamelements";
 
@@ -105,13 +106,23 @@ export default function Install({ _, searchParams }) {
         }
         {cookie.se_id &&
           <>
-            <p className="description">This page will help you to install the overlay in your account.</p>
-            <p><strong>Channel name:</strong> {cookie.se_username} </p>
-            <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
+              <div>
+                <p><strong>Channel name:</strong> {cookie.se_username} </p>
+                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+                <p><strong>Platform:</strong> {cookie.se_provider}</p>
+              </div>
+              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
+            </div> */}
+            <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
+            <hr />
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
+            <h2 className="title">Overlay installation</h2>
+            <h3 className="subtitle">
+              Type the overlay code below and click on the button to install it.
+            </h3>
             <form id="form" onSubmit={handleSubmit} className="form" style={{ paddingTop: "10px" }}>
-              <input type="text" id="se-code" className="se-code" placeholder="Type the overlay code here" onChange={e => setCode(e.target.value)} required={true} />
+              <input type="text" id="se-code" className="se-code" placeholder="Overlay code here" onChange={e => setCode(e.target.value)} required={true} />
               <input type="submit" id="se-install-overlay" className="se-install-overlay" value="Install overlay" />
             </form>
             <Dialog />

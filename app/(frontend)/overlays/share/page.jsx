@@ -9,6 +9,7 @@ import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
+import LoggedUser from "@/app/components/LoggedUser";
 
 // import { encodeData } from "@/app/lib/streamelements";
 
@@ -88,9 +89,16 @@ export default function Share({ _, searchParams }) {
         }
         {cookie.se_id &&
           <>
-            <p><strong>Channel name:</strong> {cookie.se_username} </p>
-            <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
+              <div>
+                <p><strong>Channel name:</strong> {cookie.se_username} </p>
+                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+                <p><strong>Platform:</strong> {cookie.se_provider}</p>
+              </div>
+              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
+            </div> */}
+            <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
+            <hr />
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <h2 className="title">Overlay list</h2>
             <h3 className="subtitle">

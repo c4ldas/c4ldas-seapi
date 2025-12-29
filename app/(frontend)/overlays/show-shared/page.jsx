@@ -8,6 +8,7 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
+import LoggedUser from "@/app/components/LoggedUser";
 
 // import { encodeData } from "@/app/lib/streamelements";
 
@@ -121,13 +122,20 @@ export default function ShowShared({ _, searchParams }) {
         }
         {cookie.se_id &&
           <>
-            <p><strong>Channel name:</strong> {cookie.se_username} </p>
-            <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-            <p><strong>Platform:</strong> {cookie.se_provider}</p>
+            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
+              <div>
+                <p><strong>Channel name:</strong> {cookie.se_username} </p>
+                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
+                <p><strong>Platform:</strong> {cookie.se_provider}</p>
+              </div>
+              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
+            </div> */}
+            <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
+            <hr />
             <p><button id="remove-integration" type="button" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
             <h2 className="title">Shared overlays</h2>
             <h3 className="subtitle">
-              Here you can see all overlays you have shared. Check the code again or simply remove the overlay so it is not shared anymore:
+              Here you can see all overlays you have shared. Check and copy the quicklink again or simply remove the overlay so it is not shared anymore:
             </h3>
             <div className="main" id="overlay-list">
 
