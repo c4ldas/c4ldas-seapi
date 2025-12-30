@@ -34,7 +34,7 @@ export const metadata = {
     description: "Utilities for overlays & chat tools",
     url: "https://seapi.c4ldas.com.br",
     creator: "@c4ldas",
-    images: "/images/cover/home.png",
+    images: "/images/home.png",
   },
 };
 
