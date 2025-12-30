@@ -218,6 +218,48 @@ export async function getOverlayFromDB(request) {
   }
 }
 
+
+export async function getOverlayPreviewFromDB(request) {
+  let client;
+
+  try {
+    const { code } = request;
+
+    const selectQuery = {
+      text: `SELECT name, data->>'preview' AS image FROM overlays where code = $1`,
+      values: [code],
+    }
+
+    client = await connectToDatabase();
+    const { rows } = await client.query(selectQuery);
+
+    const data = {
+      success: true,
+      message: "Query executed successfully",
+      details: rows,
+      status: 200
+    }
+
+    return data;
+
+  } catch (error) {
+    const { code, message, routine } = error;
+
+    const data = {
+      success: false,
+      message: error.message,
+      details: { code, message, routine },
+      status: 500
+    }
+    return data;
+
+  } finally {
+    if (client) client.release();
+    // console.log("Client released");
+  }
+}
+
+
 export async function getSharedOverlaysFromDB(request) {
   let client;
 
