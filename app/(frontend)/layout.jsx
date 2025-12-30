@@ -27,7 +27,15 @@ export const metadata = {
     icon: "/images/favicon.png",
     shortcut: "/images/favicon.png",
     apple: "/images/favicon.png",
-  }
+  },
+
+  openGraph: {
+    title: "c4ldas seAPI",
+    description: "Utilities for overlays & chat tools",
+    url: "https://seapi.c4ldas.com.br",
+    creator: "@c4ldas",
+    images: "/images/cover/home.png",
+  },
 };
 
 export default function RootLayout({ children }) {
