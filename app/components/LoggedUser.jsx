@@ -1,8 +1,6 @@
 "use client"
 
 export default function LoggedUser(props, asdf) {
-  console.log("props:", props);
-  console.log("asdf:", asdf);
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
       <div>
