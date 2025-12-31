@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import crypto from "crypto";
 import zlib from "zlib";
 import { ACTIONS } from "@/app/lib/streamelements";
+import { cookies } from "next/headers";
+import { setCookie } from "cookies-next";
 
 export default function Login({ _, searchParams }) {
 
@@ -12,7 +14,11 @@ export default function Login({ _, searchParams }) {
     return redirect("/");
   }
 
-  const state = createState({ action: searchParams.action, env: searchParams.env || "prod" });
+  const csrf = crypto.randomBytes(8).toString("hex");
+  setCookie("csrf", csrf, { httpOnly: true, /* secure: true, */ sameSite: "lax", maxAge: 300, path: "/" });
+  cookies().set("csrf", csrf, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 300, path: "/" });
+
+  const state = createState({ action: searchParams.action, env: searchParams.env || "prod", csrf: csrf });
   const scope = ACTIONS[searchParams.action].scopes.join(" ");
 
   const baseURL = "https://streamelements.com/oauth2/authorize?";
@@ -27,8 +33,7 @@ export default function Login({ _, searchParams }) {
   redirect(`${baseURL}${urlSearchParams}`);
 }
 
-
-function createState({ action, env }) {
+function createState({ action, env, csrf }) {
 
   const def = ACTIONS[action];
   if (!def) throw new Error("Invalid action");
@@ -39,7 +44,7 @@ function createState({ action, env }) {
     env: env,
     redirect: def.redirect,
     scopes: def.scopes,
-    csrf: crypto.randomBytes(8).toString("hex"),
+    csrf: csrf,
     iat: Math.floor(Date.now() / 1000)
   });
 
