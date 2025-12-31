@@ -1,0 +1,57 @@
+import { redirect } from "next/navigation";
+import crypto from "crypto";
+import zlib from "zlib";
+import { ACTIONS } from "@/app/lib/streamelements";
+import { cookies } from "next/headers";
+
+export async function GET(request) {
+  // Convert query strings (map format) to object format - Only works for this specific case!
+  const obj = Object.fromEntries(request.nextUrl.searchParams);
+
+  console.log("Search Params:", obj);
+
+  const action = obj.action;
+
+  if (!action || !Object.hasOwn(ACTIONS, action)) {
+    console.log("Invalid action:", action);
+    return redirect("/");
+  }
+
+  const csrf = crypto.randomBytes(8).toString("hex");
+  cookies().set("csrf", csrf, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 300, path: "/" });
+
+  const state = createState({ action: obj.action, env: obj.env || "prod", csrf: csrf });
+  const scope = ACTIONS[obj.action].scopes.join(" ");
+
+  const baseURL = "https://streamelements.com/oauth2/authorize?";
+  const urlSearchParams = new URLSearchParams({
+    response_type: "code",
+    client_id: process.env.SE_CLIENT_ID,
+    scope: scope,
+    redirect_uri: process.env.SE_REDIRECT_URI,
+    state: state
+  });
+
+  redirect(`${baseURL}${urlSearchParams}`);
+}
+
+function createState({ action, env, csrf }) {
+
+  const def = ACTIONS[action];
+  if (!def) throw new Error("Invalid action");
+
+  const stateObj = JSON.stringify({
+    v: 1,
+    action: action,
+    env: env,
+    redirect: def.redirect,
+    scopes: def.scopes,
+    csrf: csrf,
+    iat: Math.floor(Date.now() / 1000)
+  });
+
+  const compressed = zlib.gzipSync(stateObj);
+  const state = Buffer.from(compressed).toString("base64url");
+  return state;
+
+}
