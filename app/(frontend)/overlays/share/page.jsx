@@ -38,7 +38,7 @@ export default function Share({ _, searchParams }) {
   }, [cookie.se_id]);
 
   async function overlayList() {
-    if (!cookie["se_id"]) return;
+    if (!cookie["se_id"] || !cookie["se_tag"]) return;
     const request = await fetch(`/api/overlays/list/${cookie["se_tag"]}`, { method: "GET" });
     const response = await request.json();
 
@@ -46,6 +46,8 @@ export default function Share({ _, searchParams }) {
       deleteCookie("se_id");
       deleteCookie("se_tag");
       deleteCookie("se_username");
+      deleteCookie("user_avatar");
+      deleteCookie("se_provider");
       window.location.reload();
     }
 
@@ -89,14 +91,6 @@ export default function Share({ _, searchParams }) {
         }
         {cookie.se_id &&
           <>
-            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
-              <div>
-                <p><strong>Channel name:</strong> {cookie.se_username} </p>
-                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-                <p><strong>Platform:</strong> {cookie.se_provider}</p>
-              </div>
-              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
-            </div> */}
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
@@ -109,7 +103,6 @@ export default function Share({ _, searchParams }) {
                 <Linkbox
                   a="true" link="#" onClick={createCode} key={overlay._id}
                   title={`${overlay.name}`} image={overlay.preview ? overlay.preview.replaceAll(" ", "%20") : ""}
-                  /* image={overlay.preview.replaceAll(" ", "%20") || ""} */
                   data-overlay-id={overlay._id} data-overlay-name={overlay.name} data-account-id={overlay.channel}
                 />
               ))}
