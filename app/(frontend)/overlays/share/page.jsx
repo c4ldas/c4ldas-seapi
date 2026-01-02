@@ -3,15 +3,11 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { getCookies, deleteCookie } from "cookies-next";
-import Link from "next/link";
-
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
 import LoggedUser from "@/app/components/LoggedUser";
-
-// import { encodeData } from "@/app/lib/streamelements";
 
 const action = "overlay/share";
 
@@ -21,14 +17,12 @@ export default function Share({ _, searchParams }) {
 
   const [cookie, setCookie] = useState({});
   const [overlays, setOverlays] = useState([]);
-  // const [encoded, setEncoded] = useState("");
   const [code, setCode] = useState("");
   const [origin, setOrigin] = useState();
   const [quicklink, setQuicklink] = useState("");
   const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    // setEncoded(encodeData("overlay_overlays/share"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
@@ -82,10 +76,9 @@ export default function Share({ _, searchParams }) {
               Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
-              {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={href}>
+              <a href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
-              </Link>
+              </a>
             </div>
           </>
         }

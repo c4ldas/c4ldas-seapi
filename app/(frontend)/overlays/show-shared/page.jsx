@@ -3,14 +3,10 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { getCookies, deleteCookie } from "cookies-next";
-import Link from "next/link";
-
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
 import LoggedUser from "@/app/components/LoggedUser";
-
-// import { encodeData } from "@/app/lib/streamelements";
 
 const action = "overlay/show";
 
@@ -21,14 +17,12 @@ export default function ShowShared({ _, searchParams }) {
   const [cookie, setCookie] = useState({});
   const [sharedOverlays, setSharedOverlays] = useState([]);
   const [overlayToDelete, setOverlayToDelete] = useState({});
-  // const [encoded, setEncoded] = useState("");
   const [loading, setLoading] = useState(false);
   const [origin, setOrigin] = useState();
   const [quicklink, setQuicklink] = useState();
   const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    // setEncoded(encodeData("overlay_overlays/show-shared"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
@@ -83,7 +77,7 @@ export default function ShowShared({ _, searchParams }) {
 
   async function copyCode(event, data) {
     const dialog = document.querySelector("#copy-success");
-    navigator.clipboard.writeText(data/* event.target.textContent */);
+    navigator.clipboard.writeText(data);
 
     // Show the dialog next to the clicked element
     dialog.style.top = (event.pageY - 70) + "px";
@@ -113,23 +107,14 @@ export default function ShowShared({ _, searchParams }) {
               Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
-              {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={href}>
+              <a href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
-              </Link>
+              </a>
             </div>
           </>
         }
         {cookie.se_id &&
           <>
-            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
-              <div>
-                <p><strong>Channel name:</strong> {cookie.se_username} </p>
-                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-                <p><strong>Platform:</strong> {cookie.se_provider}</p>
-              </div>
-              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
-            </div> */}
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
             <p><button id="remove-integration" type="button" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
@@ -174,7 +159,6 @@ export default function ShowShared({ _, searchParams }) {
 
             </div>
             <Dialog />
-            {/* <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Quicklink copied to clipboard</dialog> */}
             <dialog id="unshare-overlay" style={{ backgroundColor: "rgba(255,0,0,0.3)" }}>
               <h3 id="dialog-title">Are you sure you want to unshare this overlay?</h3>
               <div>
