@@ -69,17 +69,6 @@ export default function Home({ _, searchParams }) {
         {seError && <p className="error red">Error: {seError}</p>}
         <hr />
 
-        <h2 className="title">Json Textify</h2>
-        <h3 className="subtitle">You can use this tool to generate plain text response from websites that only provide JSON output.</h3>
-        <div className="main">
-          <Linkbox
-            title="JSON Textify"
-            description="Generate plain text response from JSON output."
-            link="/json-textify"
-          />
-        </div>
-        <hr />
-
         <h2 className="title">Chat commands transfer</h2>
         <h3 className="subtitle">Use the buttons below to copy chat commands from one channel to another.</h3>
         <div className="main">
@@ -93,11 +82,26 @@ export default function Home({ _, searchParams }) {
             title="Install chat commands"
             description="Use the generated list to install the chat commands into your destination channel."
             link="/chat-commands/install-list"
-            /* span="Under development." */
-            /* spanClass="red" */
             image=""
           />
         </div>
+
+
+        <hr />
+
+
+
+
+        <h2 className="title">Json Textify</h2>
+        <h3 className="subtitle">You can use this tool to generate plain text response from websites that only provide JSON output.</h3>
+        <div className="main">
+          <Linkbox
+            title="JSON Textify"
+            description="Generate plain text response from JSON output."
+            link="/json-textify"
+          />
+        </div>
+
         <hr />
 
         <h2 className="title">Custom widgets</h2>
