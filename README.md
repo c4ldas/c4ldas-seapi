@@ -74,42 +74,42 @@ At the moment the structure of the application is:
 |
 |- app/
 |  |--components/
-|  |--lib/                    
+|  |--lib/             
 |  |
 |  |--(frontend)/
-|  |  |-- homepage               # done
-|  |  |-- login/                 # done
-|  |  |-- leaderboard/           # done
-|  |  |-- endpoints/             # done
-|  |  |-- redemptions/           # done
-|  |  |-- json-textify/          # done
+|  |  |-- homepage
+|  |  |-- login/
+|  |  |-- leaderboard/
+|  |  |-- endpoints/
+|  |  |-- redemptions/
+|  |  |-- json-textify/
 |  |  |
-|  |  |-- chat-commands/        
-|  |  |      |-- generate-list/  # done
-|  |  |      |-- install-list/   # done
+|  |  |-- chat-commands/
+|  |  |      |-- generate-list/
+|  |  |      |-- install-list/
 |  |  |
-|  |  |-- overlays/             
-|  |        |-- share/           # done
-|  |        |-- install/         # done
-|  |        |-- show-shared/     # done
-|  |  
+|  |  |-- overlays/
+|  |        |-- share/
+|  |        |-- install/
+|  |        |-- show-shared/
+|  |
 |  |--api/
 |     |-- overlays/
-|     |     |-- install/         # done
-|     |     |-- list/            # done
-|     |     |-- share/           # done
-|     |     |-- show-shared/     # done
-|     |     |-- unshare/         # done
+|     |     |-- install/
+|     |     |-- list/
+|     |     |-- share/
+|     |     |-- show-shared/
+|     |     |-- unshare/
 |     |
 |     |-- redemptions/
-|     |     |-- download/        # done
+|     |     |-- download/
 |     |
 |     |-- github/
-|     |     |-- widgets/         # done
+|     |     |-- widgets/
 |     | 
-|     |-- logout/                # done
-|     |-- callback/              # done
-|     |-- top/                   # done
-|     |-- watchtime/             # done
-|     |-- json-textify/          # done
+|     |-- logout/
+|     |-- callback/
+|     |-- top/
+|     |-- watchtime/
+|     |-- json-textify/
 </pre>
