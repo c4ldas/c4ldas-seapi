@@ -7,9 +7,6 @@ import { cookies } from "next/headers";
 export async function GET(request) {
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
-
-  console.log("Search Params:", obj);
-
   const action = obj.action;
 
   if (!action || !Object.hasOwn(ACTIONS, action)) {
