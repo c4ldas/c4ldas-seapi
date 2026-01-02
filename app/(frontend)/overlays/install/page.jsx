@@ -3,15 +3,11 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { getCookies } from "cookies-next";
-import Link from "next/link";
 import confetti from "canvas-confetti";
-
 import Header from "@/app/components/Header";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import FooterComponent from "@/app/components/Footer";
 import LoggedUser from "@/app/components/LoggedUser";
-
-// import { encodeData } from "@/app/lib/streamelements";
 
 const action = "overlay/install";
 
@@ -24,12 +20,10 @@ export default function Install({ _, searchParams }) {
   const [isInstalled, setIsInstalled] = useState(false);
   const [overlayConfigURL, setOverlayConfigURL] = useState();
   const [overlayUrl, setOverlayUrl] = useState();
-  // const [encoded, setEncoded] = useState("");
   const [obsUrl, setObsUrl] = useState();
   const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    // setEncoded(encodeData("overlay_overlays/install"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
@@ -97,23 +91,14 @@ export default function Install({ _, searchParams }) {
               Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
-              {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={href}>
+              <a href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
-              </Link>
+              </a>
             </div>
           </>
         }
         {cookie.se_id &&
           <>
-            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
-              <div>
-                <p><strong>Channel name:</strong> {cookie.se_username} </p>
-                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-                <p><strong>Platform:</strong> {cookie.se_provider}</p>
-              </div>
-              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
-            </div> */}
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
             <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
@@ -133,7 +118,6 @@ export default function Install({ _, searchParams }) {
               </div>
               <div id="error-code"></div>
               <div id="dialog-buttons">
-                {/* <button id="submit" type="submit" onClick={""}>Confirm</button> */}
                 <button id="cancel" type="reset" onClick={() => document.querySelector("#installation-failed").close()}>Close popup</button>
               </div>
             </dialog>

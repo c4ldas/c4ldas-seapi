@@ -5,12 +5,9 @@
 
 import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
-import Link from "next/link";
-
 import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
 import { useParams } from "next/navigation";
-// import { encodeData } from "@/app/lib/streamelements";
 
 const action = "overlay/install";
 
@@ -20,12 +17,10 @@ export default function Install({ _, searchParams }) {
   const [cookie, setCookie] = useState({});
   const [overlayEditor, setOverlayEditor] = useState();
   const [isInstalled, setIsInstalled] = useState(false);
-  // const [encoded, setEncoded] = useState("");
   const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
     if (!cookie.se_id) {
-      // setEncoded(encodeData(`overlay_overlays/install/${installCode}`));
       const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
       const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
       setHref(url);
@@ -83,11 +78,9 @@ export default function Install({ _, searchParams }) {
               <br />
             </h3>
             <div className="main">
-              {/* <Link href={`/login?state=${encoded}`}> */}
-              {/* <Link href={`/login?action=${action}`}> */}
-              <Link href={href}>
+              <a href={href}>
                 <button className="button button-login" type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
-              </Link>
+              </a>
             </div>
           </>
         }

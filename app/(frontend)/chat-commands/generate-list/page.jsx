@@ -3,33 +3,26 @@
 import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
 import { useEffect, useState } from "react";
-// import { encodeData } from "@/app/lib/streamelements";
 import { getCookies } from "cookies-next";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import Linkbox from "@/app/components/Linkbox";
 import { Dialog, openDialog } from "@/app/components/Dialog";
 import LoggedUser from "@/app/components/LoggedUser";
 
 const action = "command/generate";
 
-export default function Generate({ request, searchParams }) {
+export default function Generate({ _, searchParams }) {
   const error = searchParams.error;
   const pathName = usePathname();
 
   const [cookie, setCookie] = useState({});
-  // const [encoded, setEncoded] = useState("");
-  // const [code, setCode] = useState("");
-  // const [origin, setOrigin] = useState();
   const [href, setHref] = useState(`/login?action=${action}`);
 
   useEffect(() => {
-    // setEncoded(encodeData("chatCommand_chat-commands/generate-list"));
     const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
     const url = `/login?action=${action}${isLocalhost ? `&env=dev` : ""}`;
     setHref(url);
     setCookie(getCookies());
-    // setOrigin(window.location.origin);
   }, [cookie.se_id]);
 
   async function downloadList() {
@@ -68,23 +61,14 @@ export default function Generate({ request, searchParams }) {
               Click on the button below to login with Streamelements:
             </h3>
             <div className="main">
-              {/* <Link href={`/login?state=${encoded}`}> */}
-              <Link href={href}>
+              <a href={href}>
                 <button type="submit" style={{ padding: "0.5rem" }}>Login with Streamelements</button>
-              </Link>
+              </a>
             </div>
           </>
         }
         {cookie.se_id &&
           <>
-            {/*             <div style={{ display: "flex", alignItems: "center", gap: "10%" }}>
-              <div>
-                <p><strong>Channel name:</strong> {cookie.se_username} </p>
-                <p><strong>Channel ID:</strong> {cookie.se_id}</p>
-                <p><strong>Platform:</strong> {cookie.se_provider}</p>
-              </div>
-              <img style={{ borderRadius: "50%" }} src={atob(cookie.user_avatar)} alt="User avatar" width="100" height="auto" />
-            </div> */}
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
             <span style={{ color: "red" }}>Make sure you have selected the correct channel and platform to download the command list. Otherwise, click on the button below to logout.</span>
