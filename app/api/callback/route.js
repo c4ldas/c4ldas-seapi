@@ -9,8 +9,12 @@ export async function GET(request) {
   const obj = Object.fromEntries(request.nextUrl.searchParams);
   const origin = request.nextUrl.origin;
   const state = decodeState(obj.state);
-
   let tag;
+
+  if (state.env == "dev" && origin != "http://localhost:3000") {
+    return Response.redirect(`http://localhost:3000/api/callback?code=${obj.code}&state=${obj.state}`);
+  }
+
   const csrf = cookies().get("csrf")?.value;
 
   if (!csrf || state.csrf !== csrf) {
@@ -19,10 +23,6 @@ export async function GET(request) {
   }
 
   cookies().delete("csrf");
-
-  if (state.env == "dev" && origin != "http://localhost:3000") {
-    return Response.redirect(`http://localhost:3000/api/callback?code=${obj.code}&state=${obj.state}`);
-  }
 
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
