@@ -124,8 +124,7 @@ export async function seRemoveDBIntegration(request) {
   let client;
 
   const { tag, account_id, username, access_token, refresh_token } = request;
-
-  console.log("seRemoveDBIntegration request:", request);
+  // console.log("seRemoveDBIntegration request:", request);
 
   try {
     const removeQuery = {
@@ -134,14 +133,10 @@ export async function seRemoveDBIntegration(request) {
     }
     client = await connectToDatabase();
     const { rowCount } = await client.query(removeQuery);
-    /*     if (rowCount === 0) {
-          throw { error: "User not registered!" };
-        } */
     return true;
 
   } catch (error) {
     console.log("seRemoveDBIntegration(): ", error);
-    // throw error.message;
     return false;
 
   } finally {
