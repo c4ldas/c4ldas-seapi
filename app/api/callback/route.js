@@ -24,6 +24,10 @@ export async function GET(request) {
 
   cookies().delete("csrf");
 
+  if (!obj.code || obj.error) {
+    return Response.redirect(`${origin}`);
+  }
+
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
   const tagExists = await checkIfTagExists({ account_id: user._id, username: user.username });
