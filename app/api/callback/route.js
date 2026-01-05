@@ -8,12 +8,17 @@ export async function GET(request) {
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
   const origin = request.nextUrl.origin;
+
+  console.log("1");
   const state = decodeState(obj.state);
+  console.log("2");
   let tag;
 
   if (state.env == "dev" && origin != "http://localhost:3000") {
     return Response.redirect(`http://localhost:3000/api/callback?code=${obj.code}&state=${obj.state}`);
   }
+
+  console.log("3");
 
   const csrf = cookies().get("csrf")?.value;
 
@@ -25,7 +30,7 @@ export async function GET(request) {
   cookies().delete("csrf");
 
   if (!obj.code || obj.error) {
-    return Response.redirect(`${origin}`);
+    return Response.redirect(`${origin}?error=Application not authorized. Please try again later.`);
   }
 
   const token = await getTokenCode(obj.code);
