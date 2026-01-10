@@ -101,7 +101,7 @@ export default function Install({ _, searchParams }) {
           <>
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
-            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Logout</button></p>
             <h2 className="title">Overlay installation</h2>
             <h3 className="subtitle">
               Type the overlay code below and click on the button to install it.

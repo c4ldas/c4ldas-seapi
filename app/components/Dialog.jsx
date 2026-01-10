@@ -10,7 +10,7 @@ export function Dialog() {
     <>
       <dialog id="copy-success" style={{ visibility: "visible", marginLeft: "10px", backgroundColor: "var(--popup-color)" }}>Copied to clipboard</dialog>
       <dialog id="dialog" className="dialog">
-        <div id="dialog-title">Are you sure you want to remove the integration?<br />You can re-add it at any time.</div>
+        <div id="dialog-title">Are you sure you want to logout?<br />You can login back it at any time.</div>
         <br />
         <div id="dialog-buttons">
           <button id="submit" style={{ padding: "0.5rem", marginRight: "0.5rem" }} type="submit" onClick={() => confirmRemoval(data)}>Confirm</button>

@@ -117,7 +117,7 @@ export default function ShowShared({ _, searchParams }) {
           <>
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
-            <p><button id="remove-integration" type="button" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
+            <p><button id="remove-integration" type="button" onClick={() => openDialog({ pathName })}>Logout</button></p>
             <h2 className="title">Shared overlays</h2>
             <h3 className="subtitle">
               Here you can see all overlays you have shared. Check and copy the quicklink again or simply remove the overlay so it is not shared anymore:

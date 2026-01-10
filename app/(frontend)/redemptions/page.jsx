@@ -98,7 +98,7 @@ export default function Redemptions({ _, searchParams }) {
           <>
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
-            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Logout</button></p>
 
             <h3 className="subtitle">
               <p>You can use this page to download the redemptions from your StreamElements store.</p>

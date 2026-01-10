@@ -86,7 +86,7 @@ export default function Share({ _, searchParams }) {
           <>
             <LoggedUser username={cookie.se_username} id={cookie.se_id} provider={cookie.se_provider} avatar={atob(cookie.user_avatar)} />
             <hr />
-            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Remove integration</button></p>
+            <p><button id="remove-integration" type="submit" onClick={() => openDialog({ pathName })}>Logout</button></p>
             <h2 className="title">Overlay list</h2>
             <h3 className="subtitle">
               Here you can see all overlays you have installed on your account. Click in one of them to generate a sharing code:
