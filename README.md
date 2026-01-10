@@ -2,9 +2,15 @@
 
 <p>This project aims to have an easy way to share and install Streamelements overlays in your Twitch channel using a simple code or URL. Also, here I am going to share some widgets that I created so the community can use it on their channels.</p>
 
-<p>Most of the overlays are written for Twitch, but nothing is stopping you from using them on other platforms (unless they are specifically designed for it).</p>
+<p>Another thing you can find is the option to transfer chat commands from one channel to another. It is very useful, especially if you multistream to different platforms. You can simply download the list of commands and install them later on the destination channel.</p>
+
+<p>Also, I designed an endpoint that you can "convert" JSON responses to text. Since most of the APIs on the internet return JSON responses, it is very useful to convert them to text and use them on your stream chat.</p>
 
 <p>A small portion of the page is dedicated to custom endpoints. At the moment, there are only two endpoints. One is the top leaderboard and the other is the top watchtime. Both can be used on your stream chat. Suggestions for new endpoints are highly accepted.</p>
+
+<p>Since the overlays page is the most popular page on the site, this README will explain how to use it. However, if you have questions about other pages, you can contact me and I will try to help you the best I can.</p>
+
+<p>Most of the overlays are written for Twitch, but nothing is stopping you from using them on other platforms (unless they are specifically designed for it).</p>
 
 <p>If you find any issues on the page or something is not working as expected, please let me know. Also, if you have any idea or suggestions feel free to contact me.</p>
 
