@@ -132,6 +132,12 @@ export async function getOverlays(data) {
       }
     });
     const response = await request.json();
+
+    if (response.error) {
+      console.log({ status: "failed", error: response.error, statusCode: response.statusCode, message: response.message });
+      return { status: "failed", error: response.error, statusCode: response.statusCode, message: response.message };
+    }
+
     return response;
 
   } catch (error) {
