@@ -42,7 +42,7 @@ export default function Install({ _, searchParams }) {
       dialog.style.marginLeft = "auto";
       dialog.style.backgroundColor = "rgba(255, 0, 0, 0.4)";
       dialog.showModal();
-      document.querySelector("#error-code").innerHTML = `${data.statusCode}: ${data.message}<br />&nbsp`;
+      document.querySelector("#error-code").innerHTML = `<br/>Error description: ${data.code}: ${data.message}<br />&nbsp`;
       return;
     }
 
@@ -114,7 +114,7 @@ export default function Install({ _, searchParams }) {
             <dialog id="installation-failed" className="dialog">
               <div id="dialog-title">
                 An error has occurred during the installation.<br />
-                If you are sure the code is correct, try to remove the integration and install it again.<br />
+                If you are sure the code is correct, perform a logout/login and install it again.<br />
               </div>
               <div id="error-code"></div>
               <div id="dialog-buttons">
