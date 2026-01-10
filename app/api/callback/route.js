@@ -10,8 +10,6 @@ export async function GET(request) {
   const origin = request.nextUrl.origin;
   let tag;
 
-  console.log("callback obj:", obj);
-
   if (!obj.state || !obj.code || obj.error) {
     return Response.redirect(`${origin}?state=${obj.state}&error=Application not authorized. Please try again later.`);
   }
