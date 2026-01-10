@@ -41,6 +41,8 @@ export default function ShowShared({ _, searchParams }) {
       deleteCookie("se_id");
       deleteCookie("se_tag");
       deleteCookie("se_username");
+      deleteCookie("user_avatar");
+      deleteCookie("se_provider");
       window.location.reload();
     }
 
