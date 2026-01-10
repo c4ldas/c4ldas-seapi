@@ -10,8 +10,12 @@ export async function GET(request) {
   const origin = request.nextUrl.origin;
   let tag;
 
-  if (!obj.state || !obj.code || obj.error) {
-    return Response.redirect(`${origin}?error=Application not authorized. Please try again later.`);
+  if (!obj.code || obj.error) {
+    return Response.redirect(`${origin}?state=${obj.state}&error=Application not authorized. Please try again later.`);
+  }
+
+  if (!obj.state) {
+    return Response.redirect(`${origin}?error=Failed to authorize. Please try again later.`);
   }
 
   const state = decodeState(obj.state);
