@@ -4,8 +4,19 @@ import { NextResponse } from "next/server";
 
 export async function POST(_, request) {
   try {
+
+    // Get overlay from database
     const overlayData = await getOverlayFromDB(request.params);
     const tokenDatabase = await getTokenDatabase(request.params);
+
+    // Check if overlay exists
+    if (!overlayData.success) {
+      const error = new Error();
+      error.code = overlayData.status;
+      error.message = overlayData.message;
+      error.routine = overlayData.details.routine;
+      throw error;
+    }
 
     const data = {
       access_token: tokenDatabase.details.access_token,
@@ -14,7 +25,17 @@ export async function POST(_, request) {
       overlay_data: overlayData.details
     }
 
+    // Install overlay
     const overlayResult = await overlayInstall(data);
+
+    if (overlayResult.status == "failed") {
+      const error = new Error();
+      error.code = overlayResult.code;
+      error.message = overlayResult.message;
+      error.routine = "overlayInstall()";
+      throw error;
+    }
+
     const userData = await getUserData(tokenDatabase.details.access_token);
 
     const response = {
@@ -31,7 +52,8 @@ export async function POST(_, request) {
     return NextResponse.json(response, { status: 200 });
 
   } catch (error) {
-    console.log("/install/[tag]/[code] error:", error.message);
-    return NextResponse.json({ status: "failed", message: error.message }, { status: 500 });
+
+    console.log(`/install/[tag]/[code] error: ${error.code}: ${error.message} - ${error.routine}`);
+    return NextResponse.json({ status: "failed", message: error.message, code: error.code || 500 }, { status: error.code || 500 });
   }
 }

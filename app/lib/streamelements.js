@@ -178,6 +178,12 @@ export async function overlayInstall(data) {
       "body": JSON.stringify(data.overlay_data)
     });
     const response = await request.json();
+
+    if (response.error) {
+      console.log("overlayInstall():", { status: "failed", error: response.error, code: response.statusCode, message: response.message });
+      return { status: "failed", error: response.error, code: response.statusCode, message: response.message };
+    }
+
     return response;
 
   } catch (error) {

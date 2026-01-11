@@ -187,6 +187,14 @@ export async function getOverlayFromDB(request) {
     client = await connectToDatabase();
     const { rows } = await client.query(selectQuery);
 
+    if (rows.length == 0) {
+      const error = new Error();
+      error.code = 404;
+      error.message = "Overlay not found";
+      error.routine = "getOverlayFromDB()";
+      throw error;
+    }
+
     const data = {
       success: true,
       message: "Query executed successfully",
@@ -203,8 +211,9 @@ export async function getOverlayFromDB(request) {
       success: false,
       message: error.message,
       details: { code, message, routine },
-      status: 500
+      status: code ? code : 500
     }
+
     return data;
 
   } finally {
