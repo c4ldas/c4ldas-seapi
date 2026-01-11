@@ -18,6 +18,7 @@ export default function Share({ _, searchParams }) {
   const [cookie, setCookie] = useState({});
   const [overlays, setOverlays] = useState([]);
   const [code, setCode] = useState("");
+  const [loading, setLoading] = useState(false);
   const [origin, setOrigin] = useState();
   const [quicklink, setQuicklink] = useState("");
   const [href, setHref] = useState(`/login?action=${action}`);
@@ -33,6 +34,7 @@ export default function Share({ _, searchParams }) {
 
   async function overlayList() {
     if (!cookie["se_id"] || !cookie["se_tag"]) return;
+    setLoading(true);
     const request = await fetch(`/api/overlays/list/${cookie["se_tag"]}`, { method: "GET" });
     const response = await request.json();
 
@@ -45,6 +47,7 @@ export default function Share({ _, searchParams }) {
       window.location.reload();
     }
 
+    setLoading(false);
     setOverlays(response.docs);
   }
 
@@ -92,6 +95,8 @@ export default function Share({ _, searchParams }) {
               Here you can see all overlays you have installed on your account. Click in one of them to generate a sharing code:
             </h3>
             <div className="main" id="overlay-list">
+
+              {loading && !overlays.length && <p>Loading...</p>}
               {overlays && overlays.map((overlay) => (
                 <Linkbox
                   a="true" link="#" onClick={createCode} key={overlay._id}
