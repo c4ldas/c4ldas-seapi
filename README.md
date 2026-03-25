@@ -1,3 +1,7 @@
+<h2>Upgrade to Next.js v15</h2>
+
+This branch is to upgrade the Next.js to version 15
+
 <h2>Getting Started</h2>
 
 <p>This project aims to have an easy way to share and install Streamelements overlays in your Twitch channel using a simple code or URL. Also, here I am going to share some widgets that I created so the community can use it on their channels.</p>
