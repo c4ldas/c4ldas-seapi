@@ -45,7 +45,7 @@ export default function Valorant({ params, searchParams }) {
     document.querySelector('#response-code').style.visibility = 'hidden';
     setTimeout(() => document.querySelector('#response-code').style.visibility = 'visible', 250);
 
-    const responseCode = `.me $(touser) ► $\{customapi.${origin}/api/json-textify?channel=$(channel)&site=${site}&msg="${msg}"\}`;
+    const responseCode = `.me $(touser) ► $\{customapi.${origin}/api/json-textify?channel=$(channel)&msg="${msg}"&site=${site}\}`;
 
     document.querySelector('#response-code').innerText = responseCode;
   }
@@ -91,8 +91,8 @@ export default function Valorant({ params, searchParams }) {
         <code className="code">
           $(touser) ► $(customapi.{origin}<wbr />/api/json-textify<wbr />
           ?channel=$(channel)<wbr />
-          &site=https://pokeapi.co/api/v2/pokemon/pikachu<wbr />
-          &msg=&quot;First ability: (abilities[0].ability.name)&quot;)
+          &msg=&quot;First ability: (abilities[0].ability.name)&quot;
+          &site=https://pokeapi.co/api/v2/pokemon/pikachu<wbr />)
         </code>
 
         <p>This is the response:</p>
