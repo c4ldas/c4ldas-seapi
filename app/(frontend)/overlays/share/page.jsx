@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { usePathname } from "next/navigation";
 import { getCookies, deleteCookie } from "cookies-next";
 import Header from "@/app/components/Header";
@@ -11,7 +11,9 @@ import LoggedUser from "@/app/components/LoggedUser";
 
 const action = "overlay/share";
 
-export default function Share({ _, searchParams }) {
+export default function Share(props) {
+  const searchParams = use(props.searchParams);
+
   const error = searchParams.error;
   const pathName = usePathname();
 

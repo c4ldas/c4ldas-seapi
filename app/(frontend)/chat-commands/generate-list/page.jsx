@@ -2,7 +2,7 @@
 
 import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { getCookies } from "cookies-next";
 import { usePathname } from "next/navigation";
 import Linkbox from "@/app/components/Linkbox";
@@ -11,7 +11,9 @@ import LoggedUser from "@/app/components/LoggedUser";
 
 const action = "command/generate";
 
-export default function Generate({ _, searchParams }) {
+export default function Generate(props) {
+  const searchParams = use(props.searchParams);
+
   const error = searchParams.error;
   const pathName = usePathname();
 
