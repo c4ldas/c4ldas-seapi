@@ -4,11 +4,12 @@ import { getOverlayInfo } from "@/app/lib/streamelements";
 
 export async function POST(_, request) {
   try {
-    const tokenDatabase = await getTokenDatabase(request.params);
+    const params = await request.params;
+    const tokenDatabase = await getTokenDatabase(params);
 
     const data = {
       access_token: tokenDatabase.details.access_token,
-      overlay_id: request.params.overlay_id,
+      overlay_id: params.overlay_id,
       account_id: tokenDatabase.details.account_id
     }
 

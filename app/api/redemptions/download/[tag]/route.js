@@ -6,7 +6,8 @@ export async function GET(search, request) {
   try {
     // Convert query strings (map format) to object format - Only works for this specific case!
     const obj = Object.fromEntries(search.nextUrl.searchParams);
-    const tokenDatabase = await getTokenDatabase(request.params);
+    const params = await request.params;
+    const tokenDatabase = await getTokenDatabase(params);
 
     const data = {
       access_token: tokenDatabase.details.access_token,

@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(data, request) {
   try {
+    const params = await request.params;
     let success = 0;
     let failed = 0;
     let failedCommands = [];
@@ -12,7 +13,7 @@ export async function POST(data, request) {
     const body = await data.json();
 
     // console.log("Request Params:", request.params);
-    const tokenDatabase = await getTokenDatabase(request.params);
+    const tokenDatabase = await getTokenDatabase(params);
 
     const userData = {
       access_token: tokenDatabase.details.access_token,

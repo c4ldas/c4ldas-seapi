@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(_, request) {
   try {
-    const getAccountId = await getTokenDatabase(request.params);
+    const params = await request.params;
+    const getAccountId = await getTokenDatabase(params);
     const overlayList = await getSharedOverlaysFromDB(getAccountId.details);
 
     if (!getAccountId.success || !overlayList.success) throw error;

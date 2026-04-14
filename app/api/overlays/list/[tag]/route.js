@@ -4,7 +4,8 @@ import { getOverlays } from "@/app/lib/streamelements";
 
 export async function GET(_, request) {
   try {
-    const tokenDatabase = await getTokenDatabase(request.params);
+    const params = await request.params;
+    const tokenDatabase = await getTokenDatabase(params);
     const data = {
       access_token: tokenDatabase.details.access_token,
       refresh_token: tokenDatabase.details.refresh_token,

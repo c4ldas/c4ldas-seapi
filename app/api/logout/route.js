@@ -5,11 +5,12 @@ import { revokeToken } from "@/app/lib/streamelements";
 
 export async function POST(request) {
   try {
+    const cookieStore = await cookies();
 
     const data = {
-      account_id: cookies().get('se_id').value,
-      username: cookies().get('se_username').value,
-      tag: cookies().get('se_tag').value,
+      account_id: cookieStore.get('se_id').value,
+      username: cookieStore.get('se_username').value,
+      tag: cookieStore.get('se_tag').value,
     }
 
     const token = await getTokenDatabase(data);
@@ -20,11 +21,11 @@ export async function POST(request) {
     const isRemoved = await seRemoveDBIntegration(data);
     if (!isRemoved) return NextResponse.json({ status: "failed", message: "Failed to remove from database, try again later" });
 
-    cookies().delete('se_id');
-    cookies().delete('se_username');
-    cookies().delete('se_tag');
-    cookies().delete('se_provider');
-    cookies().delete('user_avatar');
+    cookieStore.delete('se_id');
+    cookieStore.delete('se_username');
+    cookieStore.delete('se_tag');
+    cookieStore.delete('se_provider');
+    cookieStore.delete('user_avatar');
 
     return NextResponse.json({ status: "success", message: "Integration removed successfully" });
 

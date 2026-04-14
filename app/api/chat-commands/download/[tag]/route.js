@@ -7,8 +7,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(_, request) {
   try {
+    const params = await request.params;
     // const overlayData = await getOverlayFromDB(request.params);
-    const tokenDatabase = await getTokenDatabase(request.params);
+    const tokenDatabase = await getTokenDatabase(params);
 
     const data = {
       access_token: tokenDatabase.details.access_token,
