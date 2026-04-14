@@ -4,13 +4,14 @@ import { NextResponse } from "next/server";
 export async function GET(query, request) {
   try {
     const obj = Object.fromEntries(query.nextUrl.searchParams);
+    const params = await request.params;
     const { amount, order, points = false, type = "text" } = obj;
 
     if (!amount || amount < 1 || amount > 1000) {
       return new Response(`Minimum amount: 1. Max amount: 1000`, { status: 200 });
     }
 
-    const accountInfo = await getAccountInfo(request.params.username);
+    const accountInfo = await getAccountInfo(params.username);
 
     if (accountInfo.statusCode) {
       const error = new Error();

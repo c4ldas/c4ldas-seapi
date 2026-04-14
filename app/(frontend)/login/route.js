@@ -8,6 +8,7 @@ export async function GET(request) {
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
   const action = obj.action;
+  const cookieStore = await cookies();
 
   if (!action || !Object.hasOwn(ACTIONS, action)) {
     console.log("Invalid action:", action);
@@ -15,7 +16,7 @@ export async function GET(request) {
   }
 
   const csrf = crypto.randomBytes(8).toString("hex");
-  cookies().set("csrf", csrf, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 300, path: "/" });
+  cookieStore.set("csrf", csrf, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 300, path: "/" });
 
   const state = createState({ action: obj.action, env: obj.env || "prod", csrf: csrf });
   const scope = ACTIONS[obj.action].scopes.join(" ");

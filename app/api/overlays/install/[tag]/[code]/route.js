@@ -4,10 +4,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(_, request) {
   try {
+    const params = await request.params;
 
     // Get overlay from database
-    const overlayData = await getOverlayFromDB(request.params);
-    const tokenDatabase = await getTokenDatabase(request.params);
+    const overlayData = await getOverlayFromDB(params);
+    const tokenDatabase = await getTokenDatabase(params);
 
     // Check if overlay exists
     if (!overlayData.success) {
@@ -20,7 +21,7 @@ export async function POST(_, request) {
 
     const data = {
       access_token: tokenDatabase.details.access_token,
-      code: request.params.code,
+      code: params.code,
       account_id: tokenDatabase.details.account_id,
       overlay_data: overlayData.details
     }

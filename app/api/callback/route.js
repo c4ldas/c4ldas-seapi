@@ -7,6 +7,7 @@ import zlib from "zlib";
 export async function GET(request) {
   // Convert query strings (map format) to object format - Only works for this specific case!
   const obj = Object.fromEntries(request.nextUrl.searchParams);
+  const cookieStore = await cookies();
   const origin = request.nextUrl.origin;
   let tag;
 
@@ -20,14 +21,14 @@ export async function GET(request) {
     return Response.redirect(`http://localhost:3000/api/callback?code=${obj.code}&state=${obj.state}`);
   }
 
-  const csrf = cookies().get("csrf")?.value;
+  const csrf = cookieStore.get("csrf")?.value;
 
   if (!csrf || state.csrf !== csrf) {
-    cookies().delete("csrf");
+    cookieStore.delete("csrf");
     return Response.redirect(`${origin}?error=Invalid CSRF.`);
   }
 
-  cookies().delete("csrf");
+  cookieStore.delete("csrf");
 
   const token = await getTokenCode(obj.code);
   const user = await getUserData(token.access_token);
@@ -51,11 +52,11 @@ export async function GET(request) {
     return NextResponse.json({ status: "success", data: data });
   }
 
-  cookies().set('se_id', data.account_id);
-  cookies().set('se_username', data.username);
-  cookies().set('se_tag', data.tag);
-  cookies().set('se_provider', user.provider);
-  cookies().set('user_avatar', Buffer.from(user.avatar).toString('base64url'));
+  cookieStore.set('se_id', data.account_id);
+  cookieStore.set('se_username', data.username);
+  cookieStore.set('se_tag', data.tag);
+  cookieStore.set('se_provider', user.provider);
+  cookieStore.set('user_avatar', Buffer.from(user.avatar).toString('base64url'));
 
   return Response.redirect(`${origin}/${state.redirect}`);
 }

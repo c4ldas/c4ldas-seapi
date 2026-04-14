@@ -5,8 +5,9 @@ export async function POST(data, request) {
   try {
 
     const body = await data.json();
+    const params = await request.params;
 
-    const accountId = await getTokenDatabase(request.params);
+    const accountId = await getTokenDatabase(params);
     const overlayDeleted = await removeOverlayFromDB({ code: body.code, account_id: accountId.details.account_id });
     // const overlayDeleted = await removeOverlayFromDB({ code: body.code, account_id: "123456789" });
 

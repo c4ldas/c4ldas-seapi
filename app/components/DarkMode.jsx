@@ -1,26 +1,31 @@
 import { useTheme } from "next-themes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggleButton() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // On component mount, set the checkbox based on the theme
   useEffect(() => {
-    const themeToggle = document.querySelector("#theme-toggle");
-    themeToggle.checked = (theme === "dark");
-  }, [theme]);
+    setMounted(true);
+  }, []);
 
-  return (
-    <label className="switch">
-      <input type="checkbox" id="theme-toggle" title="dark-mode" onClick={handleToggle} />
-      <span className="slider"><span className="mode"></span></span>
-    </label>
-  )
+  if (!mounted) return null;
 
   function handleToggle(event) {
     const newTheme = event.target.checked ? "dark" : "light";
-
-    localStorage.setItem("theme", newTheme);
     setTheme(newTheme);
   }
+
+  return (
+    <label className="switch">
+      <input
+        type="checkbox"
+        id="theme-toggle"
+        title="dark-mode"
+        checked={resolvedTheme === "dark"}
+        onChange={handleToggle}
+      />
+      <span className="slider"><span className="mode"></span></span>
+    </label>
+  );
 }

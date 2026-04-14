@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { getCookies } from "cookies-next";
 import Header from "@/app/components/Header";
 import FooterComponent from "@/app/components/Footer";
@@ -11,7 +11,9 @@ import { useParams } from "next/navigation";
 
 const action = "overlay/install";
 
-export default function Install({ _, searchParams }) {
+export default function Install(props) {
+  const searchParams = use(props.searchParams);
+
   const error = searchParams.error;
   const { installCode } = useParams();
   const [cookie, setCookie] = useState({});

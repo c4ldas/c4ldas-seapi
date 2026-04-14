@@ -3,10 +3,11 @@
 import Header from "@/app/components/Header";
 import Linkbox from "@/app/components/Linkbox";
 import FooterComponent from "@/app/components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import Link from "next/link";
 
-export default function Home({ _, searchParams }) {
+export default function Home(props) {
+  const searchParams = use(props.searchParams);
 
   const [widgets, setWidgets] = useState(null);
   const [error, setError] = useState(null);

@@ -1,6 +1,7 @@
 import { getOverlayPreviewFromDB } from "@/app/lib/database";
 
-export async function generateMetadata({ params }, request) {
+export async function generateMetadata(props, request) {
+  const params = await props.params;
 
   const overlay = await getOverlayPreviewFromDB({ code: params.installCode });
   if (!overlay.success) return {};
@@ -23,7 +24,6 @@ export async function generateMetadata({ params }, request) {
       ],
     },
   }
-
 }
 
 export default function Layout({ children }) {

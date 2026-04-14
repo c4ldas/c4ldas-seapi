@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { usePathname } from "next/navigation";
 import { getCookies } from "cookies-next";
 import confetti from "canvas-confetti";
@@ -11,7 +11,9 @@ import LoggedUser from "@/app/components/LoggedUser";
 
 const action = "overlay/install";
 
-export default function Install({ _, searchParams }) {
+export default function Install(props) {
+  const searchParams = use(props.searchParams);
+
   const error = searchParams.error;
   const pathName = usePathname();
 

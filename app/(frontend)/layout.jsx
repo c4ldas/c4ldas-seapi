@@ -19,6 +19,7 @@ export const viewport = {
 }
 
 export const metadata = {
+  metadataBase: new URL("https://seapi.c4ldas.com.br"),
   title: "c4ldas seAPI",
   description: "Utilities for overlays & chat tools",
 
