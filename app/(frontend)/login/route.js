@@ -18,7 +18,7 @@ export async function GET(request) {
   const csrf = crypto.randomBytes(8).toString("hex");
   cookieStore.set("csrf", csrf, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 300, path: "/" });
 
-  const state = createState({ action: obj.action, env: obj.env || "prod", csrf: csrf });
+  const state = createState({ action: obj.action, env: obj.env || "prod", csrf: csrf, customRedirect: obj.redirect });
   const scope = ACTIONS[obj.action].scopes.join(" ");
 
   const baseURL = "https://streamelements.com/oauth2/authorize?";
@@ -33,7 +33,7 @@ export async function GET(request) {
   redirect(`${baseURL}${urlSearchParams}`);
 }
 
-function createState({ action, env, csrf }) {
+function createState({ action, env, csrf, customRedirect }) {
 
   const def = ACTIONS[action];
   if (!def) throw new Error("Invalid action");
@@ -42,7 +42,7 @@ function createState({ action, env, csrf }) {
     v: 1,
     action: action,
     env: env,
-    redirect: def.redirect,
+    redirect: customRedirect || def.redirect,
     scopes: def.scopes,
     csrf: csrf,
     iat: Math.floor(Date.now() / 1000)
