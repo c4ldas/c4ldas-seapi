@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-// import { JSDOM } from "jsdom";
+import { JSDOM } from "jsdom";
 
 export async function GET() {
   try {
@@ -14,9 +14,6 @@ export async function GET() {
 
 
 export async function getGithubWidgets() {
-
-  const { JSDOM } = await import("jsdom");
-
   try {
     // Get the directory list from the repository
     const request = await fetch('https://api.github.com/repos/c4ldas/streamelements-widgets/contents/', {
