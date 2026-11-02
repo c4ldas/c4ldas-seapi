@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint ."
+    "start": "next start"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
@@ -22,10 +21,6 @@
   "overrides": {
     "postcss": "^8.5.10",
     "sharp": "^0.35.0"
-  },
-  "devDependencies": {
-    "eslint": "^9",
-    "eslint-config-next": "16.2.3"
   },
   "allowScripts": {
     "sharp": true,
